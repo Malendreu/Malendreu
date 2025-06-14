@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CV Jeu Narratif</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #121212;
+      color: #eee;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1f1f1f, #333);
+    }
+    .choice {
+      margin-top: 20px;
+    }
+    button {
+      background: #4CAF50;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px 10px 5px 0;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .media {
+      margin-top: 15px;
+      max-width: 100%;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Bienvenue dans mon CV interactif</h1>
+  <div id="story"></div>
+  <div class="choice" id="choices"></div>
+
+  <script>
+    const storyText = {
+      start: {
+        text: `Tu es dans une salle sombre. Devant toi, deux portes s'ouvrent vers ton univers professionnel.\n\nQuelle porte choisis-tu ?`,
+        choices: [
+          { text: "Compétences techniques", next: "skills" },
+          { text: "Projets réalisés", next: "projects" }
+        ]
+      },
+      skills: {
+        text: `Voici mes compétences techniques :\n- C++ et Unity\n- Programmation orientée objet\n- Design de gameplay\n\nVeux-tu écouter une présentation audio ?`,
+        choices: [
+          { text: "Oui, écouter", next: "audio" },
+          { text: "Retour", next: "start" }
+        ]
+      },
+      audio: {
+        text: `Écoute cette présentation audio courte :`,
+        audio: true,
+        audioSrc: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+        choices: [
+          { text: "Retour aux compétences", next: "skills" },
+          { text: "Voir mes projets", next: "projects" }
+        ]
+      },
+      projects: {
+        text: `Voici quelques projets marquants :\n- Jeu "Aventure Épique"\n- Level design pour "Mystic Quest"\n\nVeux-tu voir une vidéo de gameplay ?`,
+        choices: [
+          { text: "Oui, voir vidéo", next: "video" },
+          { text: "Retour", next: "start" }
+        ]
+      },
+      video: {
+        text: `Regarde ce trailer de mon projet principal :`,
+        video: true,
+        videoSrc: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm",
+        choices: [
+          { text: "Retour aux projets", next: "projects" },
+          { text: "Fin", next: "end" }
+        ]
+      },
+      end: {
+        text: `Merci d'avoir exploré mon CV interactif !\nN'hésite pas à me contacter pour en savoir plus.`,
+        choices: []
+      }
+    };
+
+    const storyEl = document.getElementById('story');
+    const choicesEl = document.getElementById('choices');
+
+    function renderNode(nodeKey) {
+      const node = storyText[nodeKey];
+      storyEl.innerHTML = '';
+      choicesEl.innerHTML = '';
+
+      // Texte
+      let paragraphs = node.text.split('\n').map(p => `<p>${p}</p>`).join('');
+      storyEl.innerHTML = paragraphs;
+
+      // Audio
+      if (node.audio) {
+        const audio = document.createElement('audio');
+        audio.controls = true;
+        audio.src = node.audioSrc;
+        audio.className = "media";
+        storyEl.appendChild(audio);
+      }
+
+      // Vidéo
+      if (node.video) {
+        const video = document.createElement('video');
+        video.controls = true;
+        video.src = node.videoSrc;
+        video.className = "media";
+        storyEl.appendChild(video);
+      }
+
+      // Boutons choix
+      if (node.choices.length > 0) {
+        node.choices.forEach(choice => {
+          const btn = document.createElement('button');
+          btn.textContent = choice.text;
+          btn.onclick = () => renderNode(choice.next);
+          choicesEl.appendChild(btn);
+        });
+      }
+    }
+
+    // Démarrer
+    renderNode('start');
+  </script>
+</body>
+</html>
