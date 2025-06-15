@@ -4,40 +4,48 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CV Jeu Narratif</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #121212;
-      color: #eee;
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #1f1f1f, #333);
-    }
-    .choice {
-      margin-top: 20px;
-    }
-    button {
-      background: #4CAF50;
-      border: none;
-      padding: 10px 20px;
-      margin: 5px 10px 5px 0;
-      border-radius: 5px;
-      color: white;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background: #45a049;
-    }
-    .media {
-      margin-top: 15px;
-      max-width: 100%;
-      border-radius: 5px;
-    }
-  </style>
+  
+ <style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url('Room.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #eee;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(8px); /* flou pour rendre le texte lisible */
+    background-color: rgba(0, 0, 0, 0.6); /* en cas de fallback */
+  }
+
+  .choice {
+    margin-top: 20px;
+  }
+
+  button {
+    background: #4CAF50;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px 10px 5px 0;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+  }
+
+  button:hover {
+    background: #45a049;
+  }
+
+  .media {
+    margin-top: 15px;
+    max-width: 100%;
+    border-radius: 5px;
+  }
+</style>
+
 </head>
 <body>
 
