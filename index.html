@@ -135,6 +135,9 @@
  
 <body>
   <img src="Books.png"  id="interactive-img" />
+  <div id="interactive-container2" style="position: fixed; top: 5%; left: 60%; width: 200px; cursor: pointer; z-index: 10;">
+  <img src="Livres.png" id="interactive-img2" alt="Livres interactifs" style="width: 100%; border-radius: 10px;" />
+</div>
 
 <div id="popup-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh;
   background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000;">
@@ -264,6 +267,47 @@
       }
     });
   });
+    onst popupChoices = document.getElementById('popup-choices');
+const popupChoicesClose = document.getElementById('popup-choices-close');
+
+document.getElementById('interactive-img2').addEventListener('click', () => {
+  popupChoices.style.display = 'flex';
+});
+
+popupChoicesClose.addEventListener('click', () => {
+  popupChoices.style.display = 'none';
+});
+
+popupChoices.addEventListener('click', (e) => {
+  if (e.target === popupChoices) {
+    popupChoices.style.display = 'none';
+  }
+});
+
+document.getElementById('option1').addEventListener('click', () => {
+  alert("Tu as choisi l'option 1 !");
+  popupChoices.style.display = 'none';
+});
+
+document.getElementById('option2').addEventListener('click', () => {
+  alert("Tu as choisi l'option 2 !");
+  popupChoices.style.display = 'none';
+});
+
+document.getElementById('option3').addEventListener('click', () => {
+  alert("Tu as choisi l'option 3 !");
+  popupChoices.style.display = 'none';
+});
 </script>
+  <div id="popup-choices" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh;
+  background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1200; flex-direction: column;">
+  <span id="popup-choices-close" style="position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer;">&times;</span>
+  <div style="background:#222; color:#eee; padding:30px; border-radius:10px; max-width:400px; text-align:center;">
+    <h2>Choisissez une option</h2>
+    <button id="option1" style="margin:10px; padding:10px 20px;">Option 1</button>
+    <button id="option2" style="margin:10px; padding:10px 20px;">Option 2</button>
+    <button id="option3" style="margin:10px; padding:10px 20px;">Option 3</button>
+  </div>
+</div>
 </body>
 </html>
