@@ -3,167 +3,177 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title> CV Narratif</title>
-  
- 
- <style>
-   #interactive-img {
-  position: fixed;
-  perspective: 600px; /* la distance à la "caméra" */
-  top: 5%;
-  left: 22%;
-  width: 300px;
-  cursor: pointer;
-  z-index: 10;
-  transform: rotateY(22deg) rotateX(5deg) perspective(600px);
- border: none;
-  outline: none;
-  background: none;
- 
-  transition: transform 0.3s ease;
-}
-
-#interactive-img:hover {
-
-  transform: rotateY(0deg) rotateX(0deg) perspective(900px);
-
-}
-
-.popup {
-  display: none;
-  position: fixed;
-  z-index: 20;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-}
-
-.popup-content {
-  background: #222;
-  color: #eee;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 400px;
-  margin: 100px auto;
-  position: relative;
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  cursor: pointer;
-  font-size: 1.5em;
-}
-   
-  body {
-    font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
-    background: url('Room.png') no-repeat center center fixed;
-    background-size: cover;
-    color: #E6E6FA;
-    max-width: 750px;
-    margin: 0px auto;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.6); /* en cas de fallback */
-  }
-
-  .choice {
-    margin-top: 10px;
-  }
-
-  button {
-    background: #4CAF50;
-    border: none;
-    padding: 8px 10px;
-    margin: 2px 8px 5px 0;
-    border-radius: 5px;
-    color: 	#E6E6FA;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s;
-  }
-
-  button:hover {
-    background: #45a049;
-  }
-
-  .media {
-    margin-top: 15px;
-    max-width: 100%;
-    border-radius: 5px;
-  }
-
-  
-   #game-box {
- position: relative;
-  top: -40px;      /* monte la boîte */
-  left: 20px;     
-  transform: translate(0, 0); /* ou avec % */
-  width: 100%;
-  max-width: 800px;
-  margin: 30px auto 15px;
-  padding: 30px;
-  backdrop-filter: blur(6px);             /* 💡 flou ici */
-   -webkit-backdrop-filter: blur(6px);
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0,0,0,0);
-  z-index: 3;
-}
-  
- #story p {
-    font-size: 1.2rem;
-    font-weight: bold;
-    line-height: 1.6;
+  <title>CV Narratif</title>
+  <style>
+    #interactive-img {
+      position: fixed;
+      perspective: 600px; /* la distance à la "caméra" */
+      top: 5%;
+      left: 22%;
+      width: 300px;
+      cursor: pointer;
+      z-index: 10;
+      transform: rotateY(22deg) rotateX(5deg) perspective(600px);
+      border: none;
+      outline: none;
+      background: none;
+      transition: transform 0.3s ease;
+    }
+    #interactive-img:hover {
+      transform: rotateY(0deg) rotateX(0deg) perspective(900px);
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 20;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+    .popup-content {
+      background: #222;
+      color: #eee;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 100px auto;
+      position: relative;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      cursor: pointer;
+      font-size: 1.5em;
+    }
+    body {
+      font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('Room.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #E6E6FA;
+      max-width: 750px;
+      margin: 0px auto;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.6); /* fallback */
+    }
+    .choice {
+      margin-top: 10px;
+    }
+    button {
+      background: #4CAF50;
+      border: none;
+      padding: 8px 10px;
+      margin: 2px 8px 5px 0;
+      border-radius: 5px;
+      color: #E6E6FA;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .media {
+      margin-top: 15px;
+      max-width: 100%;
+      border-radius: 5px;
+    }
+    #game-box {
+      position: relative;
+      top: -40px;      /* monte la boîte */
+      left: 20px;     
+      transform: translate(0, 0);
+      width: 100%;
+      max-width: 800px;
+      margin: 30px auto 15px;
+      padding: 30px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0);
+      z-index: 3;
+    }
+    #story p {
+      font-size: 1.2rem;
+      font-weight: bold;
+      line-height: 1.6;
     }
     @media (min-width: 1000px) {
       #game-box {
         max-width: 1000px;
       }
-
       h1 {
         max-width: 1000px;
       }
-  #choices {
-  display: none;
- }
-</style>
-
+      #choices {
+        display: none;
+      }
+    }
+    /* Popup modal */
+    #popup-modal {
+      display: none;
+      position: fixed;
+      top:0; left:0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      display: flex; /* caché par défaut */
+      flex-direction: column;
+    }
+    #popup-modal img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #000;
+    }
+    #popup-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+    }
+  </style>
 </head>
-
-
-<div id="popup-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh;
-  background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000;">
-  <span id="popup-close" style="position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer;">&times;</span>
-  <img src="Réalisations.png" style="max-width:90vw; max-height:90vh; border-radius:10px; box-shadow:0 0 20px #000;" />
-</div>
 <body>
-    <img src="Books.png"  id="interactive-img" />
+  <img src="Books.png" id="interactive-img" alt="Image interactive" />
 
- <div id="game-box">
-  <div id="story"></div>
-  <div id="choices" class="choice"></div>
-</div>
+  <div id="popup-modal" style="display:none;">
+    <span id="popup-close">&times;</span>
+    <img src="Réalisations.png" alt="Popup image" />
+  </div>
+
+  <div id="game-box">
+    <div id="story"></div>
+    <div id="choices" class="choice"></div>
+  </div>
+
   <script>
     const storyText = {
       start: {
-        text: Explorez le bureau pour en apprendre plus sur Maude Alexandre,
+        text: "Explorez le bureau pour en apprendre plus sur Maude Alexandre",
         choices: [
           { text: "Compétences", next: "skills" },
           { text: "Projets réalisés", next: "projects" }
         ]
       },
       skills: {
-        text: Voici mes compétences:\n- Conception de mécaniques de jeu\n- Gestion d'équipe et mentorat\n- Design narratif\n- Enseignement\n\nÉcouter cet enregistrement?,
+        text: "Voici mes compétences:\n- Conception de mécaniques de jeu\n- Gestion d'équipe et mentorat\n- Design narratif\n- Enseignement\n\nÉcouter cet enregistrement ?",
         choices: [
           { text: "Oui, écouter", next: "audio" },
           { text: "Retour", next: "start" }
         ]
       },
       audio: {
-        text: Écoute cette présentation audio courte :,
+        text: "Écoute cette présentation audio courte :",
         audio: true,
         audioSrc: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
         choices: [
@@ -172,14 +182,14 @@
         ]
       },
       projects: {
-        text: Voici quelques projets marquants :\n- Lead Designer: Need For Speed Take Down,Scooby Doo Mystery Case files, Thomas and Friends Big Adventure"\n- Game designer\n\nVeux-tu voir une vidéo de gameplay ?,
+        text: "Voici quelques projets marquants :\n- Lead Designer: Need For Speed Take Down, Scooby Doo Mystery Case Files, Thomas and Friends Big Adventure\n- Game designer\n\nVeux-tu voir une vidéo de gameplay ?",
         choices: [
           { text: "Oui, voir vidéo", next: "video" },
           { text: "Retour", next: "start" }
         ]
       },
       video: {
-        text: Regarde ce trailer de mon projet principal :,
+        text: "Regarde ce trailer de mon projet principal :",
         video: true,
         videoSrc: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm",
         choices: [
@@ -188,7 +198,7 @@
         ]
       },
       end: {
-        text: Merci d'avoir exploré mon CV interactif !\nN'hésite pas à me contacter pour en savoir plus.,
+        text: "Merci d'avoir exploré mon CV interactif !\nN'hésite pas à me contacter pour en savoir plus.",
         choices: []
       }
     };
@@ -201,8 +211,8 @@
       storyEl.innerHTML = '';
       choicesEl.innerHTML = '';
 
-      // Texte
-      let paragraphs = node.text.split('\n').map(p => <p>${p}</p>).join('');
+      // Texte avec retours à la ligne
+      let paragraphs = node.text.split('\n').map(p => `<p>${p}</p>`).join('');
       storyEl.innerHTML = paragraphs;
 
       // Audio
@@ -225,45 +235,42 @@
 
       // Boutons choix
       if (node.choices.length > 0) {
+        choicesEl.style.display = "block";
         node.choices.forEach(choice => {
           const btn = document.createElement('button');
           btn.textContent = choice.text;
           btn.onclick = () => renderNode(choice.next);
           choicesEl.appendChild(btn);
         });
+      } else {
+        choicesEl.style.display = "none";
       }
     }
 
     // Démarrer
     renderNode('start');
   </script>
+
   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const interactiveImg = document.getElementById('interactive-img');
+      const popupModal = document.getElementById('popup-modal');
+      const popupClose = document.getElementById('popup-close');
 
+      interactiveImg.addEventListener('click', () => {
+        popupModal.style.display = 'flex';
+      });
 
-  function closePopup() {
-    document.getElementById('popup').style.display = 'none';
-  }
-</script>
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const interactiveImg = document.getElementById('interactive-img');
-    const popupModal = document.getElementById('popup-modal');
-    const popupClose = document.getElementById('popup-close');
-
-    interactiveImg.addEventListener('click', () => {
-      popupModal.style.display = 'flex';
-    });
-
-    popupClose.addEventListener('click', () => {
-      popupModal.style.display = 'none';
-    });
-
-    popupModal.addEventListener('click', (e) => {
-      if (e.target === popupModal) {
+      popupClose.addEventListener('click', () => {
         popupModal.style.display = 'none';
-      }
+      });
+
+      popupModal.addEventListener('click', (e) => {
+        if (e.target === popupModal) {
+          popupModal.style.display = 'none';
+        }
+      });
     });
-  });
-</script>
+  </script>
 </body>
 </html>
