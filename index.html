@@ -229,30 +229,40 @@
   z-index: 999;
   pointer-events: none;
 
-  /* Animation vague */
-  animation: wave 2s infinite ease-in-out;
+
 }
 
 .tooltip-container:hover .tooltip-text {
   visibility: visible;
   opacity: 1;
 }
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  75% {
+    transform: translateX(3px);
+  }
+}
 
-@keyframes wave {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  25%      { transform: translateX(-50%) translateY(-2px); }
-  50%      { transform: translateX(-50%) translateY(2px); }
-  75%      { transform: translateX(-50%) translateY(-1px); }
+.tooltip-realisations {
+  animation: shake 0.5s infinite;
 }
 </style>
 
 </head>
  
 <body>
-  <div class="tooltip-container" style="position: fixed; top: 38%; left: 65.6%; width: 160px; z-index: 10;">
-  <img src="jeux.png" id="interactive-img3" class="interactive-img" alt="Jeux interactifs" />
-  <div class="tooltip-text">Conception  de  jeux</div>
+  <div id="interactive-container3" style="position: fixed; top: 38%; left: 65.6%; width: 160px; cursor: pointer; z-index: 10;">
+  <img src="jeux.png" id="interactive-img3" alt="Jeux interactifs" style="width: 100%; border-radius: 10px;" />
+  <div class="tooltip-text tooltip-realisations" style="visibility: hidden; position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%); width: max-content; color: #E6E6FA; font-weight: bold; font-size: 1.4rem; padding: 6px 12px; background: rgba(0,0,0,0.75); border-radius: 6px; pointer-events: none; z-index: 100;">
+    Conception de jeux
+  </div>
 </div>
+  
   
   <div class="tooltip-container">
   <img src="Books.png" id="interactive-img" />
@@ -485,6 +495,35 @@ document.getElementById('option3').addEventListener('click', () => {
       tooltipText.appendChild(span);
     });
   });
+const container3 = document.getElementById('interactive-container3');
+const tooltip3 = container3.querySelector('.tooltip-text');
+
+container3.addEventListener('mouseenter', () => {
+  tooltip3.style.visibility = 'visible';
+  tooltip3.style.opacity = '1';
+});
+
+container3.addEventListener('mouseleave', () => {
+  tooltip3.style.visibility = 'hidden';
+  tooltip3.style.opacity = '0';
+});
+    const interactiveImg3 = document.getElementById('interactive-img3');
+const popupModal3 = document.getElementById('popup-modal3');
+const popupClose3 = document.getElementById('popup-close3');
+
+interactiveImg3.addEventListener('click', () => {
+  popupModal3.style.display = 'flex';
+});
+
+popupClose3.addEventListener('click', () => {
+  popupModal3.style.display = 'none';
+});
+
+popupModal3.addEventListener('click', (e) => {
+  if (e.target === popupModal3) {
+    popupModal3.style.display = 'none';
+  }
+});
 </script>
 </script>
 </body>
