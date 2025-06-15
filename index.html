@@ -245,5 +245,26 @@
     document.getElementById('popup').style.display = 'none';
   }
 </script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const interactiveImg = document.getElementById('interactive-img');
+    const popupModal = document.getElementById('popup-modal');
+    const popupClose = document.getElementById('popup-close');
+
+    interactiveImg.addEventListener('click', () => {
+      popupModal.style.display = 'flex';
+    });
+
+    popupClose.addEventListener('click', () => {
+      popupModal.style.display = 'none';
+    });
+
+    popupModal.addEventListener('click', (e) => {
+      if (e.target === popupModal) {
+        popupModal.style.display = 'none';
+      }
+    });
+  });
+</script>
 </body>
 </html>
