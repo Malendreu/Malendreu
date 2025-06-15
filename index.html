@@ -166,6 +166,18 @@
   justify-content: center;
   text-align: center;
 }
+.tooltip-text span {
+  display: inline-block;
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
 </style>
 
 </head>
@@ -344,5 +356,21 @@ document.getElementById('option3').addEventListener('click', () => {
     <button id="option3" style="margin:10px; padding:10px 20px;">Option 3</button>
   </div>
 </div>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const tooltipText = document.querySelector('.tooltip-text');
+    const originalText = tooltipText.textContent;
+    tooltipText.textContent = '';
+
+    [...originalText].forEach((char, index) => {
+      const span = document.createElement('span');
+      span.textContent = char;
+      span.style.display = 'inline-block';
+      span.style.animation = 'wave 1.5s ease-in-out infinite';
+      span.style.animationDelay = `${index * 0.05}s`;
+      tooltipText.appendChild(span);
+    });
+  });
+</script>
 </body>
 </html>
