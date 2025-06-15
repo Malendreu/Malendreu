@@ -49,21 +49,21 @@
 </head>
 <body>
 
-  <h1>Bienvenue dans mon CV interactif</h1>
+  <h1>Qui est Maude Alexandre?</h1>
   <div id="story"></div>
   <div class="choice" id="choices"></div>
 
   <script>
     const storyText = {
       start: {
-        text: `Tu es dans une salle sombre. Devant toi, deux portes s'ouvrent vers ton univers professionnel.\n\nQuelle porte choisis-tu ?`,
+        text: `Explorez le bureau pour en apprendre plus sur la candidate`,
         choices: [
-          { text: "Compétences techniques", next: "skills" },
+          { text: "Compétences", next: "skills" },
           { text: "Projets réalisés", next: "projects" }
         ]
       },
       skills: {
-        text: `Voici mes compétences techniques :\n- C++ et Unity\n- Programmation orientée objet\n- Design de gameplay\n\nVeux-tu écouter une présentation audio ?`,
+        text: `Voici mes compétences:\n- Conception de mécaniques de jeu\n- Gestion d'équipe et mentorat\n- Design narratif\n- Enseignement\n\nÉcouter cet enregistrement?`,
         choices: [
           { text: "Oui, écouter", next: "audio" },
           { text: "Retour", next: "start" }
@@ -79,7 +79,7 @@
         ]
       },
       projects: {
-        text: `Voici quelques projets marquants :\n- Jeu "Aventure Épique"\n- Level design pour "Mystic Quest"\n\nVeux-tu voir une vidéo de gameplay ?`,
+        text: `Voici quelques projets marquants :\n- Lead Designer: Need For Speed Take Down,Scooby Doo Mystery Case files, Thomas and Friends Big Adventure"\n- Game designer\n\nVeux-tu voir une vidéo de gameplay ?`,
         choices: [
           { text: "Oui, voir vidéo", next: "video" },
           { text: "Retour", next: "start" }
