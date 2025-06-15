@@ -183,6 +183,10 @@
 </head>
  
 <body>
+  <div id="interactive-container3" style="position: fixed; top: 55%; left: 60%; width: 200px; cursor: pointer; z-index: 10;">
+  <img src="jeux.png" id="interactive-img3"  style="width: 100%; border-radius: 10px;" />
+</div>
+  
   <div class="tooltip-container">
   <img src="Books.png" id="interactive-img" />
   <div class="tooltip-text">Réalisations</div>
@@ -195,6 +199,15 @@
   background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000;">
   <span id="popup-close" style="position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer;">&times;</span>
   <img src="Réalisations.png?v=1" style="max-width:90vw; max-height:90vh; border-radius:10px; box-shadow:0 0 20px #000;" />
+</div>
+<div id="popup-jeux" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh;
+  background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1100;">
+  <span id="popup-jeux-close" style="position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer;">&times;</span>
+  <div style="background:#222; color:#eee; padding:30px; border-radius:10px; max-width:500px; text-align:center;">
+    <h2>Expérience en Conception</h2>
+    <p>Découvrez mes travaux ludiques, prototypes et expérimentations de gameplay !</p>
+    <!-- Tu peux mettre ici une vidéo, une image ou une iframe -->
+  </div>
 </div>
 
  <div id="game-box">
@@ -371,6 +384,27 @@ document.getElementById('option3').addEventListener('click', () => {
       tooltipText.appendChild(span);
     });
   });
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const jeuxImg = document.getElementById('interactive-img3');
+    const popupJeux = document.getElementById('popup-jeux');
+    const closeJeux = document.getElementById('popup-jeux-close');
+
+    jeuxImg.addEventListener('click', () => {
+      popupJeux.style.display = 'flex';
+    });
+
+    closeJeux.addEventListener('click', () => {
+      popupJeux.style.display = 'none';
+    });
+
+    popupJeux.addEventListener('click', (e) => {
+      if (e.target === popupJeux) {
+        popupJeux.style.display = 'none';
+      }
+    });
+  });
+</script>
 </script>
 </body>
 </html>
