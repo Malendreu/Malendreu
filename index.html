@@ -152,6 +152,8 @@
   width: 220px;
   background-color: #222;
   color: #E6E6FA;
+  font-size: 1.5rem; 
+   font-weight: bold;
   text-align: center;
   padding: 8px;
   border-radius: 6px;
@@ -175,7 +177,7 @@
 <body>
  <div class="tooltip-container">
   <img src="Books.png" id="interactive-img" />
-  <div class="tooltip-text">Clique pour découvrir mes réalisations</div>
+  <div class="tooltip-text">Réalisations</div>
 </div>
 
   <div id="popup-modal" style="display:none;">
@@ -192,9 +194,9 @@
     const storyText = {
       start: {
         text: "Explorez le bureau pour en apprendre plus sur Maude Alexandre",
-        choices: [
-          { text: "Compétences", next: "skills" },
-          { text: "Projets réalisés", next: "projects" }
+        //choices: [
+         // { text: "Compétences", next: "skills" },
+         // { text: "Projets réalisés", next: "projects" }
         ]
       },
       skills: {
