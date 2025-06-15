@@ -132,7 +132,7 @@
 </style>
 
 </head>
-  <img src="Books.png"  id="interactive-img" />
+
 
 <div id="popup-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh;
   background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000;">
@@ -140,6 +140,7 @@
   <img src="Réalisations.png" style="max-width:90vw; max-height:90vh; border-radius:10px; box-shadow:0 0 20px #000;" />
 </div>
 <body>
+    <img src="Books.png"  id="interactive-img" />
 
  <div id="game-box">
   <div id="story"></div>
@@ -237,9 +238,7 @@
     renderNode('start');
   </script>
   <script>
-  document.getElementById('interactive-img').addEventListener('click', function () {
-    document.getElementById('popup').style.display = 'block';
-  });
+
 
   function closePopup() {
     document.getElementById('popup').style.display = 'none';
