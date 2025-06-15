@@ -3,528 +3,195 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title> CV Narratif</title>
-  
- 
- <style>
-   #interactive-img {
-  position: fixed;
-  perspective: 600px; /* la distance à la "caméra" */
-  top: 5%;
-  left: 22%;
-  width: 300px;
-  cursor: pointer;
-  z-index: 10;
-  transform: rotateY(22deg) rotateX(5deg) perspective(600px);
- border: none;
-  outline: none;
-  background: none;
- 
-  transition: transform 0.3s ease;
-}
+  <title>CV Narratif</title>
 
-#interactive-img:hover {
-
-  transform: rotateY(0deg) rotateX(0deg) perspective(900px);
-
-}
-
-.popup {
-  display: none;
-  position: fixed;
-  z-index: 20;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-}
-
-.popup-content {
-  background: #222;
-  color: #eee;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 400px;
-  margin: 100px auto;
-  position: relative;
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  cursor: pointer;
-  font-size: 1.5em;
-}
-   
-  body {
-    font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
-    background: url('Room.png') no-repeat center center fixed;
-    background-size: cover;
-    color: #E6E6FA;
-    max-width: 750px;
-    margin: 0px auto;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.6); /* en cas de fallback */
-  }
-
-  .choice {
-    margin-top: 10px;
-  }
-
-  button {
-    background: #4CAF50;
-    border: none;
-    padding: 8px 10px;
-    margin: 2px 8px 5px 0;
-    border-radius: 5px;
-    color: 	#E6E6FA;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s;
-  }
-
-  button:hover {
-    background: #45a049;
-  }
-
-  .media {
-    margin-top: 15px;
-    max-width: 100%;
-    border-radius: 5px;
-  }
-
-  
-   #game-box {
- position: relative;
-  top: -30px;      /* monte la boîte */
-  left: 20px;     
-  transform: translate(0, 0); /* ou avec % */
-  width: 100%;
-  max-width: 800px;
-  margin: 20px auto 10px;
-  padding: 20px;
-  backdrop-filter: blur(6px);             /* 💡 flou ici */
-   -webkit-backdrop-filter: blur(6px);
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0,0,0,0);
-  z-index: 3;
-}
-  
- #story p {
-    font-size: 1.2rem;
-    font-weight: bold;
-    line-height: 1.6;
-   text-align: center;
+  <style>
+    /* Styles corrigés et regroupés */
+    #interactive-img {
+      position: fixed;
+      perspective: 600px;
+      top: 5%;
+      left: 22%;
+      width: 300px;
+      cursor: pointer;
+      z-index: 10;
+      transform: rotateY(22deg) rotateX(5deg) perspective(600px);
+      border: none;
+      outline: none;
+      background: none;
+      transition: transform 0.3s ease;
     }
+
+    #interactive-img:hover {
+      transform: rotateY(0deg) rotateX(0deg) perspective(900px);
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 20;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+
+    .popup-content {
+      background: #222;
+      color: #eee;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 100px auto;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      cursor: pointer;
+      font-size: 1.5em;
+    }
+
+    body {
+      font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('Room.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #E6E6FA;
+      max-width: 750px;
+      margin: 0px auto;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .choice {
+      margin-top: 10px;
+    }
+
+    button {
+      background: #4CAF50;
+      border: none;
+      padding: 8px 10px;
+      margin: 2px 8px 5px 0;
+      border-radius: 5px;
+      color: #E6E6FA;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    .media {
+      margin-top: 15px;
+      max-width: 100%;
+      border-radius: 5px;
+    }
+
+    #game-box {
+      position: relative;
+      top: -30px;
+      left: 20px;
+      transform: translate(0, 0);
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto 10px;
+      padding: 20px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    #story p {
+      font-size: 1.2rem;
+      font-weight: bold;
+      line-height: 1.6;
+      text-align: center;
+    }
+
     @media (min-width: 1000px) {
       #game-box {
         max-width: 1000px;
       }
-
       h1 {
         max-width: 1000px;
       }
-  #choices {
-  display: none;
- }
+      #choices {
+        display: none;
+      }
       .tooltip-container {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip-text {
-  visibility: hidden;
-  width: 220px;
-  color: #E6E6FA;
-  font-size: 1.4rem;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px;
-  border-radius: 6px;
-  position: absolute;
-  bottom: -230px; /* ✅ Garde cette hauteur */
-  left: 65%;      /* ✅ Centre horizontalement */
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.4s;
-  z-index: 999;
-  pointer-events: none;
-}
-
-.tooltip-container:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
-}
-
-.tooltip-text span {
-  display: inline-block;
-  animation: wave 1.5s ease-in-out infinite;
-}
-
-@keyframes wave {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-
-}
-
-  #game-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.tooltip-text span {
-  display: inline-block;
-}
-
-@keyframes wave {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-.interactive-img {
-  width: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  transform: rotateY(22deg) rotateX(5deg);
-}
-
-.interactive-img:hover {
-  transform: rotateY(0deg) rotateX(0deg);
-}
-
-.tooltip-container {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip-text {
-  visibility: hidden;
-  width: 200px;
-  background: transparent;
-  color: #E6E6FA;
-  font-size: 1.3rem;
-  font-weight: bold;
-  text-align: center;
-  padding: 6px;
-  position: absolute;
-  bottom: -120px;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.4s;
-  z-index: 999;
-  pointer-events: none;
-
-
-}
-
-.tooltip-container:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
-}
-@keyframes shake {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-3px);
-  }
-  75% {
-    transform: translateX(3px);
-  }
-}
-
-.tooltip-realisations {
-  animation: shake 0.5s infinite;
-}
-</style>
-
-</head>
- 
-<body>
-  <div id="interactive-container3" style="position: fixed; top: 38%; left: 65.6%; width: 160px; cursor: pointer; z-index: 10;">
-  <img src="jeux.png" id="interactive-img3" alt="Jeux interactifs" style="width: 100%; border-radius: 10px;" />
-  <div class="tooltip-text tooltip-realisations" style="visibility: hidden; position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%); width: max-content; color: #E6E6FA; font-weight: bold; font-size: 1.4rem; padding: 6px 12px; background: rgba(0,0,0,0.75); border-radius: 6px; pointer-events: none; z-index: 100;">
-    Conception de jeux
-  </div>
-</div>
-  
-  
-  <div class="tooltip-container">
-  <img src="Books.png" id="interactive-img" />
-  <div class="tooltip-text">Réalisations</div>
-</div>
-  <div id="interactive-container2" style="position: fixed; top: 18%; left: 2.8%; width: 200px; cursor: pointer; z-index: 10;">
-  <img src="Livres.png" id="interactive-img2" alt="Livres interactifs" style="width: 100%; border-radius: 10px;" />
-</div>
-
-<div id="popup-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh;
-  background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000;">
-  <span id="popup-close" style="position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer;">&times;</span>
-  <img src="Réalisations.png?v=1" style="max-width:90vw; max-height:90vh; border-radius:10px; box-shadow:0 0 20px #000;" />
-</div>
-<div id="popup-jeux" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh;
-  background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1100;">
-  <span id="popup-jeux-close" style="position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer;">&times;</span>
-  <div style="background:#222; color:#eee; padding:30px; border-radius:10px; max-width:500px; text-align:center;">
-    <h2>Expérience en Conception</h2>
-    <p>Découvrez mes travaux ludiques, prototypes et expérimentations de gameplay !</p>
-    <!-- Tu peux mettre ici une vidéo, une image ou une iframe -->
-  </div>
-</div>
-
- <div id="game-box">
-  <div id="story"></div>
-  <div id="choices" class="choice"></div>
-</div>
-  <script>
-    const storyText = {
-      start: {
-        text: `Explorez le bureau pour en apprendre plus sur Maude Alexandre`,
-        choices: [
-          { text: "Compétences", next: "skills" },
-          { text: "Projets réalisés", next: "projects" }
-        ]
-      },
-      skills: {
-        text: `Voici mes compétences:\n- Conception de mécaniques de jeu\n- Gestion d'équipe et mentorat\n- Design narratif\n- Enseignement\n\nÉcouter cet enregistrement?`,
-        choices: [
-          { text: "Oui, écouter", next: "audio" },
-          { text: "Retour", next: "start" }
-        ]
-      },
-      audio: {
-        text: `Écoute cette présentation audio courte :`,
-        audio: true,
-        audioSrc: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-        choices: [
-          { text: "Retour aux compétences", next: "skills" },
-          { text: "Voir mes projets", next: "projects" }
-        ]
-      },
-      projects: {
-        text: `Voici quelques projets marquants :\n- Lead Designer: Need For Speed Take Down,Scooby Doo Mystery Case files, Thomas and Friends Big Adventure"\n- Game designer\n\nVeux-tu voir une vidéo de gameplay ?`,
-        choices: [
-          { text: "Oui, voir vidéo", next: "video" },
-          { text: "Retour", next: "start" }
-        ]
-      },
-      video: {
-        text: `Regarde ce trailer de mon projet principal :`,
-        video: true,
-        videoSrc: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm",
-        choices: [
-          { text: "Retour aux projets", next: "projects" },
-          { text: "Fin", next: "end" }
-        ]
-      },
-      end: {
-        text: `Merci d'avoir exploré mon CV interactif !\nN'hésite pas à me contacter pour en savoir plus.`,
-        choices: []
+        position: relative;
+        display: inline-block;
       }
-    };
-
-    const storyEl = document.getElementById('story');
-    const choicesEl = document.getElementById('choices');
-
-    function renderNode(nodeKey) {
-      const node = storyText[nodeKey];
-      storyEl.innerHTML = '';
-      choicesEl.innerHTML = '';
-
-      // Texte
-      let paragraphs = node.text.split('\n').map(p => `<p>${p}</p>`).join('');
-      storyEl.innerHTML = paragraphs;
-
-      // Audio
-      if (node.audio) {
-        const audio = document.createElement('audio');
-        audio.controls = true;
-        audio.src = node.audioSrc;
-        audio.className = "media";
-        storyEl.appendChild(audio);
+      .tooltip-text {
+        visibility: hidden;
+        width: 220px;
+        color: #E6E6FA;
+        font-size: 1.4rem;
+        font-weight: bold;
+        text-align: center;
+        padding: 8px;
+        border-radius: 6px;
+        position: absolute;
+        bottom: -230px;
+        left: 65%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.4s;
+        z-index: 999;
+        pointer-events: none;
       }
-
-      // Vidéo
-      if (node.video) {
-        const video = document.createElement('video');
-        video.controls = true;
-        video.src = node.videoSrc;
-        video.className = "media";
-        storyEl.appendChild(video);
-      }
-
-      // Boutons choix
-      if (node.choices.length > 0) {
-        node.choices.forEach(choice => {
-          const btn = document.createElement('button');
-          btn.textContent = choice.text;
-          btn.onclick = () => renderNode(choice.next);
-          choicesEl.appendChild(btn);
-        });
+      .tooltip-container:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
       }
     }
 
-    // Démarrer
-    renderNode('start');
-  </script>
-  
-  
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const interactiveImg = document.getElementById('interactive-img');
-    const popupModal = document.getElementById('popup-modal');
-    const popupClose = document.getElementById('popup-close');
+    .tooltip-text span {
+      display: inline-block;
+      animation: wave 1.5s ease-in-out infinite;
+    }
 
-    interactiveImg.addEventListener('click', () => {
-      popupModal.style.display = 'flex';
-    });
-
-    popupClose.addEventListener('click', () => {
-      popupModal.style.display = 'none';
-    });
-
-    popupModal.addEventListener('click', (e) => {
-      if (e.target === popupModal) {
-        popupModal.style.display = 'none';
+    @keyframes wave {
+      0%, 100% {
+        transform: translateY(0px);
       }
-    });
-  });
-    const popupChoices = document.getElementById('popup-choices');
-const popupChoicesClose = document.getElementById('popup-choices-close');
-
-document.getElementById('interactive-img2').addEventListener('click', () => {
-  popupChoices.style.display = 'flex';
-});
-
-popupChoicesClose.addEventListener('click', () => {
-  popupChoices.style.display = 'none';
-});
-
-popupChoices.addEventListener('click', (e) => {
-  if (e.target === popupChoices) {
-    popupChoices.style.display = 'none';
-  }
-});
-
-document.getElementById('option1').addEventListener('click', () => {
-  alert("Tu as choisi l'option 1 !");
-  popupChoices.style.display = 'none';
-});
-
-document.getElementById('option2').addEventListener('click', () => {
-  alert("Tu as choisi l'option 2 !");
-  popupChoices.style.display = 'none';
-});
-
-document.getElementById('option3').addEventListener('click', () => {
-  alert("Tu as choisi l'option 3 !");
-  popupChoices.style.display = 'none';
-});
-</script>
-  <div id="popup-choices" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh;
-  background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1200; flex-direction: column;">
-  <span id="popup-choices-close" style="position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer;">&times;</span>
-  <div style="background:#222; color:#eee; padding:30px; border-radius:10px; max-width:400px; text-align:center;">
-    <h2>Choisissez une option</h2>
-    <button id="option1" style="margin:10px; padding:10px 20px;">Option 1</button>
-    <button id="option2" style="margin:10px; padding:10px 20px;">Option 2</button>
-    <button id="option3" style="margin:10px; padding:10px 20px;">Option 3</button>
-  </div>
-</div>
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const tooltipText = document.querySelector('.tooltip-text');
-    const originalText = tooltipText.textContent;
-    tooltipText.textContent = '';
-
-    [...originalText].forEach((char, index) => {
-      const span = document.createElement('span');
-      span.textContent = char;
-      span.style.display = 'inline-block';
-      span.style.animation = 'wave 1.5s ease-in-out infinite';
-      span.style.animationDelay = `${index * 0.05}s`;
-      tooltipText.appendChild(span);
-    });
-  });
-    <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const jeuxImg = document.getElementById('interactive-img3');
-    const popupJeux = document.getElementById('popup-jeux');
-    const closeJeux = document.getElementById('popup-jeux-close');
-
-    jeuxImg.addEventListener('click', () => {
-      popupJeux.style.display = 'flex';
-    });
-
-    closeJeux.addEventListener('click', () => {
-      popupJeux.style.display = 'none';
-    });
-
-    popupJeux.addEventListener('click', (e) => {
-      if (e.target === popupJeux) {
-        popupJeux.style.display = 'none';
+      50% {
+        transform: translateY(-5px);
       }
-    });
-  });
-</script>
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const tooltipText = document.querySelector('.tooltip-text');
-    const originalText = tooltipText.textContent;
-    tooltipText.textContent = '';
+    }
 
-    [...originalText].forEach((char, index) => {
-      const span = document.createElement('span');
-      span.textContent = char;
-      span.style.animationDelay = `${index * 0.05}s`;
-      tooltipText.appendChild(span);
-    });
-  });
-const container3 = document.getElementById('interactive-container3');
-const tooltip3 = container3.querySelector('.tooltip-text');
+    .interactive-img {
+      width: 100%;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      transform: rotateY(22deg) rotateX(5deg);
+    }
 
-container3.addEventListener('mouseenter', () => {
-  tooltip3.style.visibility = 'visible';
-  tooltip3.style.opacity = '1';
-});
+    .interactive-img:hover {
+      transform: rotateY(0deg) rotateX(0deg);
+    }
 
-container3.addEventListener('mouseleave', () => {
-  tooltip3.style.visibility = 'hidden';
-  tooltip3.style.opacity = '0';
-});
-    const interactiveImg3 = document.getElementById('interactive-img3');
-const popupModal3 = document.getElementById('popup-modal3');
-const popupClose3 = document.getElementById('popup-close3');
+    .tooltip-container {
+      position: relative;
+      display: inline-block;
+    }
 
-interactiveImg3.addEventListener('click', () => {
-  popupModal3.style.display = 'flex';
-});
-
-popupClose3.addEventListener('click', () => {
-  popupModal3.style.display = 'none';
-});
-
-popupModal3.addEventListener('click', (e) => {
-  if (e.target === popupModal3) {
-    popupModal3.style.display = 'none';
-  }
-});
-</script>
-</script>
-</body>
-</html>
+    .tooltip-text {
+      visibility: hidden;
+      width: 200px;
+      background: transparent;
+      color: #E6E6FA;
