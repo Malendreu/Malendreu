@@ -48,6 +48,7 @@
   cursor: pointer;
   font-size: 1.5em;
 }
+   
   body {
     font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
     background: url('Room.png') no-repeat center center fixed;
@@ -194,5 +195,14 @@
     // Démarrer
     renderNode('start');
   </script>
+  <script>
+  document.getElementById('interactive-img').addEventListener('click', function () {
+    document.getElementById('popup').style.display = 'block';
+  });
+
+  function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+  }
+</script>
 </body>
 </html>
