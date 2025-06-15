@@ -1,11 +1,11 @@
-<!DOCTYPE html>More actions
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title> CV Narratif</title>
-
-
+  
+ 
  <style>
    #interactive-img {
   position: fixed;
@@ -19,7 +19,7 @@
  border: none;
   outline: none;
   background: none;
-
+ 
   transition: transform 0.3s ease;
 }
 
@@ -57,7 +57,7 @@
   cursor: pointer;
   font-size: 1.5em;
 }
-
+   
   body {
     font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
     background: url('Room.png') no-repeat center center fixed;
@@ -96,28 +96,27 @@
     border-radius: 5px;
   }
 
-
+  
    #game-box {
  position: relative;
-  top: -30px;      /* monte la boîte */
+  top: -40px;      /* monte la boîte */
   left: 20px;     
   transform: translate(0, 0); /* ou avec % */
   width: 100%;
   max-width: 800px;
-  margin: 20px auto 10px;
-  padding: 20px;
+  margin: 30px auto 15px;
+  padding: 30px;
   backdrop-filter: blur(6px);             /* 💡 flou ici */
    -webkit-backdrop-filter: blur(6px);
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0,0,0,0);
   z-index: 3;
 }
-
+  
  #story p {
     font-size: 1.2rem;
     font-weight: bold;
     line-height: 1.6;
-   text-align: center;
     }
     @media (min-width: 1000px) {
       #game-box {
@@ -130,153 +129,17 @@
   #choices {
   display: none;
  }
-      .tooltip-container {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip-text {
-  visibility: hidden;
-  width: 220px;
-  color: #E6E6FA;
-  font-size: 1.4rem;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px;
-  border-radius: 6px;
-  position: absolute;
-  bottom: -230px; /* ✅ Garde cette hauteur */
-  left: 65%;      /* ✅ Centre horizontalement */
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.4s;
-  z-index: 999;
-  pointer-events: none;
-}
-
-.tooltip-container:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
-}
-
-.tooltip-text span {
-  display: inline-block;
-  animation: wave 1.5s ease-in-out infinite;
-}
-
-@keyframes wave {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-
-}
-
-  #game-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.tooltip-text span {
-  display: inline-block;
-}
-
-@keyframes wave {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-.interactive-img {
-  width: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  transform: rotateY(22deg) rotateX(5deg);
-}
-
-.interactive-img:hover {
-  transform: rotateY(0deg) rotateX(0deg);
-}
-
-.tooltip-container {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip-text {
-  visibility: hidden;
-  width: 200px;
-  background: transparent;
-  color: #E6E6FA;
-  font-size: 1.3rem;
-  font-weight: bold;
-  text-align: center;
-  padding: 6px;
-  position: absolute;
-  bottom: -230px;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.4s;
-  z-index: 999;
-  pointer-events: none;
-
-  /* Animation vague */
-  animation: wave 2s infinite ease-in-out;
-}
-
-.tooltip-container:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
-}
-
-@keyframes wave {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  25%      { transform: translateX(-50%) translateY(-2px); }
-  50%      { transform: translateX(-50%) translateY(2px); }
-  75%      { transform: translateX(-50%) translateY(-1px); }
-}
 </style>
 
 </head>
-
-<body>
-  <div class="tooltip-container" style="position: fixed; top: 38%; left: 67%; width: 160px; z-index: 10;">
-  <div class="tooltip-container" style="position: fixed; top: 38%; left: 66%; width: 160px; z-index: 10;">
-  <img src="jeux.png" id="interactive-img3" class="interactive-img" alt="Jeux interactifs" />
-  <div class="tooltip-text">Conception de jeux</div>
-</div>
-
-  <div class="tooltip-container">
-  <img src="Books.png" id="interactive-img" />
-  <div class="tooltip-text">Réalisations</div>
-</div>
-  <div id="interactive-container2" style="position: fixed; top: 18%; left: 2.8%; width: 200px; cursor: pointer; z-index: 10;">
-  <img src="Livres.png" id="interactive-img2" alt="Livres interactifs" style="width: 100%; border-radius: 10px;" />
-</div>
+  <img src="Books.png"  id="interactive-img" />
 
 <div id="popup-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh;
   background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000;">
   <span id="popup-close" style="position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer;">&times;</span>
-  <img src="Réalisations.png?v=1" style="max-width:90vw; max-height:90vh; border-radius:10px; box-shadow:0 0 20px #000;" />
+  <img src="Réalisations.png" style="max-width:90vw; max-height:90vh; border-radius:10px; box-shadow:0 0 20px #000;" />
 </div>
-<div id="popup-jeux" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh;
-  background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1100;">
-  <span id="popup-jeux-close" style="position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer;">&times;</span>
-  <div style="background:#222; color:#eee; padding:30px; border-radius:10px; max-width:500px; text-align:center;">
-    <h2>Expérience en Conception</h2>
-    <p>Découvrez mes travaux ludiques, prototypes et expérimentations de gameplay !</p>
-    <!-- Tu peux mettre ici une vidéo, une image ou une iframe -->
-  </div>
-</div>
+<body>
 
  <div id="game-box">
   <div id="story"></div>
@@ -285,21 +148,21 @@
   <script>
     const storyText = {
       start: {
-        text: `Explorez le bureau pour en apprendre plus sur Maude Alexandre`,
+        text: Explorez le bureau pour en apprendre plus sur Maude Alexandre,
         choices: [
           { text: "Compétences", next: "skills" },
           { text: "Projets réalisés", next: "projects" }
         ]
       },
       skills: {
-        text: `Voici mes compétences:\n- Conception de mécaniques de jeu\n- Gestion d'équipe et mentorat\n- Design narratif\n- Enseignement\n\nÉcouter cet enregistrement?`,
+        text: Voici mes compétences:\n- Conception de mécaniques de jeu\n- Gestion d'équipe et mentorat\n- Design narratif\n- Enseignement\n\nÉcouter cet enregistrement?,
         choices: [
           { text: "Oui, écouter", next: "audio" },
           { text: "Retour", next: "start" }
         ]
       },
       audio: {
-        text: `Écoute cette présentation audio courte :`,
+        text: Écoute cette présentation audio courte :,
         audio: true,
         audioSrc: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
         choices: [
@@ -308,14 +171,14 @@
         ]
       },
       projects: {
-        text: `Voici quelques projets marquants :\n- Lead Designer: Need For Speed Take Down,Scooby Doo Mystery Case files, Thomas and Friends Big Adventure"\n- Game designer\n\nVeux-tu voir une vidéo de gameplay ?`,
+        text: Voici quelques projets marquants :\n- Lead Designer: Need For Speed Take Down,Scooby Doo Mystery Case files, Thomas and Friends Big Adventure"\n- Game designer\n\nVeux-tu voir une vidéo de gameplay ?,
         choices: [
           { text: "Oui, voir vidéo", next: "video" },
           { text: "Retour", next: "start" }
         ]
       },
       video: {
-        text: `Regarde ce trailer de mon projet principal :`,
+        text: Regarde ce trailer de mon projet principal :,
         video: true,
         videoSrc: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm",
         choices: [
@@ -324,7 +187,7 @@
         ]
       },
       end: {
-        text: `Merci d'avoir exploré mon CV interactif !\nN'hésite pas à me contacter pour en savoir plus.`,
+        text: Merci d'avoir exploré mon CV interactif !\nN'hésite pas à me contacter pour en savoir plus.,
         choices: []
       }
     };
@@ -338,7 +201,7 @@
       choicesEl.innerHTML = '';
 
       // Texte
-      let paragraphs = node.text.split('\n').map(p => `<p>${p}</p>`).join('');
+      let paragraphs = node.text.split('\n').map(p => <p>${p}</p>).join('');
       storyEl.innerHTML = paragraphs;
 
       // Audio
@@ -373,8 +236,15 @@
     // Démarrer
     renderNode('start');
   </script>
+  <script>
+  document.getElementById('interactive-img').addEventListener('click', function () {
+    document.getElementById('popup').style.display = 'block';
+  });
 
-
+  function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+  }
+</script>
   <script>
   document.addEventListener("DOMContentLoaded", () => {
     const interactiveImg = document.getElementById('interactive-img');
@@ -395,98 +265,6 @@
       }
     });
   });
-    const popupChoices = document.getElementById('popup-choices');
-const popupChoicesClose = document.getElementById('popup-choices-close');
-
-document.getElementById('interactive-img2').addEventListener('click', () => {
-  popupChoices.style.display = 'flex';
-});
-
-popupChoicesClose.addEventListener('click', () => {
-  popupChoices.style.display = 'none';
-});
-
-popupChoices.addEventListener('click', (e) => {
-  if (e.target === popupChoices) {
-    popupChoices.style.display = 'none';
-  }
-});
-
-document.getElementById('option1').addEventListener('click', () => {
-  alert("Tu as choisi l'option 1 !");
-  popupChoices.style.display = 'none';
-});
-
-document.getElementById('option2').addEventListener('click', () => {
-  alert("Tu as choisi l'option 2 !");
-  popupChoices.style.display = 'none';
-});
-
-document.getElementById('option3').addEventListener('click', () => {
-  alert("Tu as choisi l'option 3 !");
-  popupChoices.style.display = 'none';
-});
-</script>
-  <div id="popup-choices" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh;
-  background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1200; flex-direction: column;">
-  <span id="popup-choices-close" style="position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer;">&times;</span>
-  <div style="background:#222; color:#eee; padding:30px; border-radius:10px; max-width:400px; text-align:center;">
-    <h2>Choisissez une option</h2>
-    <button id="option1" style="margin:10px; padding:10px 20px;">Option 1</button>
-    <button id="option2" style="margin:10px; padding:10px 20px;">Option 2</button>
-    <button id="option3" style="margin:10px; padding:10px 20px;">Option 3</button>
-  </div>
-</div>
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const tooltipText = document.querySelector('.tooltip-text');
-    const originalText = tooltipText.textContent;
-    tooltipText.textContent = '';
-
-    [...originalText].forEach((char, index) => {
-      const span = document.createElement('span');
-      span.textContent = char;
-      span.style.display = 'inline-block';
-      span.style.animation = 'wave 1.5s ease-in-out infinite';
-      span.style.animationDelay = `${index * 0.05}s`;
-      tooltipText.appendChild(span);
-    });
-  });
-    <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const jeuxImg = document.getElementById('interactive-img3');
-    const popupJeux = document.getElementById('popup-jeux');
-    const closeJeux = document.getElementById('popup-jeux-close');
-
-    jeuxImg.addEventListener('click', () => {
-      popupJeux.style.display = 'flex';
-    });
-
-    closeJeux.addEventListener('click', () => {
-      popupJeux.style.display = 'none';
-    });
-
-    popupJeux.addEventListener('click', (e) => {
-      if (e.target === popupJeux) {
-        popupJeux.style.display = 'none';
-      }
-    });
-  });
-</script>
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const tooltipText = document.querySelector('.tooltip-text');
-    const originalText = tooltipText.textContent;
-    tooltipText.textContent = '';
-
-    [...originalText].forEach((char, index) => {
-      const span = document.createElement('span');
-      span.textContent = char;
-      span.style.animationDelay = `${index * 0.05}s`;
-      tooltipText.appendChild(span);
-    });
-  });
-</script>
 </script>
 </body>
 </html>
