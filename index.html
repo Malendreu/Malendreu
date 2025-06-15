@@ -193,13 +193,65 @@
     transform: translateY(-5px);
   }
 }
+
+.interactive-img {
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  transform: rotateY(22deg) rotateX(5deg);
+}
+
+.interactive-img:hover {
+  transform: rotateY(0deg) rotateX(0deg);
+}
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background: transparent;
+  color: #E6E6FA;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 6px;
+  position: absolute;
+  bottom: -230px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: 999;
+  pointer-events: none;
+
+  /* Animation vague */
+  animation: wave 2s infinite ease-in-out;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+@keyframes wave {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  25%      { transform: translateX(-50%) translateY(-2px); }
+  50%      { transform: translateX(-50%) translateY(2px); }
+  75%      { transform: translateX(-50%) translateY(-1px); }
+}
 </style>
 
 </head>
  
 <body>
-  <div id="interactive-container3" style="position: fixed; top: 35%; left: 68%; width: 160px; cursor: pointer; z-index: 10;">
-  <img src="jeux.png" id="interactive-img3"  style="width: 100%; border-radius: 10px;" />
+  <div class="tooltip-container" style="position: fixed; top: 35%; left: 68%; width: 160px; z-index: 10;">
+  <img src="jeux.png" id="interactive-img3" class="interactive-img" alt="Jeux interactifs" />
+  <div class="tooltip-text">Conception de jeux</div>
 </div>
   
   <div class="tooltip-container">
