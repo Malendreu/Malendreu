@@ -1,1 +1,10 @@
-
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-image: url('Room.png'); 
+  background-size: cover;       /* L'image couvre tout l'écran */
+  background-position: center;  /* Centrée */
+  background-repeat: no-repeat; /* Pas de répétition */
+  font-family: sans-serif;
+}
