@@ -134,11 +134,10 @@
 </head>
   <img src="Books.png"  id="interactive-img" />
 
-<div id="popup" class="popup">
-  <div class="popup-content">
-    <span class="close-btn" onclick="closePopup()">&times;</span>
-    <p> Enquête de Peur<br>Voici la collection de livres jeunesse dont je suis l'autrice (publiés chez Fides) :<br>- *Enquête de Peur: Le fantôme bleu (2024)*<br>- *Enquête de Peur: La dame blanche (2024)*<br>- *- *Enquête de Peur: L'ombre rouge (2025)*<br>.</p>
-  </div>
+<div id="popup-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh;
+  background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000;">
+  <span id="popup-close" style="position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer;">&times;</span>
+  <img src="Réalisations.png" style="max-width:90vw; max-height:90vh; border-radius:10px; box-shadow:0 0 20px #000;" />
 </div>
 <body>
 
