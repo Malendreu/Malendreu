@@ -213,7 +213,44 @@
 #tooltip-jeu .tooltip-text {
   bottom: 60px;  /* Position du tooltip pour "jeu.png" */
 }
+/* Popup modal pour l'image "jeu.png" */
+#popup-modal-jeu {
+  display: none;
+  position: fixed;
+  top: 50%;  /* Positionnement au centre verticalement */
+  left: 50%; /* Positionnement au centre horizontalement */
+  transform: translate(-50%, -50%); /* Décalage de 50% pour centrer parfaitement */
+  width: 80%;  /* Taille du popup, ajuste si nécessaire */
+  max-width: 800px;  /* Largeur maximale pour éviter qu'il soit trop grand sur de très grands écrans */
+  height: auto; /* Ajuste automatiquement la hauteur en fonction du contenu */
+  background: rgba(0, 0, 0, 0.9); /* Fond sombre */
+  z-index: 1000;
+  display: flex; /* Utilisation de Flexbox pour centrer le contenu */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+}
 
+#popup-modal-jeu img {
+  max-width: 100%; /* Assure que l'image occupe toute la largeur du popup sans déborder */
+  max-height: 80vh; /* Empêche l'image de devenir trop grande */
+  object-fit: contain; /* Assure que l'image conserve ses proportions */
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Ombre portée pour un effet visuel plus agréable */
+}
+
+#popup-close-jeu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1001; /* Assure que le bouton de fermeture est au-dessus du contenu */
+}
   </style>
 </head>
 <body>
