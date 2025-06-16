@@ -193,51 +193,51 @@
   </div>
 
   <script>
-    const storyText = {
-      start: {
-        text: "Explorez le bureau pour en apprendre plus sur Maude Alexandre",
-        //choices: [
-         // { text: "Compétences", next: "skills" },
-         // { text: "Projets réalisés", next: "projects" }
-        ]
-      },
-      skills: {
-        text: "Voici mes compétences:\n- Conception de mécaniques de jeu\n- Gestion d'équipe et mentorat\n- Design narratif\n- Enseignement\n\nÉcouter cet enregistrement ?",
-        choices: [
-          { text: "Oui, écouter", next: "audio" },
-          { text: "Retour", next: "start" }
-        ]
-      },
-      audio: {
-        text: "Écoute cette présentation audio courte :",
-        audio: true,
-        audioSrc: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-        choices: [
-          { text: "Retour aux compétences", next: "skills" },
-          { text: "Voir mes projets", next: "projects" }
-        ]
-      },
-      projects: {
-        text: "Voici quelques projets marquants :\n- Lead Designer: Need For Speed Take Down, Scooby Doo Mystery Case Files, Thomas and Friends Big Adventure\n- Game designer\n\nVeux-tu voir une vidéo de gameplay ?",
-        choices: [
-          { text: "Oui, voir vidéo", next: "video" },
-          { text: "Retour", next: "start" }
-        ]
-      },
-      video: {
-        text: "Regarde ce trailer de mon projet principal :",
-        video: true,
-        videoSrc: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm",
-        choices: [
-          { text: "Retour aux projets", next: "projects" },
-          { text: "Fin", next: "end" }
-        ]
-      },
-      end: {
-        text: "Merci d'avoir exploré mon CV interactif !\nN'hésite pas à me contacter pour en savoir plus.",
-        choices: []
-      }
-    };
+ const storyText = {
+  start: {
+    text: "Explorez le bureau pour en apprendre plus sur Maude Alexandre",
+    choices: [
+      { text: "Compétences", next: "skills" },
+      { text: "Projets réalisés", next: "projects" }
+    ]
+  },
+  skills: {
+    text: "Voici mes compétences:\n- Conception de mécaniques de jeu\n- Gestion d'équipe et mentorat\n- Design narratif\n- Enseignement\n\nÉcouter cet enregistrement?",
+    choices: [
+      { text: "Oui, écouter", next: "audio" },
+      { text: "Retour", next: "start" }
+    ]
+  },
+  audio: {
+    text: "Écoute cette présentation audio courte :",
+    audio: true,
+    audioSrc: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    choices: [
+      { text: "Retour aux compétences", next: "skills" },
+      { text: "Voir mes projets", next: "projects" }
+    ]
+  },
+  projects: {
+    text: "Voici quelques projets marquants :\n- Lead Designer: Need For Speed Take Down, Scooby Doo Mystery Case Files, Thomas and Friends Big Adventure\n- Game designer\n\nVeux-tu voir une vidéo de gameplay ?",
+    choices: [
+      { text: "Oui, voir vidéo", next: "video" },
+      { text: "Retour", next: "start" }
+    ]
+  },
+  video: {
+    text: "Regarde ce trailer de mon projet principal :",
+    video: true,
+    videoSrc: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm",
+    choices: [
+      { text: "Retour aux projets", next: "projects" },
+      { text: "Fin", next: "end" }
+    ]
+  },
+  end: {
+    text: "Merci d'avoir exploré mon CV interactif !\nN'hésite pas à me contacter pour en savoir plus.",
+    choices: []
+  }
+};
 
     const storyEl = document.getElementById('story');
     const choicesEl = document.getElementById('choices');
