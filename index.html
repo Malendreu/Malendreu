@@ -85,19 +85,21 @@
       border-radius: 5px;
     }
     #game-box {
-      position: centered;
-      top: 200px;      /* monte la boîte */
-      left: 20px;     
-      transform: translate(0, 0);
-      width: 100%;
-      max-width: 800px;
-      margin: 30px auto 15px;
-      padding: 30px;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      border-radius: 5px;
-      box-shadow: 0 0 5px rgba(0,0,0,0);
-      z-index: 3;
+     position: relative;
+  top: -30px;      /* monte la boîte */
+  left: 20px;     
+  transform: translate(0, 0); /* ou avec % */
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto 10px;
+  padding: 20px;
+  backdrop-filter: blur(6px);             /* 💡 flou ici */
+   -webkit-backdrop-filter: blur(6px);
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,0);
+  z-index: 3;
+}
+
     }
     #story p {
       font-size: 1.2rem;
