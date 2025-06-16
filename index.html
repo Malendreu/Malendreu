@@ -176,7 +176,7 @@
       user-select: none;
     }
 
-   .tooltip-container {
+.tooltip-container {
   position: relative;
   display: inline-block;
 }
@@ -191,7 +191,7 @@
   padding: 8px;
   border-radius: 6px;
   position: absolute;
-  bottom: 30px; /* positionne le texte en dessous de l'image */
+  bottom: 50px; /* Positionne le texte plus bas pour éviter le chevauchement */
   left: 50%;
   transform: translateX(-50%);
   opacity: 0;
@@ -207,27 +207,11 @@
 
 /* Pour chaque tooltip spécifique */
 #tooltip-books .tooltip-text {
-  bottom: 50px;  /* Pour que le tooltip de "Books.png" soit plus bas si nécessaire */
+  bottom: 60px;  /* Position du tooltip pour "Books.png" */
 }
 
 #tooltip-jeu .tooltip-text {
-  bottom: 50px;  /* Idem pour "jeu.png", ajusté au besoin */
-}
-#interactive-img2 {
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-  transition: box-shadow 0.3s ease;
-}
-#interactive-img2:hover {
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-}
-    #interactive-img {
-  box-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
-  border-radius: 2px;
-  transition: box-shadow 0.3s ease;
-}
-#interactive-img:hover {
-  box-shadow: 0 0 3px rgba(255, 255, 255, 0.6);
+  bottom: 60px;  /* Position du tooltip pour "jeu.png" */
 }
 
   </style>
