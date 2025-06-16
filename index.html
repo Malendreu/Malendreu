@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CV Narratif</title>
   <style>
+  .draggable {
+    outline: 2px dashed rgba(255, 255, 255, 0.4);
+    cursor: move;
+  }
+</style>
+  <style>
     #choices {
   display: none !important;
 }
@@ -331,5 +337,43 @@
       });
     });
   </script>
+  <script>
+  function makeDraggable(el) {
+    el.classList.add('draggable');
+    el.style.position = 'fixed';
+
+    let offsetX, offsetY;
+
+    el.addEventListener('mousedown', function (e) {
+      offsetX = e.clientX - el.getBoundingClientRect().left;
+      offsetY = e.clientY - el.getBoundingClientRect().top;
+
+      function moveAt(ev) {
+        el.style.left = ev.clientX - offsetX + 'px';
+        el.style.top = ev.clientY - offsetY + 'px';
+      }
+
+      function onMouseMove(ev) {
+        moveAt(ev);
+      }
+
+      document.addEventListener('mousemove', onMouseMove);
+
+      el.addEventListener('mouseup', function () {
+        document.removeEventListener('mousemove', onMouseMove);
+        console.log(`top: ${el.style.top}, left: ${el.style.left}`);
+        alert(`Copie dans ton CSS:\ntop: ${el.style.top};\nleft: ${el.style.left};`);
+      }, { once: true });
+    });
+  }
+
+  // Appliquer à tes éléments
+  document.addEventListener('DOMContentLoaded', () => {
+    makeDraggable(document.getElementById('interactive-img'));
+    makeDraggable(document.getElementById('interactive-img2'));
+    makeDraggable(document.getElementById('interactive-img3'));
+    makeDraggable(document.getElementById('game-box'));
+  });
+</script>
 </body>
 </html>
