@@ -57,6 +57,24 @@
       cursor: pointer;
       font-size: 1.5em;
     }
+    #interactive-jeu {
+  position: fixed;
+  perspective: 600px;
+  top: 5%;
+  left: 60%; /* adapte cette valeur comme tu veux */
+  width: 300px;
+  cursor: pointer;
+  z-index: 10;
+  transform: rotateY(22deg) rotateX(5deg) perspective(600px);
+  border: none;
+  outline: none;
+  background: none;
+  transition: transform 0.3s ease;
+}
+
+#interactive-jeu:hover {
+  transform: rotateY(0deg) rotateX(0deg) perspective(900px);
+}
     body {
       font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
       background: url('Room.png') no-repeat center center fixed;
@@ -223,6 +241,7 @@
 </div>
  <div class="tooltip-container">
   <img src="Books.png" id="interactive-img" />
+  <img src="jeu.png" id="interactive-img2" />
   <div class="tooltip-text">Réalisations</div>
 </div>
 
