@@ -206,6 +206,21 @@
   </style>
 </head>
 <body>
+  <div id="position-info" style="
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 14px;
+  z-index: 9999;
+  pointer-events: none;
+  display: none;">
+  Position: 0, 0
+</div>
  <div class="tooltip-container">
   <img src="Books.png" id="interactive-img" />
   <div class="tooltip-text">Réalisations</div>
@@ -337,42 +352,85 @@
       });
     });
   </script>
-  <script>
-  function makeDraggable(el) {
-    el.classList.add('draggable');
-    el.style.position = 'fixed';
-
+<script>
+  function makeDraggable(element) {
+    let isDragging = false;
     let offsetX, offsetY;
+    const positionDisplay = document.getElementById('position-info');
 
-    el.addEventListener('mousedown', function (e) {
-      offsetX = e.clientX - el.getBoundingClientRect().left;
-      offsetY = e.clientY - el.getBoundingClientRect().top;
+    element.style.position = 'fixed'; // pour pouvoir déplacer librement
 
-      function moveAt(ev) {
-        el.style.left = ev.clientX - offsetX + 'px';
-        el.style.top = ev.clientY - offsetY + 'px';
+    element.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      offsetX = e.clientX - element.getBoundingClientRect().left;
+      offsetY = e.clientY - element.getBoundingClientRect().top;
+      positionDisplay.style.display = 'block';
+      // Mémoriser l'élément sélectionné pour copier la position
+      window.currentDraggable = element;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        const newLeft = e.clientX - offsetX;
+        const newTop = e.clientY - offsetY;
+        element.style.left = newLeft + 'px';
+        element.style.top = newTop + 'px';
+
+        positionDisplay.textContent = `Position: top: ${newTop}px, left: ${newLeft}px`;
       }
+    });
 
-      function onMouseMove(ev) {
-        moveAt(ev);
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        // positionDisplay.style.display = 'none'; // Garde visible sinon supprime cette ligne
       }
-
-      document.addEventListener('mousemove', onMouseMove);
-
-      el.addEventListener('mouseup', function () {
-        document.removeEventListener('mousemove', onMouseMove);
-        console.log(`top: ${el.style.top}, left: ${el.style.left}`);
-        alert(`Copie dans ton CSS:\ntop: ${el.style.top};\nleft: ${el.style.left};`);
-      }, { once: true });
     });
   }
 
-  // Appliquer à tes éléments
   document.addEventListener('DOMContentLoaded', () => {
-    makeDraggable(document.getElementById('interactive-img'));
-    makeDraggable(document.getElementById('interactive-img2'));
-    makeDraggable(document.getElementById('interactive-img3'));
-    makeDraggable(document.getElementById('game-box'));
+    const positionBox = document.createElement('div');
+    positionBox.id = 'position-info';
+    positionBox.style.position = 'fixed';
+    positionBox.style.top = '10px';
+    positionBox.style.left = '10px';
+    positionBox.style.background = 'rgba(0,0,0,0.7)';
+    positionBox.style.color = 'white';
+    positionBox.style.padding = '6px 10px';
+    positionBox.style.fontFamily = 'monospace';
+    positionBox.style.fontSize = '1rem';
+    positionBox.style.borderRadius = '5px';
+    positionBox.style.zIndex = '9999';
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = 'Copier position';
+    copyBtn.style.marginLeft = '10px';
+    copyBtn.style.padding = '4px 8px';
+    copyBtn.style.fontSize = '0.9rem';
+    copyBtn.style.cursor = 'pointer';
+
+    copyBtn.addEventListener('click', () => {
+      if (window.currentDraggable) {
+        const style = window.getComputedStyle(window.currentDraggable);
+        const cssText = `top: ${style.top}; left: ${style.left};`;
+        navigator.clipboard.writeText(cssText).then(() => {
+          copyBtn.textContent = 'Copié !';
+          setTimeout(() => (copyBtn.textContent = 'Copier position'), 1500);
+        });
+      }
+    });
+
+    positionBox.appendChild(copyBtn);
+    document.body.appendChild(positionBox);
+
+    // Appliquer à plusieurs éléments
+    const elements = ['game-box', 'interactive-img', 'interactive-img2', 'interactive-img3'];
+    elements.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        makeDraggable(el);
+      }
+    });
   });
 </script>
 </body>
