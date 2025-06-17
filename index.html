@@ -146,16 +146,15 @@
     display: none;
   }
 }
-    /* Popup modal pour l'image "Books.png" */
-#popup-modal-books {
+    #popup-modal-books {
   display: none;
   position: fixed;
   top: 50%;  /* Centré verticalement */
   left: 50%; /* Centré horizontalement */
   transform: translate(-50%, -50%); /* Décalage pour centrer parfaitement */
-  width: 80%;  /* Taille du popup */
-  max-width: 800px;  /* Largeur maximale */
-  height: auto; /* Ajuste la hauteur en fonction du contenu */
+  width: 70%;  /* Taille du popup réduite */
+  max-width: 600px;  /* Largeur maximale plus petite */
+  height: auto; /* Ajuste automatiquement la hauteur en fonction du contenu */
   background: rgba(0, 0, 0, 0.9); /* Fond sombre */
   z-index: 1000;
   display: flex; /* Utilisation de Flexbox pour centrer le contenu */
@@ -167,10 +166,10 @@
   transition: all 0.3s ease; /* Transition douce pour l'affichage */
 }
 
-/* Image à l'intérieur du popup */
+/* Image à l'intérieur du popup pour Books.png */
 #popup-modal-books img {
   max-width: 100%; /* Assure que l'image occupe toute la largeur du popup sans déborder */
-  max-height: 80vh; /* Limite la hauteur à 80% de la hauteur de la fenêtre */
+  max-height: 70vh; /* Limite la hauteur de l'image à 70% de la fenêtre */
   object-fit: contain; /* Maintien les proportions de l'image */
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Ombre portée pour un effet visuel plus agréable */
