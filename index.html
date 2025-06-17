@@ -7,7 +7,7 @@
   <style>
   .draggable {
     outline: 2px dashed rgba(255, 255, 255, 0.4);
-    cursor: move;
+    cursor: move;e
   }
 </style>
   <style>
@@ -394,6 +394,53 @@
   </script>
 
   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  // Vérification de l'existence de l'élément avant d'ajouter un événement
+  const interactiveImgBooks = document.getElementById('interactive-img');
+  if (interactiveImgBooks) {
+    const popupModalBooks = document.getElementById('popup-modal-books');
+    const popupCloseBooks = document.getElementById('popup-close-books');
+
+    interactiveImgBooks.addEventListener('click', () => {
+      popupModalBooks.style.display = 'flex';
+    });
+
+    popupCloseBooks.addEventListener('click', () => {
+      popupModalBooks.style.display = 'none';
+    });
+
+    popupModalBooks.addEventListener('click', (e) => {
+      if (e.target === popupModalBooks) {
+        popupModalBooks.style.display = 'none';
+      }
+    });
+  } else {
+    console.warn('Élément "interactive-img" non trouvé');
+  }
+
+  // Pour interactive-img2
+  const interactiveImg2 = document.getElementById('interactive-img2');
+  if (interactiveImg2) {
+    const popupModalJeu = document.getElementById('popup-modal-jeu');
+    const popupCloseJeu = document.getElementById('popup-close-jeu');
+
+    interactiveImg2.addEventListener('click', () => {
+      popupModalJeu.style.display = 'flex';
+    });
+
+    popupCloseJeu.addEventListener('click', () => {
+      popupModalJeu.style.display = 'none';
+    });
+
+    popupModalJeu.addEventListener('click', (e) => {
+      if (e.target === popupModalJeu) {
+        popupModalJeu.style.display = 'none';
+      }
+    });
+  } else {
+    console.warn('Élément "interactive-img2" non trouvé');
+  }
+});
     document.addEventListener("DOMContentLoaded", () => {
       const interactiveImg = document.getElementById('interactive-img');
       const popupModal = document.getElementById('popup-modal');
