@@ -5,104 +5,582 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CV Narratif</title>
   <style>
-    /* Votre style existant */
-
-    /* Popup modal spécifique pour l'image "Books.png" */
-    #popup-modal-books {
+  .draggable {
+    outline: 2px dashed rgba(255, 255, 255, 0.4);
+    cursor: move;
+  }
+</style>
+  <style>
+    #choices {
+  display: none !important;
+}
+    #interactive-img {
+      position: fixed;
+      perspective: 800px; /* la distance à la "caméra" */
+      top: 30.475px;
+      left: 367.913px;
+      width: 270px;
+      cursor: pointer;
+      z-index: 10;
+      transform: rotateY(22deg) rotateX(5deg) perspective(600px);
+      border: none;
+      outline: none;
+      background: none;
+      transition: transform 0.3s ease;
+    }
+    #interactive-img:hover {
+      transform: rotateY(0deg) rotateX(0deg) perspective(900px);
+    }
+    .popup {
       display: none;
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 70%;
-      max-width: 600px;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 1000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+      z-index: 20;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+    .popup-content {
+      background: #222;
+      color: #eee;
       padding: 20px;
       border-radius: 10px;
+      max-width: 400px;
+      margin: 100px auto;
+      position: relative;
     }
-
-    /* Image à l'intérieur du popup pour Books.png */
-    #popup-modal-books img {
-      max-width: 100%;
-      max-height: 70vh;
-      object-fit: contain;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-    }
-
-    /* Bouton de fermeture du popup Books */
-    #popup-close-books {
+    .close-btn {
       position: absolute;
       top: 10px;
-      right: 10px;
+      right: 15px;
+      cursor: pointer;
+      font-size: 1.5em;
+    }
+   #interactive-img2 {
+  position: fixed;
+  top: 297px;
+  left: 1043px;
+  width: 80px;
+  cursor: pointer;
+  z-index: 10;
+  transform: none;
+  border: none;
+  outline: none;
+  background: none;
+  transition: transform 0.3s ease;
+}
+
+#interactive-img2:hover {
+  transform: rotateY(0deg) rotateX(0deg) perspective(900px);
+}
+    body {
+      font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('Room.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #E6E6FA;
+      max-width: 750px;
+      margin: 0px auto;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.6); /* fallback */
+    }
+    .choice {
+      margin-top: 10px;
+    }
+    button {
+      background: #4CAF50;
+      border: none;
+      padding: 8px 10px;
+      margin: 2px 8px 5px 0;
+      border-radius: 5px;
+      color: #E6E6FA;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .media {
+      margin-top: 15px;
+      max-width: 100%;
+      border-radius: 5px;
+    }
+    #game-box {
+     position: relative;
+  top:-33px;      /* monte la boîte */
+  left: 236px;     
+  transform: translate(0, 0); /* ou avec % */
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto 10px;
+  padding: 20px;
+  backdrop-filter: blur(3px);             /* 💡 flou ici */
+   -webkit-backdrop-filter: blur(3px);
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,0);
+  z-index: 3;
+}
+#game-box {
+  font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#story p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  line-height: 1.6;
+  text-align: center;
+}
+
+@media (min-width: 1000px) {
+  #game-box {
+    max-width: 1000px;
+  }
+
+  h1 {
+    max-width: 1000px;
+  }
+
+  #choices {
+    display: none;
+  }
+}
+    /* Popup modal pour l'image "Books.png" */
+#popup-modal-books {
+  display: none;
+  position: fixed;
+  top: 50%;  /* Centré verticalement */
+  left: 50%; /* Centré horizontalement */
+  transform: translate(-50%, -50%); /* Décalage pour centrer parfaitement */
+  width: 80%;  /* Taille du popup */
+  max-width: 800px;  /* Largeur maximale */
+  height: auto; /* Ajuste la hauteur en fonction du contenu */
+  background: rgba(0, 0, 0, 0.9); /* Fond sombre */
+  z-index: 1000;
+  display: flex; /* Utilisation de Flexbox pour centrer le contenu */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  transition: all 0.3s ease; /* Transition douce pour l'affichage */
+}
+
+/* Image à l'intérieur du popup */
+#popup-modal-books img {
+  max-width: 100%; /* Assure que l'image occupe toute la largeur du popup sans déborder */
+  max-height: 80vh; /* Limite la hauteur à 80% de la hauteur de la fenêtre */
+  object-fit: contain; /* Maintien les proportions de l'image */
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Ombre portée pour un effet visuel plus agréable */
+}
+
+/* Bouton de fermeture */
+#popup-close-books {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1001; /* Assure que le bouton de fermeture est au-dessus du contenu */
+  transition: color 0.3s ease; /* Transition pour un effet au survol */
+}
+
+#popup-close-books:hover {
+  color: #ff4d4d; /* Change la couleur au survol */
+}
+    /* Popup modal */
+    #popup-modal {
+      display: none;
+      position: fixed;
+      top:0; left:0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      display: flex; /* caché par défaut */
+      flex-direction: column;
+    }
+    #popup-modal img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #000;
+    }
+    #popup-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
       font-size: 2rem;
       color: white;
       cursor: pointer;
       user-select: none;
-      z-index: 1001;
-      transition: color 0.3s ease;
     }
 
-    #popup-close-books:hover {
-      color: #ff4d4d;
-    }
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 220px;
+  color: #E6E6FA;
+  font-size: 1.5rem; 
+  font-weight: bold;
+  text-align: center;
+  padding: 8px;
+  border-radius: 6px;
+  position: absolute;
+  bottom: 34px; /* Positionne le texte plus bas pour éviter le chevauchement */
+  left: 365%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Pour chaque tooltip spécifique */
+#tooltip-books .tooltip-text {
+  bottom: 34px;  /* Position du tooltip pour "Books.png" */
+}
+
+#tooltip-jeu .tooltip-text {
+  bottom: 300px;  /* Position du tooltip pour "jeu.png" */
+}
+/* Popup modal pour l'image "jeu.png" */
+#popup-modal-jeu {
+  display: none;
+  position: fixed;
+  top: 50%;  /* Positionnement au centre verticalement */
+  left: 50%; /* Positionnement au centre horizontalement */
+  transform: translate(-50%, -50%); /* Décalage de 50% pour centrer parfaitement */
+  width: 80%;  /* Taille du popup, ajuste si nécessaire */
+  max-width: 800px;  /* Largeur maximale pour éviter qu'il soit trop grand sur de très grands écrans */
+  height: auto; /* Ajuste automatiquement la hauteur en fonction du contenu */
+  background: rgba(0, 0, 0, 0.9); /* Fond sombre */
+  z-index: 1000;
+  display: flex; /* Utilisation de Flexbox pour centrer le contenu */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#popup-modal-jeu img {
+  max-width: 100%; /* Assure que l'image occupe toute la largeur du popup sans déborder */
+  max-height: 80vh; /* Empêche l'image de devenir trop grande */
+  object-fit: contain; /* Assure que l'image conserve ses proportions */
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Ombre portée pour un effet visuel plus agréable */
+}
+
+#popup-close-jeu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1001; /* Assure que le bouton de fermeture est au-dessus du contenu */
+}
   </style>
 </head>
 <body>
-  <!-- Popup spécifique pour l'image Books.png -->
-  <div id="popup-modal-books" style="display:none;">
-    <span id="popup-close-books">&times;</span>
+  <!-- Popup pour l'image Books.png -->
+<div id="popup-modal-books" style="display:none;">
+  <span id="popup-close-books">&times;</span>
+  <img src="Réalisations.png" alt="Popup image" />
+</div>
+  <div id="position-info" style="
+  position: fixed;
+  bottom: 18px;
+  left: 20px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 14px;
+  z-index: 9999;
+  pointer-events: none;
+  display: none;">
+  Position: 0, 0
+</div>
+<div class="tooltip-container" id="tooltip-books">
+  <img src="Books.png" id="interactive-img" />
+  <div class="tooltip-text">Réalisations</div>
+</div>
+
+<div class="tooltip-container" id="tooltip-jeu">
+  <img src="jeu.png?v=2" id="interactive-img2" />
+  <div class="tooltip-text">Projet Jeu</div>
+</div>
+
+  <div id="popup-modal" style="display:none;">
+    <span id="popup-close">&times;</span>
     <img src="Réalisations.png" alt="Popup image" />
   </div>
-
-  <!-- Tooltip pour "Books.png" -->
-  <div class="tooltip-container" id="tooltip-books">
-    <img src="Books.png" id="interactive-img" />
-    <div class="tooltip-text">Réalisations</div>
-  </div>
-
-  <!-- Vous pouvez également avoir un autre popup pour "jeu.png" ou autres images -->
-  <div id="popup-modal-jeu" style="display:none;">
-    <span id="popup-close-jeu">&times;</span>
-    <img src="Réalisations.png" alt="Projet jeu" />
+<!-- Popup pour l'image jeu.png -->
+<div id="popup-modal-jeu" style="display:none;">
+  <span id="popup-close-jeu">&times;</span>
+  <img src="Réalisations.png" alt="Projet jeu" />
+</div>
+  <div id="game-box">
+    <div id="story"></div>
+    <div id="choices" class="choice"></div>
   </div>
 
   <script>
-    // Fonction pour fermer tous les pop-ups
-    function closeAllPopups() {
-      const allPopups = document.querySelectorAll('.popup');
-      allPopups.forEach(popup => popup.style.display = 'none');
+ const storyText = {
+  start: {
+    text: "Explorez le bureau pour en apprendre plus sur Maude Alexandre",
+    choices: [
+      { text: "Compétences", next: "skills" },
+      { text: "Projets réalisés", next: "projects" }
+    ]
+  },
+  skills: {
+    text: "Voici mes compétences:\n- Conception de mécaniques de jeu\n- Gestion d'équipe et mentorat\n- Design narratif\n- Enseignement\n\nÉcouter cet enregistrement?",
+    choices: [
+      { text: "Oui, écouter", next: "audio" },
+      { text: "Retour", next: "start" }
+    ]
+  },
+  audio: {
+    text: "Écoute cette présentation audio courte :",
+    audio: true,
+    audioSrc: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    choices: [
+      { text: "Retour aux compétences", next: "skills" },
+      { text: "Voir mes projets", next: "projects" }
+    ]
+  },
+  projects: {
+    text: "Voici quelques projets marquants :\n- Lead Designer: Need For Speed Take Down, Scooby Doo Mystery Case Files, Thomas and Friends Big Adventure\n- Game designer\n\nVeux-tu voir une vidéo de gameplay ?",
+    choices: [
+      { text: "Oui, voir vidéo", next: "video" },
+      { text: "Retour", next: "start" }
+    ]
+  },
+  video: {
+    text: "Regarde ce trailer de mon projet principal :",
+    video: true,
+    videoSrc: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm",
+    choices: [
+      { text: "Retour aux projets", next: "projects" },
+      { text: "Fin", next: "end" }
+    ]
+  },
+  end: {
+    text: "Merci d'avoir exploré mon CV interactif !\nN'hésite pas à me contacter pour en savoir plus.",
+    choices: []
+  }
+};
+
+    const storyEl = document.getElementById('story');
+    const choicesEl = document.getElementById('choices');
+
+    function renderNode(nodeKey) {
+      const node = storyText[nodeKey];
+      storyEl.innerHTML = '';
+      choicesEl.innerHTML = '';
+
+      // Texte avec retours à la ligne
+     let paragraphs = node.text.split('\n').map(p => <p>${p}</p>).join('');
+      storyEl.innerHTML = paragraphs;
+
+      // Audio
+      if (node.audio) {
+        const audio = document.createElement('audio');
+        audio.controls = true;
+        audio.src = node.audioSrc;
+        audio.className = "media";
+        storyEl.appendChild(audio);
+      }
+
+      // Vidéo
+      if (node.video) {
+        const video = document.createElement('video');
+        video.controls = true;
+        video.src = node.videoSrc;
+        video.className = "media";
+        storyEl.appendChild(video);
+      }
+
+      // Boutons choix
+      if (node.choices.length > 0) {
+        choicesEl.style.display = "block";
+        node.choices.forEach(choice => {
+          const btn = document.createElement('button');
+          btn.textContent = choice.text;
+          btn.onclick = () => renderNode(choice.next);
+          choicesEl.appendChild(btn);
+        });
+      } else {
+        choicesEl.style.display = "none";
+      }
     }
 
-    // Ouvrir le pop-up spécifique pour Books.png
+    // Démarrer
+    renderNode('start');
+  </script>
+
+  <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const interactiveImgBooks = document.getElementById('interactive-img');
-      const popupModalBooks = document.getElementById('popup-modal-books');
-      const popupCloseBooks = document.getElementById('popup-close-books');
+      const interactiveImg = document.getElementById('interactive-img');
+      const popupModal = document.getElementById('popup-modal');
+      const popupClose = document.getElementById('popup-close');
 
-      // Afficher le modal Books.png
-      interactiveImgBooks.addEventListener('click', () => {
-        closeAllPopups();  // Ferme tous les popups
-        popupModalBooks.style.display = 'flex';  // Ouvre le popup Books spécifique
+      interactiveImg.addEventListener('click', () => {
+        popupModal.style.display = 'flex';
       });
 
-      // Fermer le modal Books.png
-      popupCloseBooks.addEventListener('click', () => {
-        popupModalBooks.style.display = 'none';
+      popupClose.addEventListener('click', () => {
+        popupModal.style.display = 'none';
       });
 
-      // Fermer le modal Books.png en cliquant à l'extérieur de l'image
-      popupModalBooks.addEventListener('click', (e) => {
-        if (e.target === popupModalBooks) {
-          popupModalBooks.style.display = 'none';
+      popupModal.addEventListener('click', (e) => {
+        if (e.target === popupModal) {
+          popupModal.style.display = 'none';
         }
       });
     });
+    document.addEventListener("DOMContentLoaded", () => {
+  const interactiveImg2 = document.getElementById('interactive-img2');
+  const popupModalJeu = document.getElementById('popup-modal-jeu');
+  const popupCloseJeu = document.getElementById('popup-close-jeu');
+
+  interactiveImg2.addEventListener('click', () => {
+    popupModalJeu.style.display = 'flex';
+  });
+
+  popupCloseJeu.addEventListener('click', () => {
+    popupModalJeu.style.display = 'none';
+  });
+
+  popupModalJeu.addEventListener('click', (e) => {
+    if (e.target === popupModalJeu) {
+      popupModalJeu.style.display = 'none';
+    }
+  });
+});
   </script>
+<script>
+  function makeDraggable(element) {
+    let isDragging = false;
+    let offsetX, offsetY;
+    const positionDisplay = document.getElementById('position-info');
+
+    element.style.position = 'fixed'; // pour pouvoir déplacer librement
+
+    element.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      offsetX = e.clientX - element.getBoundingClientRect().left;
+      offsetY = e.clientY - element.getBoundingClientRect().top;
+      positionDisplay.style.display = 'block';
+      // Mémoriser l'élément sélectionné pour copier la position
+      window.currentDraggable = element;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        const newLeft = e.clientX - offsetX;
+        const newTop = e.clientY - offsetY;
+        element.style.left = newLeft + 'px';
+        element.style.top = newTop + 'px';
+
+        positionDisplay.textContent = Position: top: ${newTop}px, left: ${newLeft}px;
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        // positionDisplay.style.display = 'none'; // Garde visible sinon supprime cette ligne
+      }
+    });
+  }
+document.addEventListener("DOMContentLoaded", () => {
+  const interactiveImgBooks = document.getElementById('interactive-img');
+  const popupModalBooks = document.getElementById('popup-modal-books');
+  const popupCloseBooks = document.getElementById('popup-close-books');
+
+  // Afficher le modal lorsque l'image Books.png est cliquée
+  interactiveImgBooks.addEventListener('click', () => {
+    popupModalBooks.style.display = 'flex';
+  });
+
+  // Fermer le modal lorsque le bouton de fermeture est cliqué
+  popupCloseBooks.addEventListener('click', () => {
+    popupModalBooks.style.display = 'none';
+  });
+
+  // Fermer le modal si l'utilisateur clique en dehors de l'image
+  popupModalBooks.addEventListener('click', (e) => {
+    if (e.target === popupModalBooks) {
+      popupModalBooks.style.display = 'none';
+    }
+  });
+});
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const positionBox = document.createElement('div');
+    positionBox.id = 'position-info';
+    positionBox.style.position = 'fixed';
+    positionBox.style.top = '10px';
+    positionBox.style.left = '10px';
+    positionBox.style.background = 'rgba(0,0,0,0.7)';
+    positionBox.style.color = 'white';
+    positionBox.style.padding = '6px 10px';
+    positionBox.style.fontFamily = 'monospace';
+    positionBox.style.fontSize = '1rem';
+    positionBox.style.borderRadius = '5px';
+    positionBox.style.zIndex = '9999';
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = 'Copier position';
+    copyBtn.style.marginLeft = '10px';
+    copyBtn.style.padding = '4px 8px';
+    copyBtn.style.fontSize = '0.9rem';
+    copyBtn.style.cursor = 'pointer';
+
+    copyBtn.addEventListener('click', () => {
+      if (window.currentDraggable) {
+        const style = window.getComputedStyle(window.currentDraggable);
+        const cssText = top: ${style.top}; left: ${style.left};;
+        navigator.clipboard.writeText(cssText).then(() => {
+          copyBtn.textContent = 'Copié !';
+          setTimeout(() => (copyBtn.textContent = 'Copier position'), 1500);
+        });
+      }
+    });
+
+    positionBox.appendChild(copyBtn);
+    document.body.appendChild(positionBox);
+
+    // Appliquer à plusieurs éléments
+    const elements = ['game-box', 'interactive-img', 'interactive-img2', 'interactive-img3'];
+    elements.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        makeDraggable(el);
+      }
+    });
+  });
+</script>
 </body>
 </html>
