@@ -234,9 +234,51 @@
   user-select: none;
   z-index: 1001; /* Assure que le bouton de fermeture est au-dessus du contenu */
 }
+    .tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 220px;e
+  color: #E6E6FA;
+  font-size: 1.5rem; 
+  font-weight: bold;
+  text-align: center;
+  padding: 8px;
+  border-radius: 6px;
+  position: absolute;
+  bottom: 34px; /* Positionne le texte plus bas pour éviter le chevauchement */
+  left: 50%;
+  transform: translateX(-50%);
+
+ opacity: 0;
+  transition: opacity 0.4s;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+
   </style>
+  
 </head>
 <body>
+  <div class="tooltip-container" id="tooltip-books">
+  <img src="Books.png" id="interactive-img" />
+  <div class="tooltip-text">"Réalisations"</div>
+</div>
+
+<div class="tooltip-container" id="tooltip-jeu">
+  <img src="jeu.png?v=2" id="interactive-img2" />
+  <div class="tooltip-text">"Projet Jeu"</div>
+</div>
+
   <!-- Popup pour l'image Books.png -->
   <div id="popup-modal-books" style="display:none;">
   <span id="popup-close-books">&times;</span>
@@ -351,6 +393,40 @@
   </script>
 
   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const tooltipBooks = document.getElementById('tooltip-books');
+  const tooltipJeu = document.getElementById('tooltip-jeu');
+
+  // Tooltip sur Books
+  tooltipBooks.addEventListener('mouseover', () => {
+    console.log('Mouseover sur Books tooltip');
+    const tooltipText = tooltipBooks.querySelector('.tooltip-text');
+    tooltipText.style.visibility = 'visible';
+    tooltipText.style.opacity = 1;
+  });
+
+  tooltipBooks.addEventListener('mouseout', () => {
+    console.log('Mouseout sur Books tooltip');
+    const tooltipText = tooltipBooks.querySelector('.tooltip-text');
+    tooltipText.style.visibility = 'hidden';
+    tooltipText.style.opacity = 0;
+  });
+
+// Tooltip sur Jeu
+  tooltipJeu.addEventListener('mouseover', () => {
+    console.log('Mouseover sur Jeu tooltip');
+    const tooltipText = tooltipJeu.querySelector('.tooltip-text');
+    tooltipText.style.visibility = 'visible';
+    tooltipText.style.opacity = 1;
+  });
+
+  tooltipJeu.addEventListener('mouseout', () => {
+    console.log('Mouseout sur Jeu tooltip');
+    const tooltipText = tooltipJeu.querySelector('.tooltip-text');
+    tooltipText.style.visibility = 'hidden';
+    tooltipText.style.opacity = 0;
+  });
+});
     document.addEventListener("DOMContentLoaded", () => {
   // Vérification de l'existence de l'élément avant d'ajouter un événement
   const interactiveImgBooks = document.getElementById('interactive-img');
