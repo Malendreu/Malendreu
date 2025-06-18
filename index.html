@@ -194,43 +194,8 @@
   color: #ff4d4d; /* Change la couleur au survol */
 }
     
-.tooltip-container {
-  position: relative;
-  display: inline-block;
-}
 
-.tooltip-text {
-  visibility: hidden;
-  width: 220px;
-  color: #E6E6FA;
-  font-size: 1.5rem; 
-  font-weight: bold;
-  text-align: center;
-  padding: 8px;
-  border-radius: 6px;
-  position: absolute;
-  bottom: 34px; /* Positionne le texte plus bas pour éviter le chevauchement */
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.4s;
-  z-index: 100;
-  pointer-events: none;
-}
-
-.tooltip-container:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
-}
-
-/* Pour chaque tooltip spécifique */
-#tooltip-books .tooltip-text {
-  bottom: 34px;  /* Position du tooltip pour "Books.png" */
-}
-
-#tooltip-jeu .tooltip-text {
-  bottom: 100px;  /* Position du tooltip pour "jeu.png" */
-}
+ 
 /* Popup modal pour l'image "jeu.png" */
 #popup-modal-jeu {
   display: none;
@@ -278,15 +243,7 @@
   <img src="Réalisations.png" alt="Popup image" />
 </div>
 
-<div class="tooltip-container" id="tooltip-books">
-  <img src="Books.png" id="interactive-img" />
-  <div class="tooltip-text">"Réalisations"</div>
-</div>
 
-<div class="tooltip-container" id="tooltip-jeu">
-  <img src="jeu.png?v=2" id="interactive-img2" />
-  <div class="tooltip-text">"Projet Jeu"</div>
-</div>
 
 <!-- Popup pour l'image jeu.png -->
 <div id="popup-modal-jeu" style="display:none;">
@@ -569,40 +526,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     });
-document.addEventListener("DOMContentLoaded", () => {
-  const tooltipBooks = document.getElementById('tooltip-books');
-  const tooltipJeu = document.getElementById('tooltip-jeu');
 
-  // Tooltip sur Books
-  tooltipBooks.addEventListener('mouseover', () => {
-    console.log('Mouseover sur Books tooltip');
-    const tooltipText = tooltipBooks.querySelector('.tooltip-text');
-    tooltipText.style.visibility = 'visible';
-    tooltipText.style.opacity = 1;
-  });
 
-  tooltipBooks.addEventListener('mouseout', () => {
-    console.log('Mouseout sur Books tooltip');
-    const tooltipText = tooltipBooks.querySelector('.tooltip-text');
-    tooltipText.style.visibility = 'hidden';
-    tooltipText.style.opacity = 0;
-  });
-
-  // Tooltip sur Jeu
-  tooltipJeu.addEventListener('mouseover', () => {
-    console.log('Mouseover sur Jeu tooltip');
-    const tooltipText = tooltipJeu.querySelector('.tooltip-text');
-    tooltipText.style.visibility = 'visible';
-    tooltipText.style.opacity = 1;
-  });
-
-  tooltipJeu.addEventListener('mouseout', () => {
-    console.log('Mouseout sur Jeu tooltip');
-    const tooltipText = tooltipJeu.querySelector('.tooltip-text');
-    tooltipText.style.visibility = 'hidden';
-    tooltipText.style.opacity = 0;
-  });
-});
+  
     positionBox.appendChild(copyBtn);
     document.body.appendChild(positionBox);
 
