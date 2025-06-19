@@ -74,7 +74,49 @@
 
 #interactive-img2:hover {
   transform: rotateY(0deg) rotateX(0deg) perspective(900px);
-}
+}#interactive-img3 {
+      position: fixed;
+      perspective: 800px; /* la distance à la "caméra" */
+      top: 300px;
+      left: 1113px;
+      width: 30px;
+      cursor: pointer;
+      z-index: 10;
+      transform: rotateY(22deg) rotateX(5deg) perspective(600px);
+      border: none;
+      outline: none;
+      background: none;
+      transition: transform 0.3s ease;
+    }
+    #interactive-img3:hover {
+      transform: rotateY(0deg) rotateX(0deg) perspective(900px);
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 20;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+    .popup-content {
+      background: #222;
+      color: #eee;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 100px auto;
+      position: relative;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      cursor: pointer;
+      font-size: 1.5em;
+    
     body {
       font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
       background: url('Room.png') no-repeat center center fixed;
@@ -108,6 +150,7 @@
       max-width: 100%;
       border-radius: 5px;
     }
+    
     #game-box {
      position: relative;
   top:-33px;      /* monte la boîte */
@@ -234,6 +277,32 @@
   user-select: none;
   z-index: 1001; /* Assure que le bouton de fermeture est au-dessus du contenu */
 }
+      /* Image à l'intérieur du popup */
+#popup-modal-competicon img {
+  max-width: 100%; /* Assure que l'image occupe toute la largeur du popup sans déborder */
+  max-height: 80vh; /* Limite la hauteur à 80% de la hauteur de la fenêtre */
+  object-fit: contain; /* Maintien les proportions de l'image */
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Ombre portée pour un effet visuel plus agréable */
+}
+
+/* Bouton de fermeture */
+#popup-close-competicon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1001; /* Assure que le bouton de fermeture est au-dessus du contenu */
+  transition: color 0.3s ease; /* Transition pour un effet au survol */
+}
+
+#popup-close-competicon:hover {
+  color: #ff4d4d; /* Change la couleur au survol */
+}
+    
     .tooltip-container {
   position: relative;
   display: inline-block;
@@ -279,6 +348,11 @@
   <div class="tooltip-text">"Projet Jeu"</div>
 </div>
 
+  <div class="tooltip-container" id="tooltip-competicon">
+  <img src="competicon.png" id="interactive-img3" />
+  <div class="tooltip-text">"Compétences"</div>
+</div>
+
   <!-- Popup pour l'image Books.png -->
   <div id="popup-modal-books" style="display:none;">
   <span id="popup-close-books">&times;</span>
@@ -291,6 +365,12 @@
 <div id="popup-modal-jeu" style="display:none;">
   <span id="popup-close-jeu">&times;</span>
   <img src="Conception.png?version=2" alt="Popup image" />
+</div>
+
+  <!-- Popup pour l'image Competicon.png -->
+  <div id="popup-modal-competicon" style="display:none;">
+  <span id="popup-close-competicon">&times;</span>
+  <img src="Réalisations.png" alt="Popup image" />
 </div>
   <div id="game-box">
     <div id="story"></div>
@@ -468,6 +548,29 @@
     popupModalJeu.addEventListener('click', (e) => {
       if (e.target === popupModalJeu) {
         popupModalJeu.style.display = 'none';
+      }
+    });
+  } else {
+    console.warn('Élément "interactive-img2" non trouvé');
+  }
+});
+     // Pour interactive-img3
+  const interactiveImg3 = document.getElementById('interactive-img3');
+  if (interactiveImg2) {
+    const popupModalCompeticon = document.getElementById('popup-modal-competicon');
+    const popupCloseCompeticon = document.getElementById('popup-close-competicon');
+
+    interactiveImg2.addEventListener('click', () => {
+      popupModalCompeticon.style.display = 'flex';
+    });
+
+    popupCloseCompeticon.addEventListener('click', () => {
+      popupModalCompeticon.style.display = 'none';
+    });
+
+    popupModalCompeticon.addEventListener('click', (e) => {
+      if (e.target === popupModalCompeticon) {
+        popupModalCompeticon.style.display = 'none';
       }
     });
   } else {
