@@ -9,9 +9,10 @@
     body {
       font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
       background: url('Room2.png') no-repeat center center fixed;
-      background-size: cover;
+      background-size: cover; /* Cela assure que l'image couvre la fenêtre sans dépasser */
+      background-position: center; /* Centrer l'image */
       margin: 0;
-      height: 100vh;
+      height: 100vh; /* S'assure que la page occupe toute la hauteur */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -60,9 +61,9 @@
       margin-bottom: 30px; /* Assure qu'il est bien visible en bas */
     }
 
-    /* Cache le popup après le clic */
+    /* Cache le popup et le masque alpha */
     .hidden {
-      display: none;
+      display: none !important; /* Assure que les éléments soient cachés */
     }
   </style>
 </head>
