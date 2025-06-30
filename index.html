@@ -75,6 +75,7 @@
       width: 100px; /* Taille de l'icône - ajustable */
       height: auto;
       z-index: 15; /* Assure que l'icône soit au-dessus de l'image de fond */
+      display: none; /* Initialement cachée */
     }
   </style>
 </head>
@@ -100,12 +101,17 @@
       // Récupérer les éléments
       const alphaMask = document.getElementById('alpha-mask');
       const introPopup = document.getElementById('intro-popup');
+      const iconeJaune = document.getElementById('icone-jaune');
       
       // Cacher l'alpha mask et le pop-up
       alphaMask.classList.add('hidden');
       introPopup.classList.add('hidden');
       
-      console.log("Alpha mask et popup sont cachés");
+      // Afficher l'icône jaune après un délai (pour laisser le temps au pop-up de se fermer)
+      setTimeout(function() {
+        iconeJaune.style.display = 'block'; // Afficher l'icône après la fermeture du pop-up
+        console.log("L'icône jaune est maintenant visible");
+      }, 500); // Délai de 500ms, ajustable si nécessaire
     }
 
     // Ajouter un gestionnaire d'événements après le chargement du DOM
