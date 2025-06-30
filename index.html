@@ -39,22 +39,23 @@
       max-width: 600px;
       height: 80%;
       background: url('Intro.png') no-repeat center center;
-      background-size: cover;
+      background-size: contain; /* S'assure que l'image se redimensionne sans dépasser */
+      background-position: center;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-end; /* Positionne le bouton en bas */
     }
 
     /* Bouton pour fermer le pop-up */
     #next-btn {
-      position: absolute;
-      bottom: 20px;
       background: url('buttonnext.png') no-repeat center center;
       background-size: contain;
       border: none;
       width: 150px;
       height: 50px;
       cursor: pointer;
+      z-index: 20;
+      margin-bottom: 20px; /* Un peu d'espace en bas pour que le bouton ne touche pas le bord */
     }
 
     /* Cache le popup après le clic */
