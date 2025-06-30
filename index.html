@@ -9,11 +9,11 @@
       font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
       background: url('Room2.png') no-repeat center center fixed;
       background-size: cover;
-      background-position: center;
       margin: 0;
       height: 100vh;
       overflow: hidden;
       position: relative;
+      z-index: 1;
     }
 
     .icon-container {
@@ -70,21 +70,17 @@
     }
 
     /* Masques alpha */
-    #alpha-mask,
-    #popup-realisations-mask,
-    #popup-presse-mask {
+    .popup-mask {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background-color: rgba(0, 0, 0, 0.7);
       display: flex;
       justify-content: center;
       align-items: center;
+      z-index: 1000;
     }
 
-    /* Popups */
     .popup {
       position: relative;
       width: 90%;
@@ -96,7 +92,7 @@
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      z-index: 110;
+      z-index: 1001;
     }
 
     #intro-popup {
@@ -111,7 +107,6 @@
       background-image: url('presse.png');
     }
 
-    /* Bouton commun */
     .next-button {
       background: url('boutonnext.png') no-repeat center center;
       background-size: contain;
@@ -131,57 +126,57 @@
 </head>
 <body>
 
-  <!-- POPUP INTRO -->
-  <div id="alpha-mask">
+  <!-- Popup d'introduction -->
+  <div id="alpha-mask" class="popup-mask">
     <div id="intro-popup" class="popup">
       <button id="next-btn" class="next-button"></button>
     </div>
   </div>
 
-  <!-- ICÔNE RÉALISATIONS -->
+  <!-- Icône Réalisations -->
   <div class="icon-container realisations" style="display: none;">
     <img id="icone-jaune" src="icone_jaune.png" alt="Icône Jaune" />
     <span class="tooltip">Réalisations</span>
   </div>
 
-  <!-- POPUP RÉALISATIONS -->
-  <div id="popup-realisations-mask" class="hidden">
+  <!-- Popup Réalisations -->
+  <div id="popup-realisations-mask" class="popup-mask hidden">
     <div id="popup-realisations" class="popup">
       <button id="close-realisations-btn" class="next-button"></button>
     </div>
   </div>
 
-  <!-- ICÔNE PRESSE -->
+  <!-- Icône Presse -->
   <div class="icon-container presse" style="display: none;">
     <img id="icone-presse" src="icone_jaune.png" alt="Icône Presse" />
     <span class="tooltip">Presse</span>
   </div>
 
-  <!-- POPUP PRESSE -->
-  <div id="popup-presse-mask" class="hidden">
+  <!-- Popup Presse -->
+  <div id="popup-presse-mask" class="popup-mask hidden">
     <div id="popup-presse" class="popup">
       <button id="close-presse-btn" class="next-button"></button>
     </div>
   </div>
 
   <script>
-    // Intro elements
+    // Intro
     const alphaMask = document.getElementById('alpha-mask');
     const nextBtn = document.getElementById('next-btn');
     const iconRealisations = document.querySelector('.icon-container.realisations');
 
-    // Réalisations elements
+    // Réalisations
     const popupRealisationsMask = document.getElementById('popup-realisations-mask');
     const closeRealisationsBtn = document.getElementById('close-realisations-btn');
     const iconeJaune = document.getElementById('icone-jaune');
 
-    // Presse elements
+    // Presse
     const iconPresse = document.querySelector('.icon-container.presse');
     const popupPresseMask = document.getElementById('popup-presse-mask');
     const closePresseBtn = document.getElementById('close-presse-btn');
     const iconePresse = document.getElementById('icone-presse');
 
-    // Fermer intro
+    // Fermer le popup d’intro
     function closeIntro() {
       alphaMask.classList.add('hidden');
       setTimeout(() => {
@@ -189,29 +184,28 @@
       }, 300);
     }
 
-    // Ouvrir réalisations
+    // Clic sur l’icône Réalisations
     iconeJaune.addEventListener('click', () => {
       popupRealisationsMask.classList.remove('hidden');
     });
 
-    // Fermer réalisations
+    // Fermer le popup Réalisations
     closeRealisationsBtn.addEventListener('click', () => {
       popupRealisationsMask.classList.add('hidden');
-      iconPresse.style.display = 'inline-block'; // Affiche icône "Presse"
+      iconPresse.style.display = 'inline-block';
     });
 
-    // Ouvrir presse
+    // Clic sur l’icône Presse
     iconePresse.addEventListener('click', () => {
       popupPresseMask.classList.remove('hidden');
     });
 
-    // Fermer presse
+    // Fermer le popup Presse
     closePresseBtn.addEventListener('click', () => {
       popupPresseMask.classList.add('hidden');
-      // Tu peux ici afficher une autre icône ou lancer une autre étape
     });
 
-    // Initialisation
+    // Lancer à la fin de l’intro
     window.onload = () => {
       nextBtn.addEventListener('click', closeIntro);
     };
