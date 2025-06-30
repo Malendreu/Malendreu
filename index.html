@@ -16,11 +16,8 @@
       position: relative;
     }
 
-    /* Icône */
     .icon-container {
       position: absolute;
-      top: 90px;
-      left: 556px;
       display: inline-block;
       position: relative;
       cursor: pointer;
@@ -28,14 +25,23 @@
       transition: transform 0.3s ease;
     }
 
-    #icone-jaune {
-      position: static;
+    .icon-container.realisations {
+      top: 90px;
+      left: 556px;
+    }
+
+    .icon-container.presse {
+      top: 200px;
+      left: 400px;
+    }
+
+    .icon-container img {
       width: 25px;
       height: auto;
       transition: transform 0.3s ease;
     }
 
-    .icon-container:hover #icone-jaune {
+    .icon-container:hover img {
       transform: scale(1.5);
     }
 
@@ -63,8 +69,10 @@
       pointer-events: auto;
     }
 
-    /* Popup Intro */
-    #alpha-mask {
+    /* Masques alpha */
+    #alpha-mask,
+    #popup-realisations-mask,
+    #popup-presse-mask {
       position: fixed;
       top: 0;
       left: 0;
@@ -74,52 +82,36 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 10;
     }
 
-    #intro-popup {
+    /* Popups */
+    .popup {
       position: relative;
       width: 90%;
       max-width: 800px;
       height: 90%;
-      background: url('Intro.png') no-repeat center center;
       background-size: contain;
       background-position: center;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      z-index: 20;
-    }
-
-    /* Popup Réalisations */
-    #popup-realisations-mask {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-    }
-
-    #popup-realisations {
-      position: relative;
-      width: 90%;
-      max-width: 800px;
-      height: 90%;
-      background: url('Réalisations.png') no-repeat center center;
-      background-size: contain;
-      background-position: center;
+      background-repeat: no-repeat;
       display: flex;
       justify-content: center;
       align-items: flex-end;
       z-index: 110;
     }
 
-    /* Bouton Next (réutilisable) */
+    #intro-popup {
+      background-image: url('Intro.png');
+    }
+
+    #popup-realisations {
+      background-image: url('réalisations.png');
+    }
+
+    #popup-presse {
+      background-image: url('presse.png');
+    }
+
+    /* Bouton commun */
     .next-button {
       background: url('boutonnext.png') no-repeat center center;
       background-size: contain;
@@ -132,7 +124,6 @@
       margin-bottom: 30px;
     }
 
-    /* Cacher les éléments */
     .hidden {
       display: none !important;
     }
@@ -140,63 +131,89 @@
 </head>
 <body>
 
-  <!-- Popup Intro -->
+  <!-- POPUP INTRO -->
   <div id="alpha-mask">
-    <div id="intro-popup">
+    <div id="intro-popup" class="popup">
       <button id="next-btn" class="next-button"></button>
     </div>
   </div>
 
-  <!-- Icône Réalisations -->
-  <div class="icon-container" style="display:none;">
+  <!-- ICÔNE RÉALISATIONS -->
+  <div class="icon-container realisations" style="display: none;">
     <img id="icone-jaune" src="icone_jaune.png" alt="Icône Jaune" />
     <span class="tooltip">Réalisations</span>
   </div>
 
-  <!-- Popup Réalisations -->
+  <!-- POPUP RÉALISATIONS -->
   <div id="popup-realisations-mask" class="hidden">
-    <div id="popup-realisations">
+    <div id="popup-realisations" class="popup">
       <button id="close-realisations-btn" class="next-button"></button>
     </div>
   </div>
 
+  <!-- ICÔNE PRESSE -->
+  <div class="icon-container presse" style="display: none;">
+    <img id="icone-presse" src="icone_jaune.png" alt="Icône Presse" />
+    <span class="tooltip">Presse</span>
+  </div>
+
+  <!-- POPUP PRESSE -->
+  <div id="popup-presse-mask" class="hidden">
+    <div id="popup-presse" class="popup">
+      <button id="close-presse-btn" class="next-button"></button>
+    </div>
+  </div>
+
   <script>
+    // Intro elements
     const alphaMask = document.getElementById('alpha-mask');
-    const introPopup = document.getElementById('intro-popup');
     const nextBtn = document.getElementById('next-btn');
-    const iconContainer = document.querySelector('.icon-container');
+    const iconRealisations = document.querySelector('.icon-container.realisations');
+
+    // Réalisations elements
+    const popupRealisationsMask = document.getElementById('popup-realisations-mask');
+    const closeRealisationsBtn = document.getElementById('close-realisations-btn');
     const iconeJaune = document.getElementById('icone-jaune');
 
-    const popupMask = document.getElementById('popup-realisations-mask');
-    const closeBtn = document.getElementById('close-realisations-btn');
+    // Presse elements
+    const iconPresse = document.querySelector('.icon-container.presse');
+    const popupPresseMask = document.getElementById('popup-presse-mask');
+    const closePresseBtn = document.getElementById('close-presse-btn');
+    const iconePresse = document.getElementById('icone-presse');
 
-    // Fermer l'intro
+    // Fermer intro
     function closeIntro() {
       alphaMask.classList.add('hidden');
-      introPopup.classList.add('hidden');
-
       setTimeout(() => {
-        iconContainer.style.display = 'inline-block';
-      }, 500);
+        iconRealisations.style.display = 'inline-block';
+      }, 300);
     }
 
-    // Afficher Réalisations
+    // Ouvrir réalisations
     iconeJaune.addEventListener('click', () => {
-      popupMask.classList.remove('hidden');
+      popupRealisationsMask.classList.remove('hidden');
     });
 
-    // Fermer Réalisations
-    closeBtn.addEventListener('click', () => {
-      popupMask.classList.add('hidden');
+    // Fermer réalisations
+    closeRealisationsBtn.addEventListener('click', () => {
+      popupRealisationsMask.classList.add('hidden');
+      iconPresse.style.display = 'inline-block'; // Affiche icône "Presse"
     });
 
-    // Init
+    // Ouvrir presse
+    iconePresse.addEventListener('click', () => {
+      popupPresseMask.classList.remove('hidden');
+    });
+
+    // Fermer presse
+    closePresseBtn.addEventListener('click', () => {
+      popupPresseMask.classList.add('hidden');
+      // Tu peux ici afficher une autre icône ou lancer une autre étape
+    });
+
+    // Initialisation
     window.onload = () => {
-      if (nextBtn) {
-        nextBtn.addEventListener('click', closeIntro);
-      } else {
-        console.error("Le bouton n'a pas été trouvé.");
-      }
+      nextBtn.addEventListener('click', closeIntro);
     };
   </script>
 
