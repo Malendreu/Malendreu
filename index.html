@@ -132,9 +132,15 @@
 
     // Fonction pour fermer le pop-up et l'alpha
     function closeIntro() {
-      alphaMask.classList.add('hidden'); // Cacher le masque alpha
-      introPopup.classList.add('hidden'); // Cacher le pop-up
-      iconContainer.style.display = 'inline-block'; // Afficher l'icône
+      // Cacher le masque alpha et le pop-up
+      alphaMask.classList.add('hidden');
+      introPopup.classList.add('hidden');
+
+      // Afficher l'icône jaune après un délai pour s'assurer que le pop-up est bien caché
+      setTimeout(function() {
+        iconContainer.style.display = 'inline-block'; // Afficher l'icône
+        console.log("L'icône jaune est maintenant visible");
+      }, 500); // Délai de 500ms
     }
 
     // Ajouter un gestionnaire d'événements après le chargement du DOM
