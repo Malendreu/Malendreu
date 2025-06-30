@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CV Narratif</title>
   <style>
-    /* Style général */
     body {
       font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
       background: url('Room2.png') no-repeat center center fixed;
@@ -20,30 +19,33 @@
       position: relative;
     }
 
-    /* Positionnement absolu pour l'icône jaune */
-    #icone-jaune {
+    /* Positionnement absolu de l'icône container au bon endroit */
+    .icon-container {
       position: absolute;
       top: 90px;
-      left: 566px;
-      transform: translate(-50%, -50%);
+      left: 556px;
+      display: inline-block;
+      position: relative; /* pour le tooltip */
+      cursor: pointer; /* optionnel */
+      z-index: 15;
+      transition: transform 0.3s ease;
+    }
+
+    /* L'icône jaune en position statique (sans top/left) */
+    #icone-jaune {
+      position: static;
       width: 25px;
       height: auto;
-      z-index: 15;
-      /* border: 2px solid red;  <-- bordure rouge supprimée */
+      /* Pas besoin de transform ici, sauf hover */
+      transition: transform 0.3s ease;
     }
 
-    /* Important pour le tooltip */
-    .icon-container {
-      position: relative;
-      display: inline-block;
-    }
-
-    /* Effet de survol pour l'icône */
+    /* Hover agrandit l'icône */
     .icon-container:hover #icone-jaune {
       transform: scale(1.5);
     }
 
-    /* Style du tooltip */
+    /* Tooltip */
     .tooltip {
       visibility: hidden;
       position: absolute;
@@ -58,11 +60,14 @@
       opacity: 0;
       transition: opacity 0.3s ease;
       z-index: 100;
+      white-space: nowrap;
+      pointer-events: none;
     }
 
     .icon-container:hover .tooltip {
       visibility: visible;
       opacity: 1;
+      pointer-events: auto;
     }
 
     /* Masque alpha pour l'intro */
@@ -82,9 +87,9 @@
     /* Contenu du popup */
     #intro-popup {
       position: relative;
-      width: 90%;
-      max-width: 700px;
-      height: 90%;
+      width: 80%;
+      max-width: 600px;
+      height: 80%;
       background: url('Intro.png') no-repeat center center;
       background-size: contain;
       background-position: center;
@@ -118,7 +123,6 @@
   <!-- Masque alpha et popup -->
   <div id="alpha-mask">
     <div id="intro-popup">
-      <!-- Le bouton pour passer à la page principale -->
       <button id="next-btn"></button>
     </div>
   </div>
@@ -130,35 +134,27 @@
   </div>
 
   <script>
-    // Sélectionner les éléments HTML
     const alphaMask = document.getElementById('alpha-mask');
     const introPopup = document.getElementById('intro-popup');
     const nextBtn = document.getElementById('next-btn');
     const iconContainer = document.querySelector('.icon-container');
     const iconeJaune = document.getElementById('icone-jaune');
 
-    // Fonction pour fermer le pop-up et l'alpha
     function closeIntro() {
-      // Cacher le masque alpha et le pop-up
       alphaMask.classList.add('hidden');
       introPopup.classList.add('hidden');
 
-      // Afficher l'icône jaune après un délai pour s'assurer que le pop-up est bien caché
-      setTimeout(function() {
-        iconContainer.style.display = 'inline-block'; // Afficher l'icône
+      setTimeout(() => {
+        iconContainer.style.display = 'inline-block';
         console.log("L'icône jaune est maintenant visible");
-        console.log("display actuel du container:", getComputedStyle(iconContainer).display);
-        console.log("display actuel de l’icône:", getComputedStyle(iconeJaune).display);
-      }, 500); // Délai de 500ms
+      }, 500);
     }
 
-    // Ajouter un gestionnaire d'événements après le chargement du DOM
-    window.onload = function() {
+    window.onload = () => {
       if (nextBtn) {
         nextBtn.addEventListener('click', closeIntro);
-        console.log("Écouteur d'événements ajouté au bouton.");
       } else {
-        console.log("Erreur : Le bouton n'a pas été trouvé.");
+        console.error("Le bouton n'a pas été trouvé.");
       }
     };
   </script>
