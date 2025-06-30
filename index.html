@@ -78,6 +78,44 @@
       z-index: 15; /* Assure que l'icône soit au-dessus de l'image de fond */
       display: none; /* Initialement cachée */
     }
+    /* Style de l'icône et du tooltip */
+.icon-container {
+  position: relative; /* Nécessaire pour positionner le tooltip par rapport à l'icône */
+  display: inline-block; /* Pour que l'image soit affichée en ligne */
+}
+
+/* Style de l'icône */
+#icone-jaune {
+  width: 50px; /* Tu peux ajuster la taille de l'icône */
+  transition: transform 0.3s ease; /* Animation pour le grossissement */
+}
+
+/* Effet de survol (hover) */
+.icon-container:hover #icone-jaune {
+  transform: scale(1.2); /* Agrandir l'icône de 20% */
+}
+
+/* Style du tooltip */
+.tooltip {
+  visibility: hidden; /* Masquer le tooltip par défaut */
+  position: absolute; /* Positionner le tooltip par rapport à l'icône */
+  bottom: 100%; /* Placer le tooltip juste au-dessus de l'icône */
+  left: 50%;
+  transform: translateX(-50%); /* Centrer le tooltip par rapport à l'icône */
+  background-color: rgba(0, 0, 0, 0.7); /* Fond sombre */
+  color: white; /* Texte blanc */
+  border-radius: 5px; /* Coins arrondis */
+  padding: 5px 10px;
+  font-size: 14px;
+  opacity: 0; /* Le tooltip est invisible par défaut */
+  transition: opacity 0.3s ease; /* Animation d'apparition */
+}
+
+/* Afficher le tooltip lorsque l'on survole l'icône */
+.icon-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1; /* Rendre le tooltip visible */
+}
   </style>
 </head>
 <body>
@@ -92,6 +130,11 @@
 
   <!-- Image de l'icône jaune positionnée -->
   <img id="icone-jaune" src="icone_jaune.png" />
+  <!-- Icône avec un tooltip -->
+<div class="icon-container">
+  <img id="icone-jaune" src="icone_jaune.png" alt="" />
+  <span class="tooltip">Réalisations</span>
+</div>
 
   <!-- Ajout de la fonction JavaScript à la fin -->
   <script>
