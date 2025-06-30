@@ -105,6 +105,9 @@
   #realisations-popup {
     background-image: url('Réalisations.png');
   }
+  #presse-popup {
+    background-image: url('presse.png');
+  }
 
   /* Bouton fermer */
   .popup button {
@@ -135,6 +138,13 @@
     </div>
   </div>
 
+  <!-- Popup Presse -->
+  <div id="presse-mask" class="alpha-mask hidden">
+    <div id="presse-popup" class="popup">
+      <button id="presse-close-btn" aria-label="Fermer"></button>
+    </div>
+  </div>
+
   <!-- Icône Réalisations -->
   <div class="icon-container realisations" style="display:none;">
     <img src="icone_jaune.png" alt="Icône Réalisations" />
@@ -142,7 +152,7 @@
   </div>
 
   <!-- Icône Presse -->
-  <div class="icon-container presse hidden">
+  <div class="icon-container presse" style="display:none;">
     <img src="icone_jaune.png" alt="Icône Presse" />
     <span class="tooltip">Presse</span>
   </div>
@@ -155,8 +165,13 @@
   const realisationsMask = document.getElementById('realisations-mask');
   const realisationsCloseBtn = document.getElementById('realisations-close-btn');
 
+  const presseMask = document.getElementById('presse-mask');
+  const presseCloseBtn = document.getElementById('presse-close-btn');
+
   const iconRealisations = document.querySelector('.icon-container.realisations');
   const iconPresse = document.querySelector('.icon-container.presse');
+
+  // Au début, icônes cachées
 
   // Fermer popup intro -> afficher icône Réalisations
   introNextBtn.addEventListener('click', () => {
@@ -164,17 +179,25 @@
     iconRealisations.style.display = 'inline-block';
   });
 
-  // Cliquer icône Réalisations -> ouvrir popup réalisations + cacher icônes
+  // Cliquer icône Réalisations -> ouvrir popup réalisations
   iconRealisations.addEventListener('click', () => {
     realisationsMask.classList.remove('hidden');
-    iconRealisations.style.display = 'none';
-    iconPresse.style.display = 'none';
   });
 
-  // Fermer popup réalisations -> afficher icône Presse, cacher popup et masque
+  // Fermer popup réalisations -> afficher icône Presse (sans cacher Réalisations)
   realisationsCloseBtn.addEventListener('click', () => {
     realisationsMask.classList.add('hidden');
     iconPresse.style.display = 'inline-block';
+  });
+
+  // Cliquer icône Presse -> ouvrir popup presse
+  iconPresse.addEventListener('click', () => {
+    presseMask.classList.remove('hidden');
+  });
+
+  // Fermer popup presse -> cacher popup seulement (icônes restent visibles)
+  presseCloseBtn.addEventListener('click', () => {
+    presseMask.classList.add('hidden');
   });
 </script>
 
