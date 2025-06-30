@@ -49,7 +49,7 @@
 
     /* Bouton pour fermer le pop-up */
     #next-btn {
-      background: url('boutonnext.png') no-repeat center center;
+      background: url('buttonnext.png') no-repeat center center;
       background-size: contain;
       border: none;
       width: 150px;
@@ -72,19 +72,27 @@
   <div id="alpha-mask">
     <div id="intro-popup">
       <!-- Le bouton pour passer à la page principale -->
-      <bouton id="next-btn" onclick="closeIntro()"></bouton>
+      <button id="next-btn"></button>
     </div>
   </div>
 
+  <!-- Ajout de la fonction JavaScript à la fin -->
   <script>
     // Fonction pour fermer l'intro et enlever l'alpha
     function closeIntro() {
       console.log("Le bouton a été cliqué");
+
+      // Récupérer les éléments
       const alphaMask = document.getElementById('alpha-mask');
       const introPopup = document.getElementById('intro-popup');
       
-      // Cache l'alpha mask et le pop-up
+      // Cacher l'alpha mask et le pop-up
       alphaMask.classList.add('hidden');
       introPopup.classList.add('hidden');
       
-      /
+      console.log("Alpha mask et popup sont cachés");
+    }
+  </script>
+
+</body>
+</html>
