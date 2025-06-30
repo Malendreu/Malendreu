@@ -1,144 +1,132 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page avec Pop-up et Icône</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CV Narratif</title>
   <style>
-    /* Style de la page */
+    /* Style général */
     body {
+      font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('Room2.png') no-repeat center center fixed;
+      background-size: cover; /* Cela assure que l'image couvre la fenêtre sans dépasser */
+      background-position: center; /* Centrer l'image */
       margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
-
-    #popup {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8); /* Fond sombre */
+      height: 100vh; /* S'assure que la page occupe toute la hauteur */
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
+      overflow: hidden;
+      position: relative; /* Pour que le positionnement absolu de l'icône soit relatif à body */
     }
 
-    .popup-content {
-      text-align: center;
-    }
-
-    .popup-image {
-      max-width: 90%; /* S'assurer que l'image reste dans les limites */
-      height: auto;
-    }
-
-    .next-button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    #alpha {
+    /* Masque alpha pour l'intro */
+    #alpha-mask {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.5); /* Masque alpha */
-      z-index: 9998;
-      display: none; /* Initialement caché */
+      background-color: rgba(0, 0, 0, 0.7); /* Alpha noir pour flouter l’arrière-plan */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10; /* Assure que le masque soit au-dessus du bg */
     }
 
-    .icon-container {
-      position: absolute;
-      top: 200px; /* Position de l'icône (ajustable) */
-      left: 50%;
-      transform: translateX(-50%);
-      display: inline-block; /* Pour que l'icône soit affichée en ligne */
+    /* Contenu du popup */
+    #intro-popup {
+      position: relative;
+      width: 80%;
+      max-width: 600px;
+      height: 80%;
+      background: url('Intro.png') no-repeat center center;
+      background-size: contain; /* S'assure que l'image ne dépasse pas */
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end; /* Positionne le bouton en bas */
+      z-index: 20; /* Assure que l'image soit au-dessus de l'alpha mask */
     }
 
+    /* Bouton pour fermer le pop-up */
+    #next-btn {
+      background: url('boutonnext.png') no-repeat center center;
+      background-size: contain;
+      border: none;
+      width: 150px;
+      height: 50px;
+      cursor: pointer;
+      z-index: 30; /* Assure que le bouton est au-dessus de tout */
+      position: relative;
+      margin-bottom: 30px; /* Assure qu'il est bien visible en bas */
+    }
+
+    /* Cache le popup et le masque alpha */
+    .hidden {
+      display: none !important; /* Assure que les éléments soient cachés */
+    }
+
+    /* Positionnement absolu pour l'icône jaune */
     #icone-jaune {
-      width: 50px; /* Taille initiale de l'icône */
-      transition: transform 0.3s ease; /* Animation pour le grossissement */
-    }
-
-    /* Effet de survol (hover) pour l'icône */
-    .icon-container:hover #icone-jaune {
-      transform: scale(1.2); /* Agrandir l'icône de 20% */
-    }
-
-    /* Style du tooltip */
-    .tooltip {
-      visibility: hidden; /* Masquer le tooltip par défaut */
-      position: absolute; /* Positionner le tooltip par rapport à l'icône */
-      bottom: 100%; /* Placer le tooltip juste au-dessus de l'icône */
-      left: 50%;
-      transform: translateX(-50%); /* Centrer le tooltip par rapport à l'icône */
-      background-color: rgba(0, 0, 0, 0.7); /* Fond sombre */
-      color: white; /* Texte blanc */
-      border-radius: 5px; /* Coins arrondis */
-      padding: 5px 10px;
-      font-size: 14px;
-      opacity: 0; /* Le tooltip est invisible par défaut */
-      transition: opacity 0.3s ease; /* Animation d'apparition */
-    }
-
-    /* Afficher le tooltip lorsque l'on survole l'icône */
-    .icon-container:hover .tooltip {
-      visibility: visible;
-      opacity: 1; /* Rendre le tooltip visible */
+      position: absolute;
+      top: 90px; /* Position verticale ajustée */
+      left: 556px; /* Position horizontale ajustée */
+      transform: translate(-50%, -50%); /* Centre parfaitement l'icône */
+      width: 25px; /* Taille réduite de l'icône */
+      height: auto;
+      z-index: 15; /* Assure que l'icône soit au-dessus de l'image de fond */
+      display: none; /* Initialement cachée */
     }
   </style>
 </head>
 <body>
 
-  <!-- Pop-up de l'intro -->
-  <div id="popup" class="popup">
-    <div class="popup-content">
-      <img src="Intro.png" alt="Intro" class="popup-image">
-      <button id="nextButton" class="next-button">
-        <img src="boutonnext.png" alt="Next">
-      </button>
+  <!-- Masque alpha et popup -->
+  <div id="alpha-mask">
+    <div id="intro-popup">
+      <!-- Le bouton pour passer à la page principale -->
+      <bouton id="next-btn"></bouton>
     </div>
   </div>
 
-  <!-- Alpha (masque de fond) -->
-  <div id="alpha" class="alpha"></div>
+  <!-- Image de l'icône jaune positionnée -->
+  <img id="icone-jaune" src="icone_jaune.png" alt="Icône Jaune" />
 
-  <!-- Icône à afficher après la fermeture du pop-up -->
-  <div class="icon-container" style="display:none;">
-    <img id="icone-jaune" src="icone_jaune.png" alt="Icône Jaune" />
-    <span class="tooltip">Réalisations</span>
-  </div>
-
+  <!-- Ajout de la fonction JavaScript à la fin -->
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const popup = document.getElementById('popup');
-      const alpha = document.getElementById('alpha');
-      const nextButton = document.getElementById('nextButton');
+    // Fonction pour fermer l'intro et enlever l'alpha
+    function closeIntro() {
+      console.log("Le bouton a été cliqué");
+
+      // Récupérer les éléments
+      const alphaMask = document.getElementById('alpha-mask');
+      const introPopup = document.getElementById('intro-popup');
       const iconeJaune = document.getElementById('icone-jaune');
-      const tooltip = document.querySelector('.tooltip');
-      const iconContainer = document.querySelector('.icon-container');
+      
+      // Cacher l'alpha mask et le pop-up
+      alphaMask.classList.add('hidden');
+      introPopup.classList.add('hidden');
+      
+      // Afficher l'icône jaune après un délai (pour laisser le temps au pop-up de se fermer)
+      setTimeout(function() {
+        iconeJaune.style.display = 'block'; // Afficher l'icône après la fermeture du pop-up
+        console.log("L'icône jaune est maintenant visible");
+      }, 500); // Délai de 500ms, ajustable si nécessaire
+    }
 
-      // Afficher l'alpha et le popup au début
-      alpha.style.display = 'block';
-
-      // Fonction pour fermer le pop-up et l'alpha
-      function closeIntro() {
-        popup.style.display = 'none'; // Cacher le pop-up
-        alpha.style.display = 'none'; // Cacher l'alpha
-        iconContainer.style.display = 'inline-block'; // Afficher l'icône
+    // Ajouter un gestionnaire d'événements après le chargement du DOM
+    window.onload = function() {
+      // Sélectionner le bouton et ajouter un écouteur d'événements
+      const nextBtn = document.getElementById('next-btn');
+      
+      if (nextBtn) {
+        nextBtn.addEventListener('click', closeIntro);
+        console.log("Écouteur d'événements ajouté au bouton.");
+      } else {
+        console.log("Erreur : Le bouton n'a pas été trouvé.");
       }
-
-      // Événement lorsque le bouton "Next" est cliqué
-      nextButton.addEventListener('click', function () {
-        console.log('Le bouton a été cliqué');
-        closeIntro();
-      });
-    });
+    };
   </script>
 
 </body>
