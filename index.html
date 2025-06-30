@@ -5,17 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CV Narratif</title>
   <style>
-    /*test*/
-    #icone-jaune {
-  position: absolute;
-  top: 90px;
-  left: 566px;
-  transform: translate(-50%, -50%);
-  width: 25px;
-  height: auto;
-  z-index: 15;
-
-}
     /* Style général */
     body {
       font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
@@ -29,6 +18,51 @@
       align-items: center;
       overflow: hidden;
       position: relative;
+    }
+
+    /* Positionnement absolu pour l'icône jaune */
+    #icone-jaune {
+      position: absolute;
+      top: 90px;
+      left: 566px;
+      transform: translate(-50%, -50%);
+      width: 25px;
+      height: auto;
+      z-index: 15;
+      /* border: 2px solid red;  <-- bordure rouge supprimée */
+    }
+
+    /* Important pour le tooltip */
+    .icon-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Effet de survol pour l'icône */
+    .icon-container:hover #icone-jaune {
+      transform: scale(1.5);
+    }
+
+    /* Style du tooltip */
+    .tooltip {
+      visibility: hidden;
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 100;
+    }
+
+    .icon-container:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
     }
 
     /* Masque alpha pour l'intro */
@@ -77,43 +111,6 @@
     .hidden {
       display: none !important;
     }
-
-    /* Positionnement absolu pour l'icône jaune */
-    #icone-jaune {
-      position: absolute;
-      top: 90px;
-      left: 566px;
-      transform: translate(-50%, -50%);
-      width: 25px;
-      height: auto;
-      z-index: 15;
-    }
-
-    /* Effet de survol pour l'icône */
-    .icon-container:hover #icone-jaune {
-      transform: scale(1.5);
-    }
-
-    /* Style du tooltip */
-    .tooltip {
-      visibility: hidden;
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: rgba(0, 0, 0, 0.7);
-      color: white;
-      border-radius: 5px;
-      padding: 5px 10px;
-      font-size: 14px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .icon-container:hover .tooltip {
-      visibility: visible;
-      opacity: 1;
-    }
   </style>
 </head>
 <body>
@@ -146,15 +143,13 @@
       alphaMask.classList.add('hidden');
       introPopup.classList.add('hidden');
 
- // Afficher l'icône jaune après un délai pour s'assurer que le pop-up est bien caché
-  setTimeout(function() {
-  iconContainer.style.display = 'inline-block'; // Afficher l'icône
-  console.log("L'icône jaune est maintenant visible");
-
-  // Logs à l'intérieur du setTimeout pour voir l'état réel après modification
-  console.log("display actuel du container:", getComputedStyle(iconContainer).display);
-  console.log("display actuel de l’icône:", getComputedStyle(iconeJaune).display);
-  }, 500); // Délai de 500ms
+      // Afficher l'icône jaune après un délai pour s'assurer que le pop-up est bien caché
+      setTimeout(function() {
+        iconContainer.style.display = 'inline-block'; // Afficher l'icône
+        console.log("L'icône jaune est maintenant visible");
+        console.log("display actuel du container:", getComputedStyle(iconContainer).display);
+        console.log("display actuel de l’icône:", getComputedStyle(iconeJaune).display);
+      }, 500); // Délai de 500ms
     }
 
     // Ajouter un gestionnaire d'événements après le chargement du DOM
