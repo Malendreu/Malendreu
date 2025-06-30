@@ -5,52 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CV Narratif</title>
   <style>
-    /* Le style reste inchangé */
+    /* Style général */
     body {
       font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
       background: url('Room2.png') no-repeat center center fixed;
       background-size: cover;
-      color: #E6E6FA;
-      max-width: 750px;
-      margin: 0px auto;
-      padding: 20px;
-      border-radius: 10px;
-      background-color: rgba(0, 0, 0, 0.6); /* fallback */
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
     }
-    /* Autres styles inchangés... */
+
+    /* Masque alpha pour l'intro */
+    #alpha-mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* Alpha noir pour flouter l’arrière-plan */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    /* Contenu du popup */
+    #intro-popup {
+      position: relative;
+      width: 80%;
+      max-width: 600px;
+      height: 80%;
+      background: url('Intro.png') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Bouton pour fermer le pop-up */
+    #next-btn {
+      position: absolute;
+      bottom: 20px;
+      background: url('buttonnext.png') no-repeat center center;
+      background-size: contain;
+      border: none;
+      width: 150px;
+      height: 50px;
+      cursor: pointer;
+    }
+
+    /* Cache le popup après le clic */
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <div id="game-box">
-    <div id="story"></div>
-    <div id="choices" class="choice"></div>
+
+  <!-- Masque alpha et popup -->
+  <div id="alpha-mask">
+    <div id="intro-popup">
+      <!-- Le bouton pour passer à la page principale -->
+      <button id="next-btn" onclick="closeIntro()"></button>
+    </div>
   </div>
 
   <script>
-    const storyText = {
-      start: {
-        text: "Vous avez trouvé mon bureau. Explorez-le pour en savoir plus sur moi.",
-       
-      },
-      
-     
-
-    const storyEl = document.getElementById('story');
-    const choicesEl = document.getElementById('choices');
-
-    function renderNode(nodeKey) {
-      const node = storyText[nodeKey];
-      storyEl.innerHTML = '';
-      choicesEl.innerHTML = '';
-
-      // Texte avec retours à la ligne
-      let paragraphs = node.text.split('\n').map(p => `<p>${p}</p>`).join('');
-      storyEl.innerHTML = paragraphs;
-
-      
-
-    // Démarrer
-    renderNode('start');
+    // Fonction pour fermer l'intro et enlever l'alpha
+    function closeIntro() {
+      const alphaMask = document.getElementById('alpha-mask');
+      alphaMask.classList.add('hidden'); // Cache le masque alpha et le popup
+    }
   </script>
 
 </body>
