@@ -79,10 +79,12 @@
   <script>
     // Fonction pour fermer l'intro et enlever l'alpha
     function closeIntro() {
+      console.log("Le bouton a été cliqué");
       const alphaMask = document.getElementById('alpha-mask');
-      alphaMask.classList.add('hidden'); // Cache le masque alpha et le popup
-    }
-  </script>
-
-</body>
-</html>
+      const introPopup = document.getElementById('intro-popup');
+      
+      // Cache l'alpha mask et le pop-up
+      alphaMask.classList.add('hidden');
+      introPopup.classList.add('hidden');
+      
+      /
