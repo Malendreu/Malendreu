@@ -29,7 +29,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 10;
+      z-index: 10; /* Assure que le masque soit au-dessus du bg */
     }
 
     /* Contenu du popup */
@@ -39,11 +39,12 @@
       max-width: 600px;
       height: 80%;
       background: url('Intro.png') no-repeat center center;
-      background-size: contain; /* S'assure que l'image se redimensionne sans dépasser */
+      background-size: contain; /* S'assure que l'image ne dépasse pas */
       background-position: center;
       display: flex;
       justify-content: center;
       align-items: flex-end; /* Positionne le bouton en bas */
+      z-index: 20; /* Assure que l'image soit au-dessus de l'alpha mask */
     }
 
     /* Bouton pour fermer le pop-up */
@@ -54,8 +55,9 @@
       width: 150px;
       height: 50px;
       cursor: pointer;
-      z-index: 20;
-      margin-bottom: 20px; /* Un peu d'espace en bas pour que le bouton ne touche pas le bord */
+      z-index: 30; /* Assure que le bouton est au-dessus de tout */
+      position: relative;
+      margin-bottom: 30px; /* Assure qu'il est bien visible en bas */
     }
 
     /* Cache le popup après le clic */
