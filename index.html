@@ -92,6 +92,19 @@
       
       console.log("Alpha mask et popup sont cachés");
     }
+
+    // Ajouter un gestionnaire d'événements après le chargement du DOM
+    window.onload = function() {
+      // Sélectionner le bouton et ajouter un écouteur d'événement
+      const nextBtn = document.getElementById('next-btn');
+      
+      if (nextBtn) {
+        nextBtn.addEventListener('click', closeIntro);
+        console.log("Écouteur d'événements ajouté au bouton.");
+      } else {
+        console.log("Erreur : Le bouton n'a pas été trouvé.");
+      }
+    };
   </script>
 
 </body>
