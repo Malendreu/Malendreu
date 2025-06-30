@@ -11,12 +11,13 @@
       background: url('Room2.png') no-repeat center center fixed;
       background-size: cover; /* Cela assure que l'image couvre la fenêtre sans dépasser */
       background-position: center; /* Centrer l'image */
-      margin: 10;
+      margin: 0;
       height: 100vh; /* S'assure que la page occupe toute la hauteur */
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
+      position: relative; /* Pour que le positionnement absolu de l'icône soit relatif à body */
     }
 
     /* Masque alpha pour l'intro */
@@ -65,6 +66,16 @@
     .hidden {
       display: none !important; /* Assure que les éléments soient cachés */
     }
+
+    /* Positionnement absolu pour l'icône jaune */
+    #icone-jaune {
+      position: absolute;
+      top: 30%; /* Position verticale - ajustable */
+      left: 40%; /* Position horizontale - ajustable */
+      width: 100px; /* Taille de l'icône - ajustable */
+      height: auto;
+      z-index: 15; /* Assure que l'icône soit au-dessus de l'image de fond */
+    }
   </style>
 </head>
 <body>
@@ -76,6 +87,9 @@
       <bouton id="next-btn"></bouton>
     </div>
   </div>
+
+  <!-- Image de l'icône jaune positionnée -->
+  <img id="icone-jaune" src="icone_jaune.png" alt="Icône Jaune" />
 
   <!-- Ajout de la fonction JavaScript à la fin -->
   <script>
@@ -96,7 +110,7 @@
 
     // Ajouter un gestionnaire d'événements après le chargement du DOM
     window.onload = function() {
-      // Sélectionner le bouton et ajouter un écouteur d'événement
+      // Sélectionner le bouton et ajouter un écouteur d'événements
       const nextBtn = document.getElementById('next-btn');
       
       if (nextBtn) {
