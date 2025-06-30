@@ -12,41 +12,33 @@
       background-position: center;
       margin: 0;
       height: 100vh;
-      /*display: flex;
-      justify-content: center;
-      align-items: center;*/
       overflow: hidden;
       position: relative;
     }
 
-    /* Positionnement absolu de l'icône container au bon endroit */
+    /* Icône */
     .icon-container {
       position: absolute;
       top: 90px;
       left: 556px;
       display: inline-block;
-      position: relative; /* pour le tooltip */
-      cursor: pointer; /* optionnel */
+      position: relative;
+      cursor: pointer;
       z-index: 15;
       transition: transform 0.3s ease;
-      
     }
 
-    /* L'icône jaune en position statique (sans top/left) */
     #icone-jaune {
       position: static;
       width: 25px;
       height: auto;
-      /* Pas besoin de transform ici, sauf hover */
       transition: transform 0.3s ease;
     }
 
-    /* Hover agrandit l'icône */
     .icon-container:hover #icone-jaune {
       transform: scale(1.5);
     }
 
-    /* Tooltip */
     .tooltip {
       visibility: hidden;
       position: absolute;
@@ -71,7 +63,7 @@
       pointer-events: auto;
     }
 
-    /* Masque alpha pour l'intro */
+    /* Popup Intro */
     #alpha-mask {
       position: fixed;
       top: 0;
@@ -85,7 +77,6 @@
       z-index: 10;
     }
 
-    /* Contenu du popup */
     #intro-popup {
       position: relative;
       width: 90%;
@@ -100,20 +91,48 @@
       z-index: 20;
     }
 
-    /* Bouton pour fermer le pop-up */
-    #next-btn {
+    /* Popup Réalisations */
+    #popup-realisations-mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    #popup-realisations {
+      position: relative;
+      width: 90%;
+      max-width: 800px;
+      height: 90%;
+      background: url('Réalisations.png') no-repeat center center;
+      background-size: contain;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 110;
+    }
+
+    /* Bouton Next (réutilisable) */
+    .next-button {
       background: url('boutonnext.png') no-repeat center center;
       background-size: contain;
       border: none;
       width: 150px;
       height: 50px;
       cursor: pointer;
-      z-index: 30;
+      z-index: 120;
       position: relative;
       margin-bottom: 30px;
     }
 
-    /* Cache le popup et le masque alpha */
+    /* Cacher les éléments */
     .hidden {
       display: none !important;
     }
@@ -121,17 +140,24 @@
 </head>
 <body>
 
-  <!-- Masque alpha et popup -->
+  <!-- Popup Intro -->
   <div id="alpha-mask">
     <div id="intro-popup">
-      <button id="next-btn"></button>
+      <button id="next-btn" class="next-button"></button>
     </div>
   </div>
 
-  <!-- Icône à afficher après la fermeture du pop-up -->
+  <!-- Icône Réalisations -->
   <div class="icon-container" style="display:none;">
     <img id="icone-jaune" src="icone_jaune.png" alt="Icône Jaune" />
     <span class="tooltip">Réalisations</span>
+  </div>
+
+  <!-- Popup Réalisations -->
+  <div id="popup-realisations-mask" class="hidden">
+    <div id="popup-realisations">
+      <button id="close-realisations-btn" class="next-button"></button>
+    </div>
   </div>
 
   <script>
@@ -141,16 +167,30 @@
     const iconContainer = document.querySelector('.icon-container');
     const iconeJaune = document.getElementById('icone-jaune');
 
+    const popupMask = document.getElementById('popup-realisations-mask');
+    const closeBtn = document.getElementById('close-realisations-btn');
+
+    // Fermer l'intro
     function closeIntro() {
       alphaMask.classList.add('hidden');
       introPopup.classList.add('hidden');
 
       setTimeout(() => {
         iconContainer.style.display = 'inline-block';
-        console.log("L'icône jaune est maintenant visible");
       }, 500);
     }
 
+    // Afficher Réalisations
+    iconeJaune.addEventListener('click', () => {
+      popupMask.classList.remove('hidden');
+    });
+
+    // Fermer Réalisations
+    closeBtn.addEventListener('click', () => {
+      popupMask.classList.add('hidden');
+    });
+
+    // Init
     window.onload = () => {
       if (nextBtn) {
         nextBtn.addEventListener('click', closeIntro);
