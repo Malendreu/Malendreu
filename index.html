@@ -9,15 +9,17 @@
       font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
       background: url('Room2.png') no-repeat center center fixed;
       background-size: cover;
+      background-position: center;
       margin: 0;
       height: 100vh;
       overflow: hidden;
       position: relative;
-      z-index: 1;
     }
 
     .icon-container {
       position: absolute;
+      top: 90px;
+      left: 556px;
       display: inline-block;
       position: relative;
       cursor: pointer;
@@ -25,23 +27,20 @@
       transition: transform 0.3s ease;
     }
 
-    .icon-container.realisations {
-      top: 90px;
-      left: 556px;
-    }
-
+    /* Position de la deuxième icône "presse" */
     .icon-container.presse {
-      top: 200px;
-      left: 400px;
+      top: 150px; /* à ajuster selon besoin */
+      left: 600px; /* à ajuster selon besoin */
     }
 
-    .icon-container img {
+    #icone-jaune {
+      position: static;
       width: 25px;
       height: auto;
       transition: transform 0.3s ease;
     }
 
-    .icon-container:hover img {
+    .icon-container:hover #icone-jaune {
       transform: scale(1.5);
     }
 
@@ -70,17 +69,24 @@
     }
 
     /* Masques alpha */
-    .popup-mask {
+    .alpha-mask {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background-color: rgba(0, 0, 0, 0.7);
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1000;
+      z-index: 10;
     }
 
+    .hidden {
+      display: none !important;
+    }
+
+    /* Popups communs */
     .popup {
       position: relative;
       width: 90%;
@@ -92,125 +98,116 @@
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      z-index: 1001;
+      z-index: 20;
     }
 
     #intro-popup {
       background-image: url('Intro.png');
     }
-
-    #popup-realisations {
+    #realisations-popup {
       background-image: url('Réalisations.png');
     }
 
-    #popup-presse {
-      background-image: url('presse.png');
-    }
-
-    .next-button {
+    /* Boutons */
+    .btn-close {
       background: url('boutonnext.png') no-repeat center center;
       background-size: contain;
       border: none;
       width: 150px;
       height: 50px;
       cursor: pointer;
-      z-index: 120;
+      z-index: 30;
       position: relative;
       margin-bottom: 30px;
-    }
-
-    .hidden {
-      display: none !important;
     }
   </style>
 </head>
 <body>
 
-  <!-- Popup d'introduction -->
-  <div id="alpha-mask" class="popup-mask">
+  <!-- Masque alpha et popup intro -->
+  <div id="alpha-mask" class="alpha-mask">
     <div id="intro-popup" class="popup">
-      <button id="next-btn" class="next-button"></button>
+      <button id="next-btn" class="btn-close"></button>
     </div>
   </div>
 
-  <!-- Icône Réalisations -->
-  <div class="icon-container realisations" style="display: none;">
+  <!-- Masque alpha et popup réalisations -->
+  <div id="alpha-mask-realisations" class="alpha-mask hidden">
+    <div id="realisations-popup" class="popup">
+      <button id="close-realisations-btn" class="btn-close"></button>
+    </div>
+  </div>
+
+  <!-- Icône à afficher après intro -->
+  <div class="icon-container" id="icon-narratif" style="display:none;">
     <img id="icone-jaune" src="icone_jaune.png" alt="Icône Jaune" />
     <span class="tooltip">Réalisations</span>
   </div>
 
-  <!-- Popup Réalisations -->
-  <div id="popup-realisations-mask" class="popup-mask hidden">
-    <div id="popup-realisations" class="popup">
-      <button id="close-realisations-btn" class="next-button"></button>
-    </div>
-  </div>
-
-  <!-- Icône Presse -->
-  <div class="icon-container presse" style="display: none;">
-    <img id="icone-presse" src="icone_jaune.png" alt="Icône Presse" />
+  <!-- Nouvelle icône "Presse" -->
+  <div class="icon-container presse" id="icon-presse" style="display:none;">
+    <img src="presse.png" alt="Icône Presse" />
     <span class="tooltip">Presse</span>
   </div>
 
-  <!-- Popup Presse -->
-  <div id="popup-presse-mask" class="popup-mask hidden">
-    <div id="popup-presse" class="popup">
-      <button id="close-presse-btn" class="next-button"></button>
-    </div>
-  </div>
+<script>
+  const alphaMask = document.getElementById('alpha-mask');
+  const introPopup = document.getElementById('intro-popup');
+  const nextBtn = document.getElementById('next-btn');
 
-  <script>
-    // Intro
-    const alphaMask = document.getElementById('alpha-mask');
-    const nextBtn = document.getElementById('next-btn');
-    const iconRealisations = document.querySelector('.icon-container.realisations');
+  const alphaMaskRealisations = document.getElementById('alpha-mask-realisations');
+  const realisationsPopup = document.getElementById('realisations-popup');
+  const closeRealisationsBtn = document.getElementById('close-realisations-btn');
 
-    // Réalisations
-    const popupRealisationsMask = document.getElementById('popup-realisations-mask');
-    const closeRealisationsBtn = document.getElementById('close-realisations-btn');
-    const iconeJaune = document.getElementById('icone-jaune');
+  const iconNarratif = document.getElementById('icon-narratif');
+  const iconPresse = document.getElementById('icon-presse');
 
-    // Presse
-    const iconPresse = document.querySelector('.icon-container.presse');
-    const popupPresseMask = document.getElementById('popup-presse-mask');
-    const closePresseBtn = document.getElementById('close-presse-btn');
-    const iconePresse = document.getElementById('icone-presse');
-
-    // Fermer le popup d’intro
-    function closeIntro() {
-      alphaMask.classList.add('hidden');
-      setTimeout(() => {
-        iconRealisations.style.display = 'inline-block';
-      }, 300);
-    }
-
-    // Clic sur l’icône Réalisations
-    iconeJaune.addEventListener('click', () => {
-        console.log("✅ Clic sur Réalisations détecté");
-      popupRealisationsMask.classList.remove('hidden');
+  // Fonction pour cacher toutes les icônes
+  function hideIcons() {
+    document.querySelectorAll('.icon-container').forEach(icon => {
+      icon.classList.add('hidden');
     });
+  }
 
-    // Fermer le popup Réalisations
-    closeRealisationsBtn.addEventListener('click', () => {
-      popupRealisationsMask.classList.add('hidden');
-      iconPresse.style.display = 'inline-block';
-    });
+  // Fonction pour montrer toutes les icônes (après intro, on affiche les 2)
+  function showIcons() {
+    iconNarratif.style.display = 'inline-block';
+    iconPresse.style.display = 'inline-block';
+    iconNarratif.classList.remove('hidden');
+    iconPresse.classList.remove('hidden');
+  }
 
-    // Clic sur l’icône Presse
-    iconePresse.addEventListener('click', () => {
-      popupPresseMask.classList.remove('hidden');
-    });
+  // Fermeture popup intro
+  function closeIntro() {
+    alphaMask.classList.add('hidden');
+    introPopup.classList.add('hidden');
 
-    // Fermer le popup Presse
-    closePresseBtn.addEventListener('click', () => {
-      popupPresseMask.classList.add('hidden');
-    });
+    setTimeout(() => {
+      showIcons();
+      console.log("Icônes affichées après intro");
+    }, 500);
+  }
 
-    // Lancer à la fin de l’intro
-    window.onload = () => {
-      nextBtn.addEventListener('click', closeIntro);
-    };
-  </script>
+  // Ouvrir popup réalisations
+  function openPopupRealisations() {
+    hideIcons();
+    alphaMaskRealisations.classList.remove('hidden');
+    realisationsPopup.classList.remove('hidden');
+  }
+
+  // Fermer popup réalisations
+  function closePopupRealisations() {
+    alphaMaskRealisations.classList.add('hidden');
+    realisationsPopup.classList.add('hidden');
+    showIcons();
+  }
+
+  window.onload = () => {
+    if(nextBtn) nextBtn.addEventListener('click', closeIntro);
+    if(iconNarratif) iconNarratif.addEventListener('click', openPopupRealisations);
+    if(closeRealisationsBtn) closeRealisationsBtn.addEventListener('click', closePopupRealisations);
+  };
+</script>
 
 </body>
 </html>
