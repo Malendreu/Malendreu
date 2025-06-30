@@ -148,11 +148,15 @@
       alphaMask.classList.add('hidden');
       introPopup.classList.add('hidden');
 
-      // Afficher l'icône jaune après un délai pour s'assurer que le pop-up est bien caché
-      setTimeout(function() {
-        iconContainer.style.display = 'inline-block'; // Afficher l'icône
-        console.log("L'icône jaune est maintenant visible");
-      }, 500); // Délai de 500ms
+ // Afficher l'icône jaune après un délai pour s'assurer que le pop-up est bien caché
+  setTimeout(function() {
+  iconContainer.style.display = 'inline-block'; // Afficher l'icône
+  console.log("L'icône jaune est maintenant visible");
+
+  // Logs à l'intérieur du setTimeout pour voir l'état réel après modification
+  console.log("display actuel du container:", getComputedStyle(iconContainer).display);
+  console.log("display actuel de l’icône:", getComputedStyle(iconeJaune).display);
+  }, 500); // Délai de 500ms
     }
 
     // Ajouter un gestionnaire d'événements après le chargement du DOM
