@@ -39,6 +39,11 @@
       left: 252px;
     }
 
+    .icon-container.conception {
+      top: 535px;
+      left: 760px;
+    }
+
     .icon-container img {
       width: 25px;
       height: auto;
@@ -109,6 +114,9 @@
     }
     #presse-popup {
       background-image: url('presse.png');
+    }
+    #conception-popup {
+      background-image: url('Conception.png');
     }
 
     .popup button {
@@ -216,6 +224,13 @@
     </div>
   </div>
 
+  <!-- Popup Conception -->
+  <div id="conception-mask" class="alpha-mask hidden">
+    <div id="conception-popup" class="popup">
+      <button id="conception-close-btn" aria-label="Fermer"></button>
+    </div>
+  </div>
+
   <!-- Icône Réalisations -->
   <div class="icon-container realisations" style="display:none;">
     <img src="icone_jaune.png" alt="Icône Réalisations" />
@@ -236,6 +251,12 @@
     <span class="tooltip">Lien</span>
   </div>
 
+  <!-- Icône Conception -->
+  <div class="icon-container conception" style="display:none;">
+    <img src="icone_rose.png" alt="Icône Conception" />
+    <span class="tooltip">Conception de jeux</span>
+  </div>
+
   <script>
     const introMask = document.getElementById('intro-mask');
     const introNextBtn = document.getElementById('intro-next-btn');
@@ -246,13 +267,18 @@
     const presseMask = document.getElementById('presse-mask');
     const presseCloseBtn = document.getElementById('presse-close-btn');
 
+    const conceptionMask = document.getElementById('conception-mask');
+    const conceptionCloseBtn = document.getElementById('conception-close-btn');
+
     const iconRealisations = document.querySelector('.icon-container.realisations');
     const iconPresse = document.querySelector('.icon-container.presse');
     const iconLien = document.querySelector('.icon-container.lien');
+    const iconConception = document.querySelector('.icon-container.conception');
 
     introNextBtn.addEventListener('click', () => {
       introMask.classList.add('hidden');
       iconRealisations.style.display = 'inline-block';
+      iconConception.style.display = 'inline-block';
     });
 
     iconRealisations.addEventListener('click', () => {
@@ -283,6 +309,14 @@
 
     iconLien.addEventListener('click', () => {
       window.open('https://editionsfides.com/collections/alexandre-maude', '_blank');
+    });
+
+    iconConception.addEventListener('click', () => {
+      conceptionMask.classList.remove('hidden');
+    });
+
+    conceptionCloseBtn.addEventListener('click', () => {
+      conceptionMask.classList.add('hidden');
     });
   </script>
 </body>
