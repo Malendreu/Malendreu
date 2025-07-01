@@ -1,199 +1,197 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CV Narratif</title>
-<style>
-  body {
-    font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
-    background: url('Room2.png') no-repeat center center fixed;
-    background-size: cover;
-    background-position: center;
-    margin: 0;
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CV Narratif</title>
+  <style>
+    body {
+      font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('Room2.png') no-repeat center center fixed;
+      background-size: cover;
+      background-position: center;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
 
-  .icon-container {
-    position: absolute;
-    display: inline-block;
-    position: relative;
-    cursor: pointer;
-    z-index: 20;
-    transition: transform 0.3s ease;
-  }
+    .icon-container {
+      position: absolute;
+      display: inline-block;
+      cursor: pointer;
+      z-index: 20;
+      transition: transform 0.3s ease;
+    }
 
-  .icon-container.realisations {
-    top: 90px;
-    left: 556px;
-  }
-
-  .icon-container.presse {
-    top: 300px;
-    left: 386px;
-  }
-
-  .icon-container.lien {
-    top: 306px;
-    left: 252px;
-  }
-
-  .icon-container img {
-    width: 25px;
-    height: auto;
-    transition: transform 0.3s ease;
-  }
-
-  .icon-container:hover img {
-    transform: scale(1.5);
-  }
-
-  .tooltip {
-    visibility: hidden;
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0,0,0,0.7);
-    color: white;
-    border-radius: 5px;
-    padding: 5px 10px;
-    font-size: 14px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 100;
-    white-space: nowrap;
-    pointer-events: none;
-  }
-
-  .icon-container:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .alpha-mask {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  .alpha-mask.hidden {
-    display: none;
-  }
-
-  .popup {
-    position: relative;
-    width: 90%;
-    max-width: 800px;
-    height: 90%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    z-index: 1100;
-  }
-
-  #intro-popup {
-    background-image: url('Intro.png');
-  }
-  #realisations-popup {
-    background-image: url('Réalisations.png');
-  }
-  #presse-popup {
-    background-image: url('presse.png');
-  }
-
-  .popup button {
-    background: url('boutonnext.png') no-repeat center center;
-    background-size: contain;
-    border: none;
-    width: 150px;
-    height: 50px;
-    cursor: pointer;
-    margin-bottom: 30px;
-    z-index: 1200;
-  }
-
-  @keyframes moveFromRealisations {
-    0% {
+    .icon-container.realisations {
       top: 90px;
       left: 556px;
-      opacity: 0;
-      transform: scale(0.5) rotate(0deg);
     }
-    50% {
-      opacity: 1;
-      transform: scale(1.2) rotate(10deg);
-    }
-    100% {
+
+    .icon-container.presse {
       top: 300px;
       left: 386px;
-      transform: scale(1) rotate(0deg);
     }
-  }
 
-  @keyframes moveFromRealisationsToLien {
-    0% {
-      top: 90px;
-      left: 556px;
-      opacity: 0;
-      transform: scale(0.5) rotate(0deg);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.2) rotate(-10deg);
-    }
-    100% {
+    .icon-container.lien {
       top: 306px;
       left: 252px;
-      transform: scale(1) rotate(0deg);
     }
-  }
 
-  .icon-container.presse.animate-entry {
-    animation: moveFromRealisations 1s ease-out forwards;
-    z-index: 30;
-  }
-
-  .icon-container.lien.animate-entry {
-    animation: moveFromRealisationsToLien 1s ease-out forwards;
-    z-index: 30;
-  }
-
-  .sparkle {
-    position: absolute;
-    top: -10px;
-    left: 10px;
-    width: 15px;
-    height: 15px;
-    background: radial-gradient(white, rgba(255,255,255,0));
-    border-radius: 50%;
-    opacity: 0;
-    animation: sparkle 0.8s ease-out forwards;
-    pointer-events: none;
-  }
-
-  @keyframes sparkle {
-    0%, 100% {
-      opacity: 0;
-      transform: scale(0);
+    .icon-container img {
+      width: 25px;
+      height: auto;
+      transition: transform 0.3s ease;
     }
-    50% {
-      opacity: 1;
+
+    .icon-container:hover img {
       transform: scale(1.5);
     }
-  }
-</style>
+
+    .tooltip {
+      visibility: hidden;
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0,0,0,0.7);
+      color: white;
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 100;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .icon-container:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .alpha-mask {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .alpha-mask.hidden {
+      display: none;
+    }
+
+    .popup {
+      position: relative;
+      width: 90%;
+      max-width: 800px;
+      height: 90%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 1100;
+    }
+
+    #intro-popup {
+      background-image: url('Intro.png');
+    }
+    #realisations-popup {
+      background-image: url('Réalisations.png');
+    }
+    #presse-popup {
+      background-image: url('presse.png');
+    }
+
+    .popup button {
+      background: url('boutonnext.png') no-repeat center center;
+      background-size: contain;
+      border: none;
+      width: 150px;
+      height: 50px;
+      cursor: pointer;
+      margin-bottom: 30px;
+      z-index: 1200;
+    }
+
+    @keyframes moveFromRealisations {
+      0% {
+        top: 90px;
+        left: 556px;
+        opacity: 0;
+        transform: scale(0.5) rotate(0deg);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(10deg);
+      }
+      100% {
+        top: 300px;
+        left: 386px;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes moveFromRealisationsToLien {
+      0% {
+        top: 90px;
+        left: 556px;
+        opacity: 0;
+        transform: scale(0.5) rotate(0deg);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(-10deg);
+      }
+      100% {
+        top: 306px;
+        left: 252px;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    .icon-container.presse.animate-entry {
+      animation: moveFromRealisations 1s ease-out forwards;
+      z-index: 30;
+    }
+
+    .icon-container.lien.animate-entry {
+      animation: moveFromRealisationsToLien 1s ease-out forwards;
+      z-index: 30;
+    }
+
+    .sparkle {
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      width: 15px;
+      height: 15px;
+      background: radial-gradient(white, rgba(255,255,255,0));
+      border-radius: 50%;
+      opacity: 0;
+      animation: sparkle 0.8s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes sparkle {
+      0%, 100% {
+        opacity: 0;
+        transform: scale(0);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.5);
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -238,61 +236,54 @@
     <span class="tooltip">Lien</span>
   </div>
 
-<script>
-  const introMask = document.getElementById('intro-mask');
-  const introNextBtn = document.getElementById('intro-next-btn');
+  <script>
+    const introMask = document.getElementById('intro-mask');
+    const introNextBtn = document.getElementById('intro-next-btn');
 
-  const realisationsMask = document.getElementById('realisations-mask');
-  const realisationsCloseBtn = document.getElementById('realisations-close-btn');
+    const realisationsMask = document.getElementById('realisations-mask');
+    const realisationsCloseBtn = document.getElementById('realisations-close-btn');
 
-  const presseMask = document.getElementById('presse-mask');
-  const presseCloseBtn = document.getElementById('presse-close-btn');
+    const presseMask = document.getElementById('presse-mask');
+    const presseCloseBtn = document.getElementById('presse-close-btn');
 
-  const iconRealisations = document.querySelector('.icon-container.realisations');
-  const iconPresse = document.querySelector('.icon-container.presse');
-  const iconLien = document.querySelector('.icon-container.lien');
+    const iconRealisations = document.querySelector('.icon-container.realisations');
+    const iconPresse = document.querySelector('.icon-container.presse');
+    const iconLien = document.querySelector('.icon-container.lien');
 
-  introNextBtn.addEventListener('click', () => {
-    introMask.classList.add('hidden');
-    iconRealisations.style.display = 'inline-block';
-  });
+    introNextBtn.addEventListener('click', () => {
+      introMask.classList.add('hidden');
+      iconRealisations.style.display = 'inline-block';
+    });
 
-  iconRealisations.addEventListener('click', () => {
-    realisationsMask.classList.remove('hidden');
-  });
+    iconRealisations.addEventListener('click', () => {
+      realisationsMask.classList.remove('hidden');
+    });
 
-  realisationsCloseBtn.addEventListener('click', () => {
-    realisationsMask.classList.add('hidden');
-    iconPresse.style.display = 'inline-block';
+    realisationsCloseBtn.addEventListener('click', () => {
+      realisationsMask.classList.add('hidden');
 
-    iconPresse.classList.add('animate-entry');
+      [iconPresse, iconLien].forEach(icon => {
+        icon.style.display = 'inline-block';
+        icon.classList.add('animate-entry');
 
-    const sparkle = iconPresse.querySelector('.sparkle');
-    sparkle.style.animation = 'none';
-    void sparkle.offsetWidth;
-    sparkle.style.animation = 'sparkle 0.8s ease-out forwards';
-  });
+        const sparkle = icon.querySelector('.sparkle');
+        sparkle.style.animation = 'none';
+        void sparkle.offsetWidth;
+        sparkle.style.animation = 'sparkle 0.8s ease-out forwards';
+      });
+    });
 
-  iconPresse.addEventListener('click', () => {
-    presseMask.classList.remove('hidden');
-  });
+    iconPresse.addEventListener('click', () => {
+      presseMask.classList.remove('hidden');
+    });
 
-  presseCloseBtn.addEventListener('click', () => {
-    presseMask.classList.add('hidden');
-    iconLien.style.display = 'inline-block';
+    presseCloseBtn.addEventListener('click', () => {
+      presseMask.classList.add('hidden');
+    });
 
-    iconLien.classList.add('animate-entry');
-
-    const sparkle = iconLien.querySelector('.sparkle');
-    sparkle.style.animation = 'none';
-    void sparkle.offsetWidth;
-    sparkle.style.animation = 'sparkle 0.8s ease-out forwards';
-  });
-
-  iconLien.addEventListener('click', () => {
-    window.open('https://editionsfides.com/collections/alexandre-maude', '_blank');
-  });
-</script>
-
+    iconLien.addEventListener('click', () => {
+      window.open('https://editionsfides.com/collections/alexandre-maude', '_blank');
+    });
+  </script>
 </body>
 </html>
