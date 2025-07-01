@@ -16,26 +16,28 @@
     position: relative;
   }
 
-  /* Icônes */
   .icon-container {
     position: absolute;
     display: inline-block;
-    position: relative; /* pour tooltip */
+    position: relative;
     cursor: pointer;
     z-index: 20;
     transition: transform 0.3s ease;
   }
 
-  /* Réalisations */
   .icon-container.realisations {
     top: 90px;
     left: 556px;
   }
 
-  /* Presse */
   .icon-container.presse {
     top: 300px;
     left: 386px;
+  }
+
+  .icon-container.lien {
+    top: 306px;
+    left: 252px;
   }
 
   .icon-container img {
@@ -48,7 +50,6 @@
     transform: scale(1.5);
   }
 
-  /* Tooltip */
   .tooltip {
     visibility: hidden;
     position: absolute;
@@ -73,7 +74,6 @@
     pointer-events: auto;
   }
 
-  /* Masque alpha */
   .alpha-mask {
     position: fixed;
     top: 0; left: 0;
@@ -89,7 +89,6 @@
     display: none;
   }
 
-  /* Popup */
   .popup {
     position: relative;
     width: 90%;
@@ -114,7 +113,6 @@
     background-image: url('presse.png');
   }
 
-  /* Bouton fermer */
   .popup button {
     background: url('boutonnext.png') no-repeat center center;
     background-size: contain;
@@ -126,7 +124,6 @@
     z-index: 1200;
   }
 
-  /* Animation entrée Presse */
   @keyframes moveFromRealisations {
     0% {
       top: 90px;
@@ -145,12 +142,34 @@
     }
   }
 
+  @keyframes moveFromRealisationsToLien {
+    0% {
+      top: 90px;
+      left: 556px;
+      opacity: 0;
+      transform: scale(0.5) rotate(0deg);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2) rotate(-10deg);
+    }
+    100% {
+      top: 306px;
+      left: 252px;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
   .icon-container.presse.animate-entry {
     animation: moveFromRealisations 1s ease-out forwards;
     z-index: 30;
   }
 
-  /* Effet de brillance */
+  .icon-container.lien.animate-entry {
+    animation: moveFromRealisationsToLien 1s ease-out forwards;
+    z-index: 30;
+  }
+
   .sparkle {
     position: absolute;
     top: -10px;
@@ -212,6 +231,13 @@
     <span class="tooltip">Presse</span>
   </div>
 
+  <!-- Icône Lien -->
+  <div class="icon-container lien" style="display:none;">
+    <div class="sparkle"></div>
+    <img src="icone_jaune.png" alt="Icône Lien" />
+    <span class="tooltip">Lien</span>
+  </div>
+
 <script>
   const introMask = document.getElementById('intro-mask');
   const introNextBtn = document.getElementById('intro-next-btn');
@@ -224,6 +250,7 @@
 
   const iconRealisations = document.querySelector('.icon-container.realisations');
   const iconPresse = document.querySelector('.icon-container.presse');
+  const iconLien = document.querySelector('.icon-container.lien');
 
   introNextBtn.addEventListener('click', () => {
     introMask.classList.add('hidden');
@@ -238,10 +265,8 @@
     realisationsMask.classList.add('hidden');
     iconPresse.style.display = 'inline-block';
 
-    // Déclenche animation d'entrée
     iconPresse.classList.add('animate-entry');
 
-    // Redémarre animation de brillance
     const sparkle = iconPresse.querySelector('.sparkle');
     sparkle.style.animation = 'none';
     void sparkle.offsetWidth;
@@ -254,6 +279,18 @@
 
   presseCloseBtn.addEventListener('click', () => {
     presseMask.classList.add('hidden');
+    iconLien.style.display = 'inline-block';
+
+    iconLien.classList.add('animate-entry');
+
+    const sparkle = iconLien.querySelector('.sparkle');
+    sparkle.style.animation = 'none';
+    void sparkle.offsetWidth;
+    sparkle.style.animation = 'sparkle 0.8s ease-out forwards';
+  });
+
+  iconLien.addEventListener('click', () => {
+    window.open('https://editionsfides.com/collections/alexandre-maude', '_blank');
   });
 </script>
 
