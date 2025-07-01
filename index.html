@@ -9,7 +9,6 @@
       font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
       background: url('Room2.png') no-repeat center center fixed;
       background-size: cover;
-      background-position: center;
       margin: 0;
       height: 100vh;
       overflow: hidden;
@@ -24,25 +23,11 @@
       transition: transform 0.3s ease;
     }
 
-    .icon-container.realisations {
-      top: 90px;
-      left: 556px;
-    }
-
-    .icon-container.presse {
-      top: 300px;
-      left: 386px;
-    }
-
-    .icon-container.lien {
-      top: 306px;
-      left: 252px;
-    }
-
-    .icon-container.conception {
-      top: 305px;
-      left: 1060px;
-    }
+    .icon-container.realisations { top: 90px; left: 556px; }
+    .icon-container.presse       { top: 300px; left: 386px; }
+    .icon-container.lien         { top: 306px; left: 252px; }
+    .icon-container.conception   { top: 535px; left: 760px; }
+    .icon-container.projets      { top: 500px; left: 1200px; }
 
     .icon-container img {
       width: 25px;
@@ -106,18 +91,11 @@
       z-index: 1100;
     }
 
-    #intro-popup {
-      background-image: url('Intro.png');
-    }
-    #realisations-popup {
-      background-image: url('Réalisations.png');
-    }
-    #presse-popup {
-      background-image: url('presse.png');
-    }
-    #conception-popup {
-      background-image: url('Conception.png');
-    }
+    #intro-popup       { background-image: url('Intro.png'); }
+    #realisations-popup{ background-image: url('Réalisations.png'); }
+    #presse-popup      { background-image: url('presse.png'); }
+    #conception-popup  { background-image: url('Conception.png'); }
+    #projets-popup     { background-image: url('Jeux.png'); }
 
     .popup button {
       background: url('boutonnext.png') no-repeat center center;
@@ -132,37 +110,43 @@
 
     @keyframes moveFromRealisations {
       0% {
-        top: 90px;
-        left: 556px;
-        opacity: 0;
-        transform: scale(0.5) rotate(0deg);
+        top: 90px; left: 556px;
+        opacity: 0; transform: scale(0.5) rotate(0deg);
       }
       50% {
-        opacity: 1;
-        transform: scale(1.2) rotate(10deg);
+        opacity: 1; transform: scale(1.2) rotate(10deg);
       }
       100% {
-        top: 300px;
-        left: 386px;
+        top: 300px; left: 386px;
         transform: scale(1) rotate(0deg);
       }
     }
 
     @keyframes moveFromRealisationsToLien {
       0% {
-        top: 90px;
-        left: 556px;
-        opacity: 0;
-        transform: scale(0.5) rotate(0deg);
+        top: 90px; left: 556px;
+        opacity: 0; transform: scale(0.5) rotate(0deg);
       }
       50% {
-        opacity: 1;
-        transform: scale(1.2) rotate(-10deg);
+        opacity: 1; transform: scale(1.2) rotate(-10deg);
       }
       100% {
-        top: 306px;
-        left: 252px;
+        top: 306px; left: 252px;
         transform: scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes moveFromConceptionToProjets {
+      0% {
+        top: 535px; left: 760px;
+        opacity: 0; transform: scale(0.5);
+      }
+      50% {
+        opacity: 1; transform: scale(1.2);
+      }
+      100% {
+        top: 500px; left: 1200px;
+        transform: scale(1);
       }
     }
 
@@ -173,6 +157,11 @@
 
     .icon-container.lien.animate-entry {
       animation: moveFromRealisationsToLien 1s ease-out forwards;
+      z-index: 30;
+    }
+
+    .icon-container.projets.animate-entry {
+      animation: moveFromConceptionToProjets 1s ease-out forwards;
       z-index: 30;
     }
 
@@ -203,58 +192,63 @@
 </head>
 <body>
 
-  <!-- Popup Intro -->
+  <!-- Popups -->
   <div id="intro-mask" class="alpha-mask">
     <div id="intro-popup" class="popup">
-      <button id="intro-next-btn" aria-label="Suivant"></button>
+      <button id="intro-next-btn"></button>
     </div>
   </div>
 
-  <!-- Popup Réalisations -->
   <div id="realisations-mask" class="alpha-mask hidden">
     <div id="realisations-popup" class="popup">
-      <button id="realisations-close-btn" aria-label="Fermer"></button>
+      <button id="realisations-close-btn"></button>
     </div>
   </div>
 
-  <!-- Popup Presse -->
   <div id="presse-mask" class="alpha-mask hidden">
     <div id="presse-popup" class="popup">
-      <button id="presse-close-btn" aria-label="Fermer"></button>
+      <button id="presse-close-btn"></button>
     </div>
   </div>
 
-  <!-- Popup Conception -->
   <div id="conception-mask" class="alpha-mask hidden">
     <div id="conception-popup" class="popup">
-      <button id="conception-close-btn" aria-label="Fermer"></button>
+      <button id="conception-close-btn"></button>
     </div>
   </div>
 
-  <!-- Icône Réalisations -->
+  <div id="projets-mask" class="alpha-mask hidden">
+    <div id="projets-popup" class="popup">
+      <button id="projets-close-btn"></button>
+    </div>
+  </div>
+
+  <!-- Icônes -->
   <div class="icon-container realisations" style="display:none;">
-    <img src="icone_jaune.png" alt="Icône Réalisations" />
+    <img src="icone_jaune.png" alt="Réalisations" />
     <span class="tooltip">Réalisations</span>
   </div>
 
-  <!-- Icône Presse -->
   <div class="icon-container presse" style="display:none;">
     <div class="sparkle"></div>
-    <img src="icone_jaune.png" alt="Icône Presse" />
+    <img src="icone_jaune.png" alt="Presse" />
     <span class="tooltip">Presse</span>
   </div>
 
-  <!-- Icône Lien -->
   <div class="icon-container lien" style="display:none;">
     <div class="sparkle"></div>
-    <img src="icone_jaune.png" alt="Icône Lien" />
+    <img src="icone_jaune.png" alt="Lien" />
     <span class="tooltip">Lien</span>
   </div>
 
-  <!-- Icône Conception -->
   <div class="icon-container conception" style="display:none;">
-    <img src="icone_rose.png" alt="Icône Conception" />
+    <img src="icone_rose.png" alt="Conception de jeux" />
     <span class="tooltip">Conception de jeux</span>
+  </div>
+
+  <div class="icon-container projets" style="display:none;">
+    <img src="icone_rose.png" alt="Projets" />
+    <span class="tooltip">Projets</span>
   </div>
 
   <script>
@@ -270,10 +264,14 @@
     const conceptionMask = document.getElementById('conception-mask');
     const conceptionCloseBtn = document.getElementById('conception-close-btn');
 
+    const projetsMask = document.getElementById('projets-mask');
+    const projetsCloseBtn = document.getElementById('projets-close-btn');
+
     const iconRealisations = document.querySelector('.icon-container.realisations');
     const iconPresse = document.querySelector('.icon-container.presse');
     const iconLien = document.querySelector('.icon-container.lien');
     const iconConception = document.querySelector('.icon-container.conception');
+    const iconProjets = document.querySelector('.icon-container.projets');
 
     introNextBtn.addEventListener('click', () => {
       introMask.classList.add('hidden');
@@ -291,7 +289,6 @@
       [iconPresse, iconLien].forEach(icon => {
         icon.style.display = 'inline-block';
         icon.classList.add('animate-entry');
-
         const sparkle = icon.querySelector('.sparkle');
         sparkle.style.animation = 'none';
         void sparkle.offsetWidth;
@@ -317,6 +314,16 @@
 
     conceptionCloseBtn.addEventListener('click', () => {
       conceptionMask.classList.add('hidden');
+      iconProjets.style.display = 'inline-block';
+      iconProjets.classList.add('animate-entry');
+    });
+
+    iconProjets.addEventListener('click', () => {
+      projetsMask.classList.remove('hidden');
+    });
+
+    projetsCloseBtn.addEventListener('click', () => {
+      projetsMask.classList.add('hidden');
     });
   </script>
 </body>
