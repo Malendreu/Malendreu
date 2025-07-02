@@ -28,6 +28,7 @@
     .icon-container.lien         { top: 306px; left: 252px; }
     .icon-container.conception   { top: 305px; left: 1060px; }
     .icon-container.projets      { top: 500px; left: 1260px; }
+    .icon-container.enseignement { top: 350px; left: 550px; }
 
     .icon-container img {
       width: 25px;
@@ -96,6 +97,7 @@
     #presse-popup       { background-image: url('presse.png'); }
     #conception-popup   { background-image: url('Conception.png'); }
     #projets-popup      { background-image: url('jeux.png'); }
+    #enseignement-popup { background-image: url('Enseignement1.png'); }
 
     .popup button {
       background: url('boutonnext.png') no-repeat center center;
@@ -126,9 +128,9 @@
       100% { top: 500px; left: 1260px; transform: scale(1); }
     }
 
-    .icon-container.presse.animate-entry { animation: moveFromRealisations 1s ease-out forwards; z-index: 30; }
-    .icon-container.lien.animate-entry   { animation: moveFromRealisationsToLien 1s ease-out forwards; z-index: 30; }
-    .icon-container.projets.animate-entry{ animation: moveFromConceptionToProjets 1s ease-out forwards; z-index: 30; }
+    .icon-container.presse.animate-entry       { animation: moveFromRealisations 1s ease-out forwards; z-index: 30; }
+    .icon-container.lien.animate-entry         { animation: moveFromRealisationsToLien 1s ease-out forwards; z-index: 30; }
+    .icon-container.projets.animate-entry      { animation: moveFromConceptionToProjets 1s ease-out forwards; z-index: 30; }
 
     .sparkle {
       position: absolute;
@@ -182,10 +184,21 @@
     </div>
   </div>
 
+  <div id="enseignement-mask" class="alpha-mask hidden">
+    <div id="enseignement-popup" class="popup">
+      <button id="enseignement-close-btn"></button>
+    </div>
+  </div>
+
   <!-- Icônes -->
   <div class="icon-container realisations" style="display:none;">
     <img src="icone_jaune.png" alt="Réalisations" />
     <span class="tooltip">Réalisations</span>
+  </div>
+
+  <div class="icon-container enseignement" style="display:none;">
+    <img src="icone_bleu.png" alt="Enseignement" />
+    <span class="tooltip">Enseignement</span>
   </div>
 
   <div class="icon-container presse" style="display:none;">
@@ -226,7 +239,11 @@
     const projetsMask = document.getElementById('projets-mask');
     const projetsCloseBtn = document.getElementById('projets-close-btn');
 
+    const enseignementMask = document.getElementById('enseignement-mask');
+    const enseignementCloseBtn = document.getElementById('enseignement-close-btn');
+
     const iconRealisations = document.querySelector('.icon-container.realisations');
+    const iconEnseignement = document.querySelector('.icon-container.enseignement');
     const iconPresse = document.querySelector('.icon-container.presse');
     const iconLien = document.querySelector('.icon-container.lien');
     const iconConception = document.querySelector('.icon-container.conception');
@@ -236,6 +253,7 @@
       introMask.classList.add('hidden');
       iconRealisations.style.display = 'inline-block';
       iconConception.style.display = 'inline-block';
+      iconEnseignement.style.display = 'inline-block';
     });
 
     iconRealisations.addEventListener('click', () => {
@@ -252,6 +270,14 @@
         void sparkle.offsetWidth;
         sparkle.style.animation = 'sparkle 0.8s ease-out forwards';
       });
+    });
+
+    iconEnseignement.addEventListener('click', () => {
+      enseignementMask.classList.remove('hidden');
+    });
+
+    enseignementCloseBtn.addEventListener('click', () => {
+      enseignementMask.classList.add('hidden');
     });
 
     iconPresse.addEventListener('click', () => {
