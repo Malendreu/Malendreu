@@ -110,23 +110,24 @@
       z-index: 1200;
     }
 
-    /* Lien cliquable */
     .jeu-lien {
       position: absolute;
-      background: transparent;
-      padding: 0;
-      cursor: pointer;
       z-index: 1200;
+      cursor: pointer;
     }
 
-    /* Zone vidéo iframe */
     .video-container {
       position: absolute;
-      top: 100px;
-      left: 100px;
-      width: 600px;
-      height: 338px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 560px;
+      height: 315px;
+      background-color: black;
       z-index: 1300;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .video-container iframe {
@@ -148,18 +149,21 @@
       height: 30px;
       cursor: pointer;
       z-index: 1400;
+      line-height: 30px;
+      text-align: center;
+    }
+
+    /* Animation des icônes */
+    @keyframes moveFromRealisations {
+      0% { top: 90px; left: 556px; opacity: 0; transform: scale(0.5) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.2) rotate(10deg); }
+      100% { top: 300px; left: 386px; transform: scale(1) rotate(0deg); }
     }
 
     @keyframes moveFromRealisationsToLien {
       0% { top: 90px; left: 556px; opacity: 0; transform: scale(0.5) rotate(0deg); }
       50% { opacity: 1; transform: scale(1.2) rotate(-10deg); }
       100% { top: 306px; left: 252px; transform: scale(1) rotate(0deg); }
-    }
-
-    @keyframes moveFromRealisations {
-      0% { top: 90px; left: 556px; opacity: 0; transform: scale(0.5); }
-      50% { opacity: 1; transform: scale(1.2); }
-      100% { top: 300px; left: 386px; transform: scale(1); }
     }
 
     @keyframes moveFromConceptionToProjets {
@@ -171,179 +175,205 @@
     .icon-container.presse.animate-entry       { animation: moveFromRealisations 1s ease-out forwards; z-index: 30; }
     .icon-container.lien.animate-entry         { animation: moveFromRealisationsToLien 1s ease-out forwards; z-index: 30; }
     .icon-container.projets.animate-entry      { animation: moveFromConceptionToProjets 1s ease-out forwards; z-index: 30; }
+
+    .sparkle {
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      width: 15px;
+      height: 15px;
+      background: radial-gradient(white, rgba(255,255,255,0));
+      border-radius: 50%;
+      opacity: 0;
+      animation: sparkle 0.8s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
   </style>
 </head>
 <body>
 
-<!-- Popups -->
-<div id="intro-mask" class="alpha-mask">
-  <div id="intro-popup" class="popup">
-    <button id="intro-next-btn"></button>
+  <!-- Popups -->
+  <div id="intro-mask" class="alpha-mask">
+    <div id="intro-popup" class="popup">
+      <button id="intro-next-btn"></button>
+    </div>
   </div>
-</div>
 
-<div id="realisations-mask" class="alpha-mask hidden">
-  <div id="realisations-popup" class="popup">
-    <button id="realisations-close-btn"></button>
+  <div id="realisations-mask" class="alpha-mask hidden">
+    <div id="realisations-popup" class="popup">
+      <button id="realisations-close-btn"></button>
+    </div>
   </div>
-</div>
 
-<div id="enseignement-mask" class="alpha-mask hidden">
-  <div id="enseignement-popup" class="popup">
-    <button id="enseignement-close-btn"></button>
+  <div id="enseignement-mask" class="alpha-mask hidden">
+    <div id="enseignement-popup" class="popup">
+      <button id="enseignement-close-btn"></button>
+    </div>
   </div>
-</div>
 
-<div id="presse-mask" class="alpha-mask hidden">
-  <div id="presse-popup" class="popup">
-    <button id="presse-close-btn"></button>
+  <div id="presse-mask" class="alpha-mask hidden">
+    <div id="presse-popup" class="popup">
+      <button id="presse-close-btn"></button>
+    </div>
   </div>
-</div>
 
-<div id="conception-mask" class="alpha-mask hidden">
-  <div id="conception-popup" class="popup">
-    <button id="conception-close-btn"></button>
+  <div id="conception-mask" class="alpha-mask hidden">
+    <div id="conception-popup" class="popup">
+      <button id="conception-close-btn"></button>
+    </div>
   </div>
-</div>
 
-<div id="projets-mask" class="alpha-mask hidden">
-  <div id="projets-popup" class="popup">
-    <div class="jeu-lien" style="top: 270px; left: 470px; width: 200px; height: 120px;" data-video="https://www.youtube.com/embed/RXPQ3xj8L4o"></div>
-    <div class="jeu-lien" style="top: 270px; left: 650px; width: 200px; height: 120px;" data-video="https://www.youtube.com/embed/7P7MH3DT_8Q"></div>
-    <div class="jeu-lien" style="top: 440px; left: 150px; width: 200px; height: 120px;" data-video="https://www.youtube.com/embed/rMZ7WJSGWeo"></div>
-    <div class="jeu-lien" style="top: 440px; left: 320px; width: 200px; height: 120px;" data-video="https://www.youtube.com/embed/tcjOY3xPSDM"></div>
-    <div class="jeu-lien" style="top: 440px; left: 550px; width: 200px; height: 120px;" data-video="https://www.youtube.com/embed/VwTGos1JHsc"></div>
-    <button id="projets-close-btn"></button>
+  <div id="projets-mask" class="alpha-mask hidden">
+    <div id="projets-popup" class="popup">
+      <!-- Liens vidéos -->
+      <div class="jeu-lien" data-video="https://www.youtube.com/embed/RXPQ3xj8L4o" style="top: 270px; left: 470px; width: 200px; height: 100px;"></div>
+      <div class="jeu-lien" data-video="https://www.youtube.com/embed/7P7MH3DT_8Q" style="top: 270px; left: 650px; width: 200px; height: 100px;"></div>
+      <div class="jeu-lien" data-video="https://www.youtube.com/embed/rMZ7WJSGWeo" style="top: 440px; left: 150px; width: 200px; height: 100px;"></div>
+      <div class="jeu-lien" data-video="https://www.youtube.com/embed/tcjOY3xPSDM" style="top: 440px; left: 320px; width: 200px; height: 100px;"></div>
+      <div class="jeu-lien" data-video="https://www.youtube.com/embed/VwTGos1JHsc" style="top: 440px; left: 550px; width: 200px; height: 100px;"></div>
+
+      <button id="projets-close-btn"></button>
+    </div>
   </div>
-</div>
 
-<!-- Icônes -->
-<div class="icon-container realisations" style="display:none;">
-  <img src="icone_jaune.png" alt="Réalisations" />
-  <span class="tooltip">Réalisations</span>
-</div>
+  <!-- Icônes -->
+  <div class="icon-container realisations" style="display:none;">
+    <img src="icone_jaune.png" alt="Réalisations" />
+    <span class="tooltip">Réalisations</span>
+  </div>
 
-<div class="icon-container enseignement" style="display:none;">
-  <img src="icone_bleu.png" alt="Enseignement" />
-  <span class="tooltip">Enseignement</span>
-</div>
+  <div class="icon-container enseignement" style="display:none;">
+    <img src="icone_bleu.png" alt="Enseignement" />
+    <span class="tooltip">Enseignement</span>
+  </div>
 
-<div class="icon-container presse" style="display:none;">
-  <img src="icone_jaune.png" alt="Presse" />
-  <span class="tooltip">Presse</span>
-</div>
+  <div class="icon-container presse" style="display:none;">
+    <div class="sparkle"></div>
+    <img src="icone_jaune.png" alt="Presse" />
+    <span class="tooltip">Presse</span>
+  </div>
 
-<div class="icon-container lien" style="display:none;">
-  <img src="icone_jaune.png" alt="Lien" />
-  <span class="tooltip">Lien</span>
-</div>
+  <div class="icon-container lien" style="display:none;">
+    <div class="sparkle"></div>
+    <img src="icone_jaune.png" alt="Lien" />
+    <span class="tooltip">Lien</span>
+  </div>
 
-<div class="icon-container conception" style="display:none;">
-  <img src="icone_rose.png" alt="Conception de jeux" />
-  <span class="tooltip">Conception de jeux</span>
-</div>
+  <div class="icon-container conception" style="display:none;">
+    <img src="icone_rose.png" alt="Conception de jeux" />
+    <span class="tooltip">Conception de jeux</span>
+  </div>
 
-<div class="icon-container projets" style="display:none;">
-  <img src="icone_rose.png" alt="Projets" />
-  <span class="tooltip">Projets</span>
-</div>
+  <div class="icon-container projets" style="display:none;">
+    <img src="icone_rose.png" alt="Projets" />
+    <span class="tooltip">Projets</span>
+  </div>
 
-<script>
-  const introNextBtn = document.getElementById('intro-next-btn');
-  const realisationsCloseBtn = document.getElementById('realisations-close-btn');
-  const enseignementCloseBtn = document.getElementById('enseignement-close-btn');
-  const presseCloseBtn = document.getElementById('presse-close-btn');
-  const conceptionCloseBtn = document.getElementById('conception-close-btn');
-  const projetsCloseBtn = document.getElementById('projets-close-btn');
+  <!-- Script -->
+  <script>
+    const introMask = document.getElementById('intro-mask');
+    const introNextBtn = document.getElementById('intro-next-btn');
+    const realisationsMask = document.getElementById('realisations-mask');
+    const realisationsCloseBtn = document.getElementById('realisations-close-btn');
+    const enseignementMask = document.getElementById('enseignement-mask');
+    const enseignementCloseBtn = document.getElementById('enseignement-close-btn');
+    const presseMask = document.getElementById('presse-mask');
+    const presseCloseBtn = document.getElementById('presse-close-btn');
+    const conceptionMask = document.getElementById('conception-mask');
+    const conceptionCloseBtn = document.getElementById('conception-close-btn');
+    const projetsMask = document.getElementById('projets-mask');
+    const projetsCloseBtn = document.getElementById('projets-close-btn');
 
-  const introMask = document.getElementById('intro-mask');
-  const realisationsMask = document.getElementById('realisations-mask');
-  const enseignementMask = document.getElementById('enseignement-mask');
-  const presseMask = document.getElementById('presse-mask');
-  const conceptionMask = document.getElementById('conception-mask');
-  const projetsMask = document.getElementById('projets-mask');
+    const iconRealisations = document.querySelector('.icon-container.realisations');
+    const iconEnseignement = document.querySelector('.icon-container.enseignement');
+    const iconPresse = document.querySelector('.icon-container.presse');
+    const iconLien = document.querySelector('.icon-container.lien');
+    const iconConception = document.querySelector('.icon-container.conception');
+    const iconProjets = document.querySelector('.icon-container.projets');
 
-  const iconRealisations = document.querySelector('.icon-container.realisations');
-  const iconEnseignement = document.querySelector('.icon-container.enseignement');
-  const iconPresse = document.querySelector('.icon-container.presse');
-  const iconLien = document.querySelector('.icon-container.lien');
-  const iconConception = document.querySelector('.icon-container.conception');
-  const iconProjets = document.querySelector('.icon-container.projets');
+    introNextBtn.addEventListener('click', () => {
+      introMask.classList.add('hidden');
+      iconRealisations.style.display = 'inline-block';
+      iconEnseignement.style.display = 'inline-block';
+      iconConception.style.display = 'inline-block';
+    });
 
-  introNextBtn.addEventListener('click', () => {
-    introMask.classList.add('hidden');
-    iconRealisations.style.display = 'inline-block';
-    iconEnseignement.style.display = 'inline-block';
-    iconConception.style.display = 'inline-block';
-  });
+    iconRealisations.addEventListener('click', () => {
+      realisationsMask.classList.remove('hidden');
+    });
 
-  iconRealisations.addEventListener('click', () => {
-    realisationsMask.classList.remove('hidden');
-  });
-
-  realisationsCloseBtn.addEventListener('click', () => {
-    realisationsMask.classList.add('hidden');
-    iconPresse.style.display = 'inline-block';
-    iconPresse.classList.add('animate-entry');
-    iconLien.style.display = 'inline-block';
-    iconLien.classList.add('animate-entry');
-  });
-
-  iconEnseignement.addEventListener('click', () => {
-    enseignementMask.classList.remove('hidden');
-  });
-
-  enseignementCloseBtn.addEventListener('click', () => {
-    enseignementMask.classList.add('hidden');
-  });
-
-  iconPresse.addEventListener('click', () => {
-    presseMask.classList.remove('hidden');
-  });
-
-  presseCloseBtn.addEventListener('click', () => {
-    presseMask.classList.add('hidden');
-  });
-
-  iconLien.addEventListener('click', () => {
-    window.open('https://editionsfides.com/collections/alexandre-maude', '_blank');
-  });
-
-  iconConception.addEventListener('click', () => {
-    conceptionMask.classList.remove('hidden');
-  });
-
-  conceptionCloseBtn.addEventListener('click', () => {
-    conceptionMask.classList.add('hidden');
-    iconProjets.style.display = 'inline-block';
-    iconProjets.classList.add('animate-entry');
-  });
-
-  iconProjets.addEventListener('click', () => {
-    projetsMask.classList.remove('hidden');
-  });
-
-  projetsCloseBtn.addEventListener('click', () => {
-    projetsMask.classList.add('hidden');
-  });
-
-  // Gestion des vidéos intégrées
-  document.querySelectorAll('.jeu-lien').forEach(link => {
-    link.addEventListener('click', () => {
-      const videoURL = link.dataset.video;
-      const container = document.createElement('div');
-      container.className = 'video-container';
-      container.innerHTML = `
-        <iframe src="${videoURL}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        <button class="close-video">×</button>
-      `;
-      document.getElementById('projets-popup').appendChild(container);
-
-      container.querySelector('.close-video').addEventListener('click', () => {
-        container.remove();
+    realisationsCloseBtn.addEventListener('click', () => {
+      realisationsMask.classList.add('hidden');
+      [iconPresse, iconLien].forEach(icon => {
+        icon.style.display = 'inline-block';
+        icon.classList.add('animate-entry');
+        const sparkle = icon.querySelector('.sparkle');
+        sparkle.style.animation = 'none';
+        void sparkle.offsetWidth;
+        sparkle.style.animation = 'sparkle 0.8s ease-out forwards';
       });
     });
-  });
-</script>
+
+    iconEnseignement.addEventListener('click', () => {
+      enseignementMask.classList.remove('hidden');
+    });
+
+    enseignementCloseBtn.addEventListener('click', () => {
+      enseignementMask.classList.add('hidden');
+    });
+
+    iconPresse.addEventListener('click', () => {
+      presseMask.classList.remove('hidden');
+    });
+
+    presseCloseBtn.addEventListener('click', () => {
+      presseMask.classList.add('hidden');
+    });
+
+    iconLien.addEventListener('click', () => {
+      window.open('https://editionsfides.com/collections/alexandre-maude', '_blank');
+    });
+
+    iconConception.addEventListener('click', () => {
+      conceptionMask.classList.remove('hidden');
+    });
+
+    conceptionCloseBtn.addEventListener('click', () => {
+      conceptionMask.classList.add('hidden');
+      iconProjets.style.display = 'inline-block';
+      iconProjets.classList.add('animate-entry');
+    });
+
+    iconProjets.addEventListener('click', () => {
+      projetsMask.classList.remove('hidden');
+    });
+
+    projetsCloseBtn.addEventListener('click', () => {
+      projetsMask.classList.add('hidden');
+    });
+
+    // Gestion des vidéos dans popup jeux
+    document.querySelectorAll('.jeu-lien').forEach(link => {
+      link.addEventListener('click', () => {
+        const videoURL = link.dataset.video;
+        const container = document.createElement('div');
+        container.className = 'video-container';
+        container.innerHTML = `
+          <iframe src="${videoURL}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <button class="close-video">×</button>
+        `;
+        document.getElementById('projets-popup').appendChild(container);
+
+        container.querySelector('.close-video').addEventListener('click', () => {
+          container.remove();
+        });
+      });
+    });
+  </script>
 </body>
 </html>
