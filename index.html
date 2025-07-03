@@ -6,7 +6,7 @@
   <title>CV Narratif</title>
   <style>
     body {
-      font-family: 'MS Gothic', Tahoma, sans-serif;
+      font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
       background: url('Room2.png') no-repeat center center fixed;
       background-size: cover;
       margin: 0;
@@ -33,6 +33,11 @@
     .icon-container img {
       width: 25px;
       height: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .icon-container:hover img {
+      transform: scale(1.5);
     }
 
     .tooltip {
@@ -48,9 +53,9 @@
       font-size: 14px;
       opacity: 0;
       transition: opacity 0.3s ease;
+      z-index: 100;
       white-space: nowrap;
       pointer-events: none;
-      z-index: 100;
     }
 
     .icon-container:hover .tooltip {
@@ -82,9 +87,8 @@
       background-repeat: no-repeat;
       background-position: center center;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: center;
+      justify-content: center;
+      align-items: flex-end;
       z-index: 1100;
     }
 
@@ -95,7 +99,7 @@
     #conception-popup   { background-image: url('Conception.png'); }
     #projets-popup      { background-image: url('jeux.png'); }
 
-    .popup .next-btn {
+    .popup button:not(.close-video) {
       background: url('boutonnext.png') no-repeat center center;
       background-size: contain;
       border: none;
@@ -103,24 +107,33 @@
       height: 50px;
       cursor: pointer;
       margin-bottom: 30px;
-      z-index: 1100;
+      z-index: 1200;
     }
 
-    .jeu-lien {
+    /* Lien invisible déclencheur vidéo */
+    .jeu-lien-video {
       position: absolute;
+      top: 270px;
+      left: 470px;
+      width: 200px;
+      height: 120px;
       z-index: 1200;
       cursor: pointer;
     }
 
-    .video-container {
+    /* Conteneur vidéo iframe */
+    #video-container {
       position: absolute;
-      width: 300px;
-      height: 170px;
-      z-index: 1500;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 560px;
+      height: 315px;
+      z-index: 1300;
       display: none;
     }
 
-    .video-container iframe {
+    #video-container iframe {
       width: 100%;
       height: 100%;
       border: none;
@@ -128,83 +141,128 @@
 
     .close-video {
       position: absolute;
-      top: -15px;
-      right: -15px;
-      background: white;
-      color: black;
-      font-weight: bold;
+      top: -20px;
+      right: -20px;
+      font-size: 24px;
+      color: white;
+      background: none;
+      border: 2px solid white;
       border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      text-align: center;
+      width: 36px;
+      height: 36px;
       line-height: 30px;
+      text-align: center;
       cursor: pointer;
-      z-index: 1600;
+      z-index: 1400;
     }
 
-    .icon-container.presse.animate-entry,
-    .icon-container.lien.animate-entry,
-    .icon-container.projets.animate-entry {
-      animation: fadeIn 1s ease-out forwards;
+    .jeu-lien {
+      position: absolute;
+      padding: 5px 10px;
+      background-color: rgba(0, 123, 255, 0.8);
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+      font-size: 14px;
+      z-index: 1200;
+      cursor: pointer;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.5); }
-      to   { opacity: 1; transform: scale(1); }
+    .jeu-lien:hover {
+      background-color: rgba(0, 123, 255, 1);
+    }
+
+    @keyframes moveFromRealisations {
+      0% { top: 90px; left: 556px; opacity: 0; transform: scale(0.5) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.2) rotate(10deg); }
+      100% { top: 300px; left: 386px; transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes moveFromRealisationsToLien {
+      0% { top: 90px; left: 556px; opacity: 0; transform: scale(0.5) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.2) rotate(-10deg); }
+      100% { top: 306px; left: 252px; transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes moveFromConceptionToProjets {
+      0% { top: 305px; left: 1060px; opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { top: 500px; left: 1160px; transform: scale(1); }
+    }
+
+    .icon-container.presse.animate-entry       { animation: moveFromRealisations 1s ease-out forwards; z-index: 30; }
+    .icon-container.lien.animate-entry         { animation: moveFromRealisationsToLien 1s ease-out forwards; z-index: 30; }
+    .icon-container.projets.animate-entry      { animation: moveFromConceptionToProjets 1s ease-out forwards; z-index: 30; }
+
+    .sparkle {
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      width: 15px;
+      height: 15px;
+      background: radial-gradient(white, rgba(255,255,255,0));
+      border-radius: 50%;
+      opacity: 0;
+      animation: sparkle 0.8s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1.5); }
     }
   </style>
 </head>
 <body>
 
-  <!-- POPUPS -->
+  <!-- Popups -->
   <div id="intro-mask" class="alpha-mask">
     <div id="intro-popup" class="popup">
-      <button class="next-btn" id="intro-next-btn"></button>
+      <button id="intro-next-btn"></button>
     </div>
   </div>
 
   <div id="realisations-mask" class="alpha-mask hidden">
     <div id="realisations-popup" class="popup">
-      <button class="next-btn" id="realisations-close-btn"></button>
+      <button id="realisations-close-btn"></button>
     </div>
   </div>
 
   <div id="enseignement-mask" class="alpha-mask hidden">
     <div id="enseignement-popup" class="popup">
-      <button class="next-btn" id="enseignement-close-btn"></button>
+      <button id="enseignement-close-btn"></button>
     </div>
   </div>
 
   <div id="presse-mask" class="alpha-mask hidden">
     <div id="presse-popup" class="popup">
-      <button class="next-btn" id="presse-close-btn"></button>
+      <button id="presse-close-btn"></button>
     </div>
   </div>
 
   <div id="conception-mask" class="alpha-mask hidden">
     <div id="conception-popup" class="popup">
-      <button class="next-btn" id="conception-close-btn"></button>
+      <button id="conception-close-btn"></button>
     </div>
   </div>
 
   <div id="projets-mask" class="alpha-mask hidden">
     <div id="projets-popup" class="popup">
-      <div class="jeu-lien" style="top:270px; left:470px; width:120px; height:70px;" onclick="openVideo(this, 'https://www.youtube.com/embed/RXPQ3xj8L4o')"></div>
-      <div class="jeu-lien" style="top:270px; left:650px; width:120px; height:70px;" onclick="openVideo(this, 'https://www.youtube.com/embed/7P7MH3DT_8Q')"></div>
-      <div class="jeu-lien" style="top:440px; left:150px; width:120px; height:70px;" onclick="openVideo(this, 'https://www.youtube.com/embed/rMZ7WJSGWeo')"></div>
-      <div class="jeu-lien" style="top:440px; left:320px; width:120px; height:70px;" onclick="openVideo(this, 'https://www.youtube.com/embed/tcjOY3xPSDM')"></div>
-      <div class="jeu-lien" style="top:440px; left:550px; width:120px; height:70px;" onclick="openVideo(this, 'https://www.youtube.com/embed/VwTGos1JHsc')"></div>
-      <button class="next-btn" id="projets-close-btn"></button>
+      <div class="jeu-lien-video" id="trigger-video"></div>
+      <div id="video-container">
+        <iframe id="youtube-player" src="" allowfullscreen></iframe>
+        <button class="close-video" id="close-video">×</button>
+      </div>
+      <a href="https://exemple2.com" class="jeu-lien" style="top: 270px; left: 650px;">Lien 2</a>
+      <a href="https://exemple3.com" class="jeu-lien" style="top: 440px; left: 150px;">Lien 3</a>
+      <a href="https://exemple4.com" class="jeu-lien" style="top: 440px; left: 320px;">Lien 4</a>
+      <a href="https://exemple5.com" class="jeu-lien" style="top: 440px; left: 550px;">Lien 5</a>
+      <button id="projets-close-btn"></button>
     </div>
   </div>
 
-  <!-- VIDEO CONTAINER -->
-  <div id="video-container" class="video-container">
-    <div class="close-video" onclick="closeVideo()">×</div>
-    <iframe id="video-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-  </div>
-
-  <!-- ICONES -->
+  <!-- Icônes -->
   <div class="icon-container realisations" style="display:none;">
     <img src="icone_jaune.png" alt="Réalisations" />
     <span class="tooltip">Réalisations</span>
@@ -216,18 +274,20 @@
   </div>
 
   <div class="icon-container presse" style="display:none;">
+    <div class="sparkle"></div>
     <img src="icone_jaune.png" alt="Presse" />
     <span class="tooltip">Presse</span>
   </div>
 
   <div class="icon-container lien" style="display:none;">
+    <div class="sparkle"></div>
     <img src="icone_jaune.png" alt="Lien" />
     <span class="tooltip">Lien</span>
   </div>
 
   <div class="icon-container conception" style="display:none;">
     <img src="icone_rose.png" alt="Conception de jeux" />
-    <span class="tooltip">Conception</span>
+    <span class="tooltip">Conception de jeux</span>
   </div>
 
   <div class="icon-container projets" style="display:none;">
@@ -235,16 +295,20 @@
     <span class="tooltip">Projets</span>
   </div>
 
-  <!-- SCRIPT -->
+  <!-- Script -->
   <script>
     const introNextBtn = document.getElementById('intro-next-btn');
+    const realisationsCloseBtn = document.getElementById('realisations-close-btn');
+    const enseignementCloseBtn = document.getElementById('enseignement-close-btn');
+    const presseCloseBtn = document.getElementById('presse-close-btn');
+    const conceptionCloseBtn = document.getElementById('conception-close-btn');
     const projetsCloseBtn = document.getElementById('projets-close-btn');
 
     const iconRealisations = document.querySelector('.icon-container.realisations');
     const iconEnseignement = document.querySelector('.icon-container.enseignement');
-    const iconConception = document.querySelector('.icon-container.conception');
     const iconPresse = document.querySelector('.icon-container.presse');
     const iconLien = document.querySelector('.icon-container.lien');
+    const iconConception = document.querySelector('.icon-container.conception');
     const iconProjets = document.querySelector('.icon-container.projets');
 
     const introMask = document.getElementById('intro-mask');
@@ -254,60 +318,79 @@
     const conceptionMask = document.getElementById('conception-mask');
     const projetsMask = document.getElementById('projets-mask');
 
-    const realisationsCloseBtn = document.getElementById('realisations-close-btn');
-    const enseignementCloseBtn = document.getElementById('enseignement-close-btn');
-    const presseCloseBtn = document.getElementById('presse-close-btn');
-    const conceptionCloseBtn = document.getElementById('conception-close-btn');
-
     const videoContainer = document.getElementById('video-container');
-    const videoIframe = document.getElementById('video-iframe');
+    const youtubePlayer = document.getElementById('youtube-player');
+    const closeVideoBtn = document.getElementById('close-video');
+    const triggerVideo = document.getElementById('trigger-video');
 
-    introNextBtn.onclick = () => {
+    introNextBtn.addEventListener('click', () => {
       introMask.classList.add('hidden');
       iconRealisations.style.display = 'inline-block';
       iconEnseignement.style.display = 'inline-block';
       iconConception.style.display = 'inline-block';
-    };
+    });
 
-    iconRealisations.onclick = () => realisationsMask.classList.remove('hidden');
-    realisationsCloseBtn.onclick = () => {
+    iconRealisations.addEventListener('click', () => {
+      realisationsMask.classList.remove('hidden');
+    });
+
+    realisationsCloseBtn.addEventListener('click', () => {
       realisationsMask.classList.add('hidden');
-      iconPresse.style.display = 'inline-block';
-      iconPresse.classList.add('animate-entry');
-      iconLien.style.display = 'inline-block';
-      iconLien.classList.add('animate-entry');
-    };
+      [iconPresse, iconLien].forEach(icon => {
+        icon.style.display = 'inline-block';
+        icon.classList.add('animate-entry');
+      });
+    });
 
-    iconEnseignement.onclick = () => enseignementMask.classList.remove('hidden');
-    enseignementCloseBtn.onclick = () => enseignementMask.classList.add('hidden');
+    iconEnseignement.addEventListener('click', () => {
+      enseignementMask.classList.remove('hidden');
+    });
 
-    iconPresse.onclick = () => presseMask.classList.remove('hidden');
-    presseCloseBtn.onclick = () => presseMask.classList.add('hidden');
+    enseignementCloseBtn.addEventListener('click', () => {
+      enseignementMask.classList.add('hidden');
+    });
 
-    iconLien.onclick = () => window.open('https://editionsfides.com/collections/alexandre-maude', '_blank');
+    iconPresse.addEventListener('click', () => {
+      presseMask.classList.remove('hidden');
+    });
 
-    iconConception.onclick = () => conceptionMask.classList.remove('hidden');
-    conceptionCloseBtn.onclick = () => {
+    presseCloseBtn.addEventListener('click', () => {
+      presseMask.classList.add('hidden');
+    });
+
+    iconLien.addEventListener('click', () => {
+      window.open('https://editionsfides.com/collections/alexandre-maude', '_blank');
+    });
+
+    iconConception.addEventListener('click', () => {
+      conceptionMask.classList.remove('hidden');
+    });
+
+    conceptionCloseBtn.addEventListener('click', () => {
       conceptionMask.classList.add('hidden');
       iconProjets.style.display = 'inline-block';
       iconProjets.classList.add('animate-entry');
-    };
+    });
 
-    iconProjets.onclick = () => projetsMask.classList.remove('hidden');
-    projetsCloseBtn.onclick = () => projetsMask.classList.add('hidden');
+    iconProjets.addEventListener('click', () => {
+      projetsMask.classList.remove('hidden');
+    });
 
-    function openVideo(link, url) {
-      const rect = link.getBoundingClientRect();
-      videoContainer.style.top = rect.top + 'px';
-      videoContainer.style.left = rect.left + 'px';
-      videoContainer.style.display = 'block';
-      videoIframe.src = url + '?autoplay=1';
-    }
-
-    function closeVideo() {
-      videoIframe.src = '';
+    projetsCloseBtn.addEventListener('click', () => {
+      projetsMask.classList.add('hidden');
       videoContainer.style.display = 'none';
-    }
+      youtubePlayer.src = '';
+    });
+
+    triggerVideo.addEventListener('click', () => {
+      videoContainer.style.display = 'block';
+      youtubePlayer.src = 'https://www.youtube.com/embed/RXPQ3xj8L4o?autoplay=1';
+    });
+
+    closeVideoBtn.addEventListener('click', () => {
+      videoContainer.style.display = 'none';
+      youtubePlayer.src = '';
+    });
   </script>
 </body>
 </html>
