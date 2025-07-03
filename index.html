@@ -1,4 +1,4 @@
-e<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -99,7 +99,7 @@ e<!DOCTYPE html>
     #conception-popup   { background-image: url('Conception.png'); }
     #projets-popup      { background-image: url('jeux.png'); }
 
-    .popup button {
+    .popup button:not(.close-video) {
       background: url('boutonnext.png') no-repeat center center;
       background-size: contain;
       border: none;
@@ -110,17 +110,30 @@ e<!DOCTYPE html>
       z-index: 1200;
     }
 
-    .video-container {
+    /* Lien invisible déclencheur vidéo */
+    .jeu-lien-video {
       position: absolute;
-      top: 220px;
-      left: 420px;
+      top: 270px;
+      left: 470px;
       width: 200px;
       height: 120px;
+      z-index: 1200;
+      cursor: pointer;
+    }
+
+    /* Conteneur vidéo iframe */
+    #video-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 560px;
+      height: 315px;
       z-index: 1300;
       display: none;
     }
 
-    .video-container iframe {
+    #video-container iframe {
       width: 100%;
       height: 100%;
       border: none;
@@ -130,31 +143,46 @@ e<!DOCTYPE html>
       position: absolute;
       top: -20px;
       right: -20px;
-      background: none;
-      color: white;
-      border: none;
       font-size: 24px;
+      color: white;
+      background: none;
+      border: 2px solid white;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      line-height: 30px;
+      text-align: center;
       cursor: pointer;
       z-index: 1400;
-      font-weight: bold;
     }
 
     .jeu-lien {
       position: absolute;
+      padding: 5px 10px;
+      background-color: rgba(0, 123, 255, 0.8);
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+      font-size: 14px;
       z-index: 1200;
       cursor: pointer;
+    }
+
+    .jeu-lien:hover {
+      background-color: rgba(0, 123, 255, 1);
+    }
+
+    @keyframes moveFromRealisations {
+      0% { top: 90px; left: 556px; opacity: 0; transform: scale(0.5) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.2) rotate(10deg); }
+      100% { top: 300px; left: 386px; transform: scale(1) rotate(0deg); }
     }
 
     @keyframes moveFromRealisationsToLien {
       0% { top: 90px; left: 556px; opacity: 0; transform: scale(0.5) rotate(0deg); }
       50% { opacity: 1; transform: scale(1.2) rotate(-10deg); }
       100% { top: 306px; left: 252px; transform: scale(1) rotate(0deg); }
-    }
-
-    @keyframes moveFromRealisations {
-      0% { top: 90px; left: 556px; opacity: 0; transform: scale(0.5); }
-      50% { opacity: 1; transform: scale(1.2); }
-      100% { top: 300px; left: 386px; transform: scale(1); }
     }
 
     @keyframes moveFromConceptionToProjets {
@@ -221,12 +249,11 @@ e<!DOCTYPE html>
 
   <div id="projets-mask" class="alpha-mask hidden">
     <div id="projets-popup" class="popup">
-      <div class="jeu-lien" id="video-trigger" style="top: 290px; left: 430px; width: 200px; height: 120px;"></div>
-      <div class="video-container" id="video-container">
-        <button class="close-video" id="close-video">×</button>
+      <div class="jeu-lien-video" id="trigger-video"></div>
+      <div id="video-container">
         <iframe id="youtube-player" src="" allowfullscreen></iframe>
+        <button class="close-video" id="close-video">×</button>
       </div>
-
       <a href="https://exemple2.com" class="jeu-lien" style="top: 270px; left: 650px;">Lien 2</a>
       <a href="https://exemple3.com" class="jeu-lien" style="top: 440px; left: 150px;">Lien 3</a>
       <a href="https://exemple4.com" class="jeu-lien" style="top: 440px; left: 320px;">Lien 4</a>
@@ -270,24 +297,31 @@ e<!DOCTYPE html>
 
   <!-- Script -->
   <script>
-    const introMask = document.getElementById('intro-mask');
     const introNextBtn = document.getElementById('intro-next-btn');
-    const realisationsMask = document.getElementById('realisations-mask');
     const realisationsCloseBtn = document.getElementById('realisations-close-btn');
-    const enseignementMask = document.getElementById('enseignement-mask');
     const enseignementCloseBtn = document.getElementById('enseignement-close-btn');
-    const presseMask = document.getElementById('presse-mask');
     const presseCloseBtn = document.getElementById('presse-close-btn');
-    const conceptionMask = document.getElementById('conception-mask');
     const conceptionCloseBtn = document.getElementById('conception-close-btn');
-    const projetsMask = document.getElementById('projets-mask');
     const projetsCloseBtn = document.getElementById('projets-close-btn');
+
     const iconRealisations = document.querySelector('.icon-container.realisations');
     const iconEnseignement = document.querySelector('.icon-container.enseignement');
     const iconPresse = document.querySelector('.icon-container.presse');
     const iconLien = document.querySelector('.icon-container.lien');
     const iconConception = document.querySelector('.icon-container.conception');
     const iconProjets = document.querySelector('.icon-container.projets');
+
+    const introMask = document.getElementById('intro-mask');
+    const realisationsMask = document.getElementById('realisations-mask');
+    const enseignementMask = document.getElementById('enseignement-mask');
+    const presseMask = document.getElementById('presse-mask');
+    const conceptionMask = document.getElementById('conception-mask');
+    const projetsMask = document.getElementById('projets-mask');
+
+    const videoContainer = document.getElementById('video-container');
+    const youtubePlayer = document.getElementById('youtube-player');
+    const closeVideoBtn = document.getElementById('close-video');
+    const triggerVideo = document.getElementById('trigger-video');
 
     introNextBtn.addEventListener('click', () => {
       introMask.classList.add('hidden');
@@ -305,10 +339,6 @@ e<!DOCTYPE html>
       [iconPresse, iconLien].forEach(icon => {
         icon.style.display = 'inline-block';
         icon.classList.add('animate-entry');
-        const sparkle = icon.querySelector('.sparkle');
-        sparkle.style.animation = 'none';
-        void sparkle.offsetWidth;
-        sparkle.style.animation = 'sparkle 0.8s ease-out forwards';
       });
     });
 
@@ -348,28 +378,19 @@ e<!DOCTYPE html>
 
     projetsCloseBtn.addEventListener('click', () => {
       projetsMask.classList.add('hidden');
-      stopVideo();
+      videoContainer.style.display = 'none';
+      youtubePlayer.src = '';
     });
 
-    // Vidéo
-    const videoTrigger = document.getElementById('video-trigger');
-    const videoContainer = document.getElementById('video-container');
-    const closeVideoBtn = document.getElementById('close-video');
-    const youtubePlayer = document.getElementById('youtube-player');
-
-    videoTrigger.addEventListener('click', () => {
-      youtubePlayer.src = 'https://www.youtube.com/embed/RXPQ3xj8L4o?autoplay=1';
+    triggerVideo.addEventListener('click', () => {
       videoContainer.style.display = 'block';
+      youtubePlayer.src = 'https://www.youtube.com/embed/RXPQ3xj8L4o?autoplay=1';
     });
 
     closeVideoBtn.addEventListener('click', () => {
-      stopVideo();
-    });
-
-    function stopVideo() {
-      youtubePlayer.src = '';
       videoContainer.style.display = 'none';
-    }
+      youtubePlayer.src = '';
+    });
   </script>
 </body>
 </html>
