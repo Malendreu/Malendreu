@@ -110,6 +110,7 @@
       z-index: 1200;
     }
 
+    /* Lien invisible déclencheur vidéo */
     .jeu-lien-video {
       position: absolute;
       top: 270px;
@@ -120,6 +121,7 @@
       cursor: pointer;
     }
 
+    /* Conteneur vidéo iframe */
     #video-container {
       position: absolute;
       top: 50%;
@@ -227,7 +229,38 @@
     </div>
   </div>
 
-  <!-- autres popups (enseignement, presse, etc.) restent inchangés... -->
+  <div id="enseignement-mask" class="alpha-mask hidden">
+    <div id="enseignement-popup" class="popup">
+      <button id="enseignement-close-btn"></button>
+    </div>
+  </div>
+
+  <div id="presse-mask" class="alpha-mask hidden">
+    <div id="presse-popup" class="popup">
+      <button id="presse-close-btn"></button>
+    </div>
+  </div>
+
+  <div id="conception-mask" class="alpha-mask hidden">
+    <div id="conception-popup" class="popup">
+      <button id="conception-close-btn"></button>
+    </div>
+  </div>
+
+  <div id="projets-mask" class="alpha-mask hidden">
+    <div id="projets-popup" class="popup">
+      <div class="jeu-lien-video" id="trigger-video"></div>
+      <div id="video-container">
+        <iframe id="youtube-player" src="" allowfullscreen></iframe>
+        <button class="close-video" id="close-video">×</button>
+      </div>
+      <a href="https://exemple2.com" class="jeu-lien" style="top: 270px; left: 650px;">Lien 2</a>
+      <a href="https://exemple3.com" class="jeu-lien" style="top: 440px; left: 150px;">Lien 3</a>
+      <a href="https://exemple4.com" class="jeu-lien" style="top: 440px; left: 320px;">Lien 4</a>
+      <a href="https://exemple5.com" class="jeu-lien" style="top: 440px; left: 550px;">Lien 5</a>
+      <button id="projets-close-btn"></button>
+    </div>
+  </div>
 
   <!-- Icônes -->
   <div class="icon-container realisations" style="display:none;">
@@ -235,17 +268,66 @@
     <span class="tooltip">Réalisations</span>
   </div>
 
-  <!-- autres icônes restent inchangés -->
+  <div class="icon-container enseignement" style="display:none;">
+    <img src="icone_bleu.png" alt="Enseignement" />
+    <span class="tooltip">Enseignement</span>
+  </div>
 
+  <div class="icon-container presse" style="display:none;">
+    <div class="sparkle"></div>
+    <img src="icone_jaune.png" alt="Presse" />
+    <span class="tooltip">Presse</span>
+  </div>
+
+  <div class="icon-container lien" style="display:none;">
+    <div class="sparkle"></div>
+    <img src="icone_jaune.png" alt="Lien" />
+    <span class="tooltip">Lien</span>
+  </div>
+
+  <div class="icon-container conception" style="display:none;">
+    <img src="icone_rose.png" alt="Conception de jeux" />
+    <span class="tooltip">Conception de jeux</span>
+  </div>
+
+  <div class="icon-container projets" style="display:none;">
+    <img src="icone_rose.png" alt="Projets" />
+    <span class="tooltip">Projets</span>
+  </div>
+
+  <!-- Script -->
   <script>
     const introNextBtn = document.getElementById('intro-next-btn');
     const realisationsCloseBtn = document.getElementById('realisations-close-btn');
+    const enseignementCloseBtn = document.getElementById('enseignement-close-btn');
+    const presseCloseBtn = document.getElementById('presse-close-btn');
+    const conceptionCloseBtn = document.getElementById('conception-close-btn');
+    const projetsCloseBtn = document.getElementById('projets-close-btn');
+
     const iconRealisations = document.querySelector('.icon-container.realisations');
+    const iconEnseignement = document.querySelector('.icon-container.enseignement');
+    const iconPresse = document.querySelector('.icon-container.presse');
+    const iconLien = document.querySelector('.icon-container.lien');
+    const iconConception = document.querySelector('.icon-container.conception');
+    const iconProjets = document.querySelector('.icon-container.projets');
+
+    const introMask = document.getElementById('intro-mask');
     const realisationsMask = document.getElementById('realisations-mask');
+    const enseignementMask = document.getElementById('enseignement-mask');
+    const presseMask = document.getElementById('presse-mask');
+    const conceptionMask = document.getElementById('conception-mask');
+    const projetsMask = document.getElementById('projets-mask');
+
+    const videoContainer = document.getElementById('video-container');
+    const youtubePlayer = document.getElementById('youtube-player');
+    const closeVideoBtn = document.getElementById('close-video');
+    const triggerVideo = document.getElementById('trigger-video');
 
     introNextBtn.addEventListener('click', () => {
-      document.getElementById('intro-mask').classList.add('hidden');
+      introMask.classList.add('hidden');
       iconRealisations.style.display = 'inline-block';
+      iconEnseignement.style.display = 'inline-block';
+      iconConception.style.display = 'inline-block';
     });
 
     iconRealisations.addEventListener('click', () => {
@@ -254,10 +336,60 @@
 
     realisationsCloseBtn.addEventListener('click', () => {
       realisationsMask.classList.add('hidden');
-      document.querySelector('.icon-container.presse').style.display = 'inline-block';
-      document.querySelector('.icon-container.lien').style.display = 'inline-block';
-      document.querySelector('.icon-container.presse').classList.add('animate-entry');
-      document.querySelector('.icon-container.lien').classList.add('animate-entry');
+      [iconPresse, iconLien].forEach(icon => {
+        icon.style.display = 'inline-block';
+        icon.classList.add('animate-entry');
+      });
+    });
+
+    iconEnseignement.addEventListener('click', () => {
+      enseignementMask.classList.remove('hidden');
+    });
+
+    enseignementCloseBtn.addEventListener('click', () => {
+      enseignementMask.classList.add('hidden');
+    });
+
+    iconPresse.addEventListener('click', () => {
+      presseMask.classList.remove('hidden');
+    });
+
+    presseCloseBtn.addEventListener('click', () => {
+      presseMask.classList.add('hidden');
+    });
+
+    iconLien.addEventListener('click', () => {
+      window.open('https://editionsfides.com/collections/alexandre-maude', '_blank');
+    });
+
+    iconConception.addEventListener('click', () => {
+      conceptionMask.classList.remove('hidden');
+    });
+
+    conceptionCloseBtn.addEventListener('click', () => {
+      conceptionMask.classList.add('hidden');
+      iconProjets.style.display = 'inline-block';
+      iconProjets.classList.add('animate-entry');
+    });
+
+    iconProjets.addEventListener('click', () => {
+      projetsMask.classList.remove('hidden');
+    });
+
+    projetsCloseBtn.addEventListener('click', () => {
+      projetsMask.classList.add('hidden');
+      videoContainer.style.display = 'none';
+      youtubePlayer.src = '';
+    });
+
+    triggerVideo.addEventListener('click', () => {
+      videoContainer.style.display = 'block';
+      youtubePlayer.src = 'https://www.youtube.com/embed/RXPQ3xj8L4o?autoplay=1';
+    });
+
+    closeVideoBtn.addEventListener('click', () => {
+      videoContainer.style.display = 'none';
+      youtubePlayer.src = '';
     });
   </script>
 </body>
