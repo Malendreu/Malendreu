@@ -93,7 +93,7 @@
     }
 
     #intro-popup        { background-image: url('Intro.png'); }
-    #realisations-popup { background-image: url('Realisations.png'); }
+    #realisations-popup { background-image: url('Réalisations.png'); }
     #enseignement-popup { background-image: url('Enseignement1.png'); }
     #presse-popup       { background-image: url('presse.png'); }
     #conception-popup   { background-image: url('Conception.png'); }
@@ -173,13 +173,13 @@
       background-color: rgba(0, 123, 255, 1);
     }
 
-    @keyframes moveFromRealisations {
+    @keyframes moveFromRéalisations {
       0% { top: 90px; left: 556px; opacity: 0; transform: scale(0.5) rotate(0deg); }
       50% { opacity: 1; transform: scale(1.2) rotate(10deg); }
       100% { top: 300px; left: 386px; transform: scale(1) rotate(0deg); }
     }
 
-    @keyframes moveFromRealisationsToLien {
+    @keyframes moveFromRéalisationsToLien {
       0% { top: 90px; left: 556px; opacity: 0; transform: scale(0.5) rotate(0deg); }
       50% { opacity: 1; transform: scale(1.2) rotate(-10deg); }
       100% { top: 306px; left: 252px; transform: scale(1) rotate(0deg); }
@@ -191,8 +191,8 @@
       100% { top: 500px; left: 1160px; transform: scale(1); }
     }
 
-    .icon-container.presse.animate-entry       { animation: moveFromRealisations 1s ease-out forwards; z-index: 30; }
-    .icon-container.lien.animate-entry         { animation: moveFromRealisationsToLien 1s ease-out forwards; z-index: 30; }
+    .icon-container.presse.animate-entry       { animation: moveFromRéalisations 1s ease-out forwards; z-index: 30; }
+    .icon-container.lien.animate-entry         { animation: moveFromRéalisationsToLien 1s ease-out forwards; z-index: 30; }
     .icon-container.projets.animate-entry      { animation: moveFromConceptionToProjets 1s ease-out forwards; z-index: 30; }
 
     .sparkle {
