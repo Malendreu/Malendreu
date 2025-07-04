@@ -261,6 +261,7 @@
       <a href="https://exemple5.com" class="jeu-lien" style="top: 440px; left: 550px;">Lien 5</a>
       <button id="projets-close-btn"></button>
     </div>
+    
   </div>
 
   <!-- Icônes -->
@@ -387,6 +388,13 @@
       videoContainer.style.display = 'block';
       youtubePlayer.src = 'https://www.youtube.com/embed/RXPQ3xj8L4o?autoplay=1';
     });
+
+
+    document.querySelector('a[href="https://exemple2.com"]').addEventListener('click', function(event) {
+    event.preventDefault(); // empêche le lien de naviguer
+    videoContainer.style.display = 'block';
+    youtubePlayer.src = 'https://www.youtube.com/embed/7P7MH3DT_8Q?autoplay=1';
+});
 
     closeVideoBtn.addEventListener('click', () => {
       videoContainer.style.display = 'none';
