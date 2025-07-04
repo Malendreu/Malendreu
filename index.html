@@ -1,94 +1,140 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>CV narratif</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CV Narratif</title>
   <style>
     body {
+      font-family: 'MS Gothic', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('Room2.png') no-repeat center center fixed;
+      background-size: cover;
       margin: 0;
-      font-family: sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
     }
 
-    .icon {
+    .icon-container {
       position: absolute;
-      width: 50px;
-      height: 50px;
+      display: inline-block;
       cursor: pointer;
+      z-index: 20;
+      transition: transform 0.3s ease;
+    }
+
+    .icon-container.realisations { top: 90px; left: 556px; }
+    .icon-container.enseignement { top: 90px; left: 760px; }
+    .icon-container.presse       { top: 300px; left: 386px; }
+    .icon-container.lien         { top: 306px; left: 252px; }
+    .icon-container.conception   { top: 305px; left: 1060px; }
+    .icon-container.projets      { top: 500px; left: 1170px; }
+
+    .icon-container img {
+      width: 25px;
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .icon-container:hover img {
+      transform: scale(1.5);
+    }
+
+    .tooltip {
+      visibility: hidden;
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0,0,0,0.7);
+      color: white;
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 100;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .icon-container:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .alpha-mask {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .alpha-mask.hidden {
       display: none;
     }
 
     .popup {
-      position: absolute;
-      top: 50px;
-      left: 50px;
-      width: 800px;
-      height: 600px;
-      background-size: cover;
-      display: none;
+      position: relative;
+      width: 90%;
+      max-width: 800px;
+      height: 90%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 1100;
     }
 
-    #intro {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: url('intro.png') no-repeat center center;
-      background-size: cover;
-      z-index: 1;
-    }
+    #intro-popup        { background-image: url('Intro.png'); }
+    #realisations-popup { background-image: url('Réalisations.png'); }
+    #enseignement-popup { background-image: url('Enseignement1.png'); }
+    #presse-popup       { background-image: url('presse.png'); }
+    #conception-popup   { background-image: url('Conception.png'); }
+    #projets-popup      { background-image: url('jeux.png'); }
 
-    .next-button {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      cursor: pointer;
-      z-index: 2;
-    }
-
-    /* Icônes positionnées */
-    #icone-enseignement {
-      top: 350px;
-      left: 550px;
-    }
-
-    #icone-conception {
-      top: 300px;
-      left: 300px;
-    }
-
-    #icone-realisations {
-      top: 400px;
-      left: 700px;
-    }
-
-    .popup img {
-      width: 100%;
-      height: 100%;
-    }
-
-    .jeu-lien, .jeu-lien-video {
-      position: absolute;
-      width: 100px;
+    .popup button:not(.close-video) {
+      background: url('boutonnext.png') no-repeat center center;
+      background-size: contain;
+      border: none;
+      width: 150px;
       height: 50px;
-      z-index: 3;
+      cursor: pointer;
+      margin-bottom: 30px;
+      z-index: 1200;
     }
 
+    /* Lien invisible déclencheur vidéo */
     .jeu-lien-video {
-      background: transparent;
+      position: absolute;
+      top: 270px;
+      left: 470px;
+      width: 200px;
+      height: 120px;
+      z-index: 1200;
+      cursor: pointer;
     }
 
+    /* Conteneur vidéo iframe */
     #video-container {
       position: absolute;
-      top: 50px;
-      left: 50px;
-      width: 800px;
-      height: 600px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 560px;
+      height: 315px;
+      z-index: 1300;
       display: none;
-      z-index: 10;
-      background-color: rgba(0, 0, 0, 0.9);
     }
 
-    #youtube-player {
+    #video-container iframe {
       width: 100%;
       height: 100%;
       border: none;
@@ -96,140 +142,256 @@
 
     .close-video {
       position: absolute;
-      top: 10px;
-      right: 15px;
+      top: -20px;
+      right: -20px;
       font-size: 24px;
       color: white;
       background: none;
-      border: none;
+      border: 2px solid white;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      line-height: 30px;
+      text-align: center;
       cursor: pointer;
-      z-index: 11;
+      z-index: 1400;
     }
 
-    #projets-close-btn {
+    .jeu-lien {
       position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: url('boutonnext.png') no-repeat center;
-      width: 50px;
-      height: 50px;
-      border: none;
+      padding: 5px 10px;
+      background-color: rgba(0, 123, 255, 0.8);
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+      font-size: 14px;
+      z-index: 1200;
       cursor: pointer;
-      z-index: 4;
+    }
+
+    .jeu-lien:hover {
+      background-color: rgba(0, 123, 255, 1);
+    }
+
+    @keyframes moveFromRéalisations {
+      0% { top: 90px; left: 556px; opacity: 0; transform: scale(0.5) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.2) rotate(10deg); }
+      100% { top: 300px; left: 386px; transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes moveFromRéalisationsToLien {
+      0% { top: 90px; left: 556px; opacity: 0; transform: scale(0.5) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.2) rotate(-10deg); }
+      100% { top: 306px; left: 252px; transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes moveFromConceptionToProjets {
+      0% { top: 305px; left: 1060px; opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { top: 500px; left: 1160px; transform: scale(1); }
+    }
+
+    .icon-container.presse.animate-entry       { animation: moveFromRéalisations 1s ease-out forwards; z-index: 30; }
+    .icon-container.lien.animate-entry         { animation: moveFromRéalisationsToLien 1s ease-out forwards; z-index: 30; }
+    .icon-container.projets.animate-entry      { animation: moveFromConceptionToProjets 1s ease-out forwards; z-index: 30; }
+
+    .sparkle {
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      width: 15px;
+      height: 15px;
+      background: radial-gradient(white, rgba(255,255,255,0));
+      border-radius: 50%;
+      opacity: 0;
+      animation: sparkle 0.8s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1.5); }
     }
   </style>
 </head>
 <body>
 
-<!-- Intro -->
-<div id="intro">
-  <img src="intro.png" alt="Intro" style="width:100%; height:100%;">
-  <img src="boutonnext.png" alt="Suivant" class="next-button" id="intro-next">
-</div>
-
-<!-- Icônes -->
-<img src="icone_bleu.png" id="icone-enseignement" class="icon" title="Enseignement">
-<img src="icone_bleu.png" id="icone-conception" class="icon" title="Conception">
-<img src="icone_bleu.png" id="icone-realisations" class="icon" title="Réalisations">
-
-<!-- Popups -->
-<div id="popup-enseignement" class="popup">
-  <img src="Enseignement1.png" alt="Enseignement">
-  <img src="boutonnext.png" alt="Suivant" class="next-button" id="enseignement-next">
-</div>
-
-<div id="popup-conception" class="popup">
-  <img src="Conception.png" alt="Conception">
-  <img src="boutonnext.png" alt="Suivant" class="next-button" id="conception-next">
-</div>
-
-<div id="popup-realisations" class="popup">
-  <img src="Realisations.png" alt="Réalisations">
-  <img src="boutonnext.png" alt="Suivant" class="next-button" id="realisations-next">
-</div>
-
-<!-- Popup Projets -->
-<div id="projets-popup" class="popup">
-  <img src="Projets.png" alt="Projets">
-
-  <!-- Liens vidéos invisibles -->
-  <div class="jeu-lien-video" id="trigger-video-1" style="top: 270px; left: 470px;"></div>
-  <div class="jeu-lien-video" id="trigger-video-2" style="top: 270px; left: 670px;"></div>
-
-  <!-- Liens visibles 3 à 5 -->
-  <a href="https://exemple3.com" class="jeu-lien" style="top: 440px; left: 150px;">Lien 3</a>
-  <a href="https://exemple4.com" class="jeu-lien" style="top: 440px; left: 320px;">Lien 4</a>
-  <a href="https://exemple5.com" class="jeu-lien" style="top: 440px; left: 550px;">Lien 5</a>
-
-  <!-- Conteneur vidéo -->
-  <div id="video-container">
-    <iframe id="youtube-player" src="" allowfullscreen></iframe>
-    <button class="close-video" id="close-video">×</button>
+  <!-- Popups -->
+  <div id="intro-mask" class="alpha-mask">
+    <div id="intro-popup" class="popup">
+      <button id="intro-next-btn"></button>
+    </div>
   </div>
 
-  <!-- Bouton suivant -->
-  <button id="projets-close-btn"></button>
-</div>
+  <div id="realisations-mask" class="alpha-mask hidden">
+    <div id="realisations-popup" class="popup">
+      <button id="realisations-close-btn"></button>
+    </div>
+  </div>
 
-<!-- Script JS -->
-<script>
-  // Affichage des icônes après intro
-  document.getElementById('intro-next').addEventListener('click', () => {
-    document.getElementById('intro').style.display = 'none';
-    document.getElementById('icone-enseignement').style.display = 'block';
-    document.getElementById('icone-conception').style.display = 'block';
-    document.getElementById('icone-realisations').style.display = 'block';
-  });
+  <div id="enseignement-mask" class="alpha-mask hidden">
+    <div id="enseignement-popup" class="popup">
+      <button id="enseignement-close-btn"></button>
+    </div>
+  </div>
 
-  // Popups classiques
-  document.getElementById('icone-enseignement').addEventListener('click', () => {
-    document.getElementById('popup-enseignement').style.display = 'block';
-  });
-  document.getElementById('enseignement-next').addEventListener('click', () => {
-    document.getElementById('popup-enseignement').style.display = 'none';
-  });
+  <div id="presse-mask" class="alpha-mask hidden">
+    <div id="presse-popup" class="popup">
+      <button id="presse-close-btn"></button>
+    </div>
+  </div>
 
-  document.getElementById('icone-conception').addEventListener('click', () => {
-    document.getElementById('popup-conception').style.display = 'block';
-  });
-  document.getElementById('conception-next').addEventListener('click', () => {
-    document.getElementById('popup-conception').style.display = 'none';
-  });
+  <div id="conception-mask" class="alpha-mask hidden">
+    <div id="conception-popup" class="popup">
+      <button id="conception-close-btn"></button>
+    </div>
+  </div>
 
-  document.getElementById('icone-realisations').addEventListener('click', () => {
-    document.getElementById('popup-realisations').style.display = 'block';
-  });
-  document.getElementById('realisations-next').addEventListener('click', () => {
-    document.getElementById('popup-realisations').style.display = 'none';
-    document.getElementById('projets-popup').style.display = 'block';
-  });
+  <div id="projets-mask" class="alpha-mask hidden">
+    <div id="projets-popup" class="popup">
+      <div class="jeu-lien-video" id="trigger-video"></div>
+      <div id="video-container">
+        <iframe id="youtube-player" src="" allowfullscreen></iframe>
+        <button class="close-video" id="close-video">×</button>
+      </div>
+      <a href="https://exemple2.com" class="jeu-lien" style="top: 270px; left: 650px;">Lien 2</a>
+      <a href="https://exemple3.com" class="jeu-lien" style="top: 440px; left: 150px;">Lien 3</a>
+      <a href="https://exemple4.com" class="jeu-lien" style="top: 440px; left: 320px;">Lien 4</a>
+      <a href="https://exemple5.com" class="jeu-lien" style="top: 440px; left: 550px;">Lien 5</a>
+      <button id="projets-close-btn"></button>
+    </div>
+  </div>
 
-  // Vidéo YouTube
-  const videoContainer = document.getElementById('video-container');
-  const youtubePlayer = document.getElementById('youtube-player');
-  const closeVideoBtn = document.getElementById('close-video');
+  <!-- Icônes -->
+  <div class="icon-container realisations" style="display:none;">
+    <img src="icone_jaune.png" alt="Réalisations" />
+    <span class="tooltip">Réalisations</span>
+  </div>
 
-  document.getElementById('trigger-video-1').addEventListener('click', () => {
-    videoContainer.style.display = 'block';
-    youtubePlayer.src = 'https://www.youtube.com/embed/RXPQ3xj8L4o?autoplay=1';
-  });
+  <div class="icon-container enseignement" style="display:none;">
+    <img src="icone_bleu.png" alt="Enseignement" />
+    <span class="tooltip">Enseignement</span>
+  </div>
 
-  document.getElementById('trigger-video-2').addEventListener('click', () => {
-    videoContainer.style.display = 'block';
-    youtubePlayer.src = 'https://www.youtube.com/embed/7P7MH3DT_8Q?autoplay=1';
-  });
+  <div class="icon-container presse" style="display:none;">
+    <div class="sparkle"></div>
+    <img src="icone_jaune.png" alt="Presse" />
+    <span class="tooltip">Presse</span>
+  </div>
 
-  closeVideoBtn.addEventListener('click', () => {
-    videoContainer.style.display = 'none';
-    youtubePlayer.src = '';
-  });
+  <div class="icon-container lien" style="display:none;">
+    <div class="sparkle"></div>
+    <img src="icone_jaune.png" alt="Lien" />
+    <span class="tooltip">Lien</span>
+  </div>
 
-  // Fermeture du popup projets
-  document.getElementById('projets-close-btn').addEventListener('click', () => {
-    document.getElementById('projets-popup').style.display = 'none';
-  });
-</script>
+  <div class="icon-container conception" style="display:none;">
+    <img src="icone_rose.png" alt="Conception de jeux" />
+    <span class="tooltip">Conception de jeux</span>
+  </div>
 
+  <div class="icon-container projets" style="display:none;">
+    <img src="icone_rose.png" alt="Projets" />
+    <span class="tooltip">Projets</span>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const introNextBtn = document.getElementById('intro-next-btn');
+    const realisationsCloseBtn = document.getElementById('realisations-close-btn');
+    const enseignementCloseBtn = document.getElementById('enseignement-close-btn');
+    const presseCloseBtn = document.getElementById('presse-close-btn');
+    const conceptionCloseBtn = document.getElementById('conception-close-btn');
+    const projetsCloseBtn = document.getElementById('projets-close-btn');
+
+    const iconRealisations = document.querySelector('.icon-container.realisations');
+    const iconEnseignement = document.querySelector('.icon-container.enseignement');
+    const iconPresse = document.querySelector('.icon-container.presse');
+    const iconLien = document.querySelector('.icon-container.lien');
+    const iconConception = document.querySelector('.icon-container.conception');
+    const iconProjets = document.querySelector('.icon-container.projets');
+
+    const introMask = document.getElementById('intro-mask');
+    const realisationsMask = document.getElementById('realisations-mask');
+    const enseignementMask = document.getElementById('enseignement-mask');
+    const presseMask = document.getElementById('presse-mask');
+    const conceptionMask = document.getElementById('conception-mask');
+    const projetsMask = document.getElementById('projets-mask');
+
+    const videoContainer = document.getElementById('video-container');
+    const youtubePlayer = document.getElementById('youtube-player');
+    const closeVideoBtn = document.getElementById('close-video');
+    const triggerVideo = document.getElementById('trigger-video');
+
+    introNextBtn.addEventListener('click', () => {
+      introMask.classList.add('hidden');
+      iconRealisations.style.display = 'inline-block';
+      iconEnseignement.style.display = 'inline-block';
+      iconConception.style.display = 'inline-block';
+    });
+
+    iconRealisations.addEventListener('click', () => {
+      realisationsMask.classList.remove('hidden');
+    });
+
+    realisationsCloseBtn.addEventListener('click', () => {
+      realisationsMask.classList.add('hidden');
+      [iconPresse, iconLien].forEach(icon => {
+        icon.style.display = 'inline-block';
+        icon.classList.add('animate-entry');
+      });
+    });
+
+    iconEnseignement.addEventListener('click', () => {
+      enseignementMask.classList.remove('hidden');
+    });
+
+    enseignementCloseBtn.addEventListener('click', () => {
+      enseignementMask.classList.add('hidden');
+    });
+
+    iconPresse.addEventListener('click', () => {
+      presseMask.classList.remove('hidden');
+    });
+
+    presseCloseBtn.addEventListener('click', () => {
+      presseMask.classList.add('hidden');
+    });
+
+    iconLien.addEventListener('click', () => {
+      window.open('https://editionsfides.com/collections/alexandre-maude', '_blank');
+    });
+
+    iconConception.addEventListener('click', () => {
+      conceptionMask.classList.remove('hidden');
+    });
+
+    conceptionCloseBtn.addEventListener('click', () => {
+      conceptionMask.classList.add('hidden');
+      iconProjets.style.display = 'inline-block';
+      iconProjets.classList.add('animate-entry');
+    });
+
+    iconProjets.addEventListener('click', () => {
+      projetsMask.classList.remove('hidden');
+    });
+
+    projetsCloseBtn.addEventListener('click', () => {
+      projetsMask.classList.add('hidden');
+      videoContainer.style.display = 'none';
+      youtubePlayer.src = '';
+    });
+
+    triggerVideo.addEventListener('click', () => {
+      videoContainer.style.display = 'block';
+      youtubePlayer.src = 'https://www.youtube.com/embed/RXPQ3xj8L4o?autoplay=1';
+    });
+
+    closeVideoBtn.addEventListener('click', () => {
+      videoContainer.style.display = 'none';
+      youtubePlayer.src = '';
+    });
+  </script>
 </body>
 </html>
