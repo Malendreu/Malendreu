@@ -1,240 +1,44 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>CV Narratif Interactif</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CV narratif interactif</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
       overflow: hidden;
       font-family: Arial, sans-serif;
     }
 
-    .icon-container {
+    #intro {
       position: absolute;
-      width: 64px;
-      height: 64px;
-      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      animation: fadeOut 2s 3s forwards;
       z-index: 5;
     }
 
-    .icon-container img {
-      width: 100%;
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
     }
 
-    .tooltip {
+    .icon {
       position: absolute;
-      background: #333;
-      color: #fff;
-      padding: 4px 8px;
-      font-size: 12px;
-      border-radius: 4px;
-      white-space: nowrap;
-      display: none;
-      z-index: 6;
-    }
-
-    .mask {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.8);
-      z-index: 10;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .popup-image {
-      max-width: 90%;
-      max-height: 90%;
-    }
-
-    .next-button {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 12;
+      width: 50px;
       cursor: pointer;
+      z-index: 2;
     }
 
-    .jeu-lien {
-      position: absolute;
-      display: block;
-      width: 100px;
-      height: 30px;
-      color: transparent;
-      cursor: pointer;
-      z-index: 15;
+    #icon-enseignement {
+      top: 350px;
+      left: 550px;
     }
-
-    #video-container {
-      position: fixed;
-      top: 10%;
-      left: 10%;
-      width: 80%;
-      height: 70%;
-      background: black;
-      z-index: 20;
-      display: none;
-    }
-
-    #youtube-player {
-      width: 100%;
-      height: 100%;
-    }
-
-    #close-video {
-      position: absolute;
-      top: 5px;
-      right: 15px;
-      color: white;
-      font-size: 30px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 21;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Icônes interactives -->
-  <div class="icon-container conception" style="top: 350px; left: 450px;" data-tooltip="Conception">
-    <img src="icone_bleu.png" alt="Conception">
-  </div>
-
-  <div class="icon-container enseignement" style="top: 350px; left: 550px;" data-tooltip="Enseignement">
-    <img src="icone_bleu.png" alt="Enseignement">
-  </div>
-
-  <div class="icon-container realisations" style="top: 350px; left: 650px;" data-tooltip="Réalisations">
-    <img src="icone_bleu.png" alt="Réalisations">
-  </div>
-
-  <div class="icon-container projets" style="top: 350px; left: 750px;" data-tooltip="Jeux">
-    <img src="icone_bleu.png" alt="Jeux">
-  </div>
-
-  <div class="tooltip" id="tooltip"></div>
-
-  <!-- POPUPS -->
-  <div id="conception-mask" class="mask hidden">
-    <img src="Conception.png" class="popup-image" alt="Popup Conception">
-    <img src="boutonnext.png" class="next-button" id="conception-close-btn" alt="Suivant">
-  </div>
-
-  <div id="enseignement-mask" class="mask hidden">
-    <img src="Enseignement1.png" class="popup-image" alt="Popup Enseignement">
-    <img src="boutonnext.png" class="next-button" id="enseignement-close-btn" alt="Suivant">
-  </div>
-
-  <div id="realisations-mask" class="mask hidden">
-    <img src="Realisations.png" class="popup-image" alt="Popup Réalisations">
-    <img src="boutonnext.png" class="next-button" id="realisations-close-btn" alt="Suivant">
-  </div>
-
-  <div id="projets-mask" class="mask hidden">
-    <img src="Jeux.png" class="popup-image" alt="Popup Jeux">
-
-    <!-- Liens interactifs superposés -->
-    <a href="#" id="trigger-video" class="jeu-lien" style="top: 200px; left: 600px;">Lien 1</a>
-    <a href="#" id="trigger-video2" class="jeu-lien" style="top: 270px; left: 650px;">Lien 2</a>
-    <a href="#" id="trigger-video3" class="jeu-lien" style="top: 340px; left: 620px;">Lien 3</a>
-    <a href="#" id="trigger-video4" class="jeu-lien" style="top: 410px; left: 640px;">Lien 4</a>
-    <a href="#" id="trigger-video5" class="jeu-lien" style="top: 480px; left: 630px;">Lien 5</a>
-
-    <!-- Bouton Next -->
-    <img src="boutonnext.png" id="projets-close-btn" class="next-button" alt="Suivant">
-
-    <!-- Conteneur de vidéo -->
-    <div id="video-container">
-      <iframe id="youtube-player" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-      <span id="close-video">&times;</span>
-    </div>
-  </div>
-
-  <!-- SCRIPT -->
-  <script>
-    const tooltip = document.getElementById('tooltip');
-
-    document.querySelectorAll('.icon-container').forEach(icon => {
-      icon.addEventListener('mouseenter', () => {
-        tooltip.innerText = icon.dataset.tooltip;
-        tooltip.style.display = 'block';
-        tooltip.style.top = icon.offsetTop - 30 + 'px';
-        tooltip.style.left = icon.offsetLeft + 'px';
-      });
-
-      icon.addEventListener('mouseleave', () => {
-        tooltip.style.display = 'none';
-      });
-    });
-
-    const showMask = (id) => document.getElementById(id).classList.remove('hidden');
-    const hideMask = (id) => document.getElementById(id).classList.add('hidden');
-
-    document.querySelector('.icon-container.conception').addEventListener('click', () => showMask('conception-mask'));
-    document.querySelector('.icon-container.enseignement').addEventListener('click', () => showMask('enseignement-mask'));
-    document.querySelector('.icon-container.realisations').addEventListener('click', () => showMask('realisations-mask'));
-    document.querySelector('.icon-container.projets').addEventListener('click', () => showMask('projets-mask'));
-
-    document.getElementById('conception-close-btn').addEventListener('click', () => hideMask('conception-mask'));
-    document.getElementById('enseignement-close-btn').addEventListener('click', () => hideMask('enseignement-mask'));
-    document.getElementById('realisations-close-btn').addEventListener('click', () => hideMask('realisations-mask'));
-    document.getElementById('projets-close-btn').addEventListener('click', () => {
-      hideMask('projets-mask');
-      document.getElementById('video-container').style.display = 'none';
-      document.getElementById('youtube-player').src = '';
-    });
-
-    // Vidéos
-    const videoContainer = document.getElementById('video-container');
-    const youtubePlayer = document.getElementById('youtube-player');
-    const closeVideoBtn = document.getElementById('close-video');
-
-    document.getElementById('trigger-video').addEventListener('click', e => {
-      e.preventDefault();
-      videoContainer.style.display = 'block';
-      youtubePlayer.src = 'https://www.youtube.com/embed/RXPQ3xj8L4o?autoplay=1';
-    });
-
-    document.getElementById('trigger-video2').addEventListener('click', e => {
-      e.preventDefault();
-      videoContainer.style.display = 'block';
-      youtubePlayer.src = 'https://www.youtube.com/embed/7P7MH3DT_8Q?autoplay=1';
-    });
-
-    document.getElementById('trigger-video3').addEventListener('click', e => {
-      e.preventDefault();
-      videoContainer.style.display = 'block';
-      youtubePlayer.src = 'https://www.youtube.com/embed/VID3_ID?autoplay=1';
-    });
-
-    document.getElementById('trigger-video4').addEventListener('click', e => {
-      e.preventDefault();
-      videoContainer.style.display = 'block';
-      youtubePlayer.src = 'https://www.youtube.com/embed/VID4_ID?autoplay=1';
-    });
-
-    document.getElementById('trigger-video5').addEventListener('click', e => {
-      e.preventDefault();
-      videoContainer.style.display = 'block';
-      youtubePlayer.src = 'https://www.youtube.com/embed/VID5_ID?autoplay=1';
-    });
-
-    closeVideoBtn.addEventListener('click', () => {
-      videoContainer.style.display = 'none';
-      youtubePlayer.src = '';
-    });
-  </script>
-
-</body>
-</html>
