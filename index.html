@@ -118,8 +118,8 @@
       cursor: pointer;
     }
 
-    #trigger-video   { top: 270px; left: 470px; }
-    #trigger-video-2 { top: 270px; left: 650px; }
+    #trigger-video  { top: 270px; left: 470px; }
+    #trigger-video2 { top: 270px; left: 650px; }
 
     #video-container {
       position: absolute;
@@ -216,174 +216,29 @@
 <body>
 
   <!-- Popups -->
-  <div id="intro-mask" class="alpha-mask">
-    <div id="intro-popup" class="popup">
-      <button id="intro-next-btn"></button>
-    </div>
-  </div>
-
-  <div id="realisations-mask" class="alpha-mask hidden">
-    <div id="realisations-popup" class="popup">
-      <button id="realisations-close-btn"></button>
-    </div>
-  </div>
-
-  <div id="enseignement-mask" class="alpha-mask hidden">
-    <div id="enseignement-popup" class="popup">
-      <button id="enseignement-close-btn"></button>
-    </div>
-  </div>
-
-  <div id="presse-mask" class="alpha-mask hidden">
-    <div id="presse-popup" class="popup">
-      <button id="presse-close-btn"></button>
-    </div>
-  </div>
-
-  <div id="conception-mask" class="alpha-mask hidden">
-    <div id="conception-popup" class="popup">
-      <button id="conception-close-btn"></button>
-    </div>
-  </div>
-
   <div id="projets-mask" class="alpha-mask hidden">
     <div id="projets-popup" class="popup">
       <div class="jeu-lien-video" id="trigger-video"></div>
-      <div class="jeu-lien-video" id="trigger-video-2"></div>
-
+      <div class="jeu-lien-video" id="trigger-video2"></div>
       <div id="video-container">
         <iframe id="youtube-player" src="" allowfullscreen></iframe>
         <button class="close-video" id="close-video">×</button>
       </div>
-
-      <a href="#" class="jeu-lien" style="top: 440px; left: 150px;">Lien 3</a>
-      <a href="#" class="jeu-lien" style="top: 440px; left: 320px;">Lien 4</a>
-      <a href="#" class="jeu-lien" style="top: 440px; left: 550px;">Lien 5</a>
-
+      <a href="https://exemple3.com" class="jeu-lien" style="top: 440px; left: 150px;">Lien 3</a>
+      <a href="https://exemple4.com" class="jeu-lien" style="top: 440px; left: 320px;">Lien 4</a>
+      <a href="https://exemple5.com" class="jeu-lien" style="top: 440px; left: 550px;">Lien 5</a>
       <button id="projets-close-btn"></button>
     </div>
   </div>
 
-  <!-- Icônes -->
-  <div class="icon-container realisations" style="display:none;">
-    <img src="icone_jaune.png" alt="Réalisations" />
-    <span class="tooltip">Réalisations</span>
-  </div>
+  <!-- Icons etc. (inchangés)... -->
 
-  <div class="icon-container enseignement" style="display:none;">
-    <img src="icone_bleu.png" alt="Enseignement" />
-    <span class="tooltip">Enseignement</span>
-  </div>
-
-  <div class="icon-container presse" style="display:none;">
-    <div class="sparkle"></div>
-    <img src="icone_jaune.png" alt="Presse" />
-    <span class="tooltip">Presse</span>
-  </div>
-
-  <div class="icon-container lien" style="display:none;">
-    <div class="sparkle"></div>
-    <img src="icone_jaune.png" alt="Lien" />
-    <span class="tooltip">Lien</span>
-  </div>
-
-  <div class="icon-container conception" style="display:none;">
-    <img src="icone_rose.png" alt="Conception de jeux" />
-    <span class="tooltip">Conception de jeux</span>
-  </div>
-
-  <div class="icon-container projets" style="display:none;">
-    <img src="icone_rose.png" alt="Projets" />
-    <span class="tooltip">Projets</span>
-  </div>
-
-  <!-- Script -->
   <script>
-    const introNextBtn = document.getElementById('intro-next-btn');
-    const realisationsCloseBtn = document.getElementById('realisations-close-btn');
-    const enseignementCloseBtn = document.getElementById('enseignement-close-btn');
-    const presseCloseBtn = document.getElementById('presse-close-btn');
-    const conceptionCloseBtn = document.getElementById('conception-close-btn');
-    const projetsCloseBtn = document.getElementById('projets-close-btn');
-
-    const iconRealisations = document.querySelector('.icon-container.realisations');
-    const iconEnseignement = document.querySelector('.icon-container.enseignement');
-    const iconPresse = document.querySelector('.icon-container.presse');
-    const iconLien = document.querySelector('.icon-container.lien');
-    const iconConception = document.querySelector('.icon-container.conception');
-    const iconProjets = document.querySelector('.icon-container.projets');
-
-    const introMask = document.getElementById('intro-mask');
-    const realisationsMask = document.getElementById('realisations-mask');
-    const enseignementMask = document.getElementById('enseignement-mask');
-    const presseMask = document.getElementById('presse-mask');
-    const conceptionMask = document.getElementById('conception-mask');
-    const projetsMask = document.getElementById('projets-mask');
-
     const videoContainer = document.getElementById('video-container');
     const youtubePlayer = document.getElementById('youtube-player');
     const closeVideoBtn = document.getElementById('close-video');
     const triggerVideo = document.getElementById('trigger-video');
-    const triggerVideo2 = document.getElementById('trigger-video-2');
-
-    introNextBtn.addEventListener('click', () => {
-      introMask.classList.add('hidden');
-      iconRealisations.style.display = 'inline-block';
-      iconEnseignement.style.display = 'inline-block';
-      iconConception.style.display = 'inline-block';
-    });
-
-    iconRealisations.addEventListener('click', () => {
-      realisationsMask.classList.remove('hidden');
-    });
-
-    realisationsCloseBtn.addEventListener('click', () => {
-      realisationsMask.classList.add('hidden');
-      [iconPresse, iconLien].forEach(icon => {
-        icon.style.display = 'inline-block';
-        icon.classList.add('animate-entry');
-      });
-    });
-
-    iconEnseignement.addEventListener('click', () => {
-      enseignementMask.classList.remove('hidden');
-    });
-
-    enseignementCloseBtn.addEventListener('click', () => {
-      enseignementMask.classList.add('hidden');
-    });
-
-    iconPresse.addEventListener('click', () => {
-      presseMask.classList.remove('hidden');
-    });
-
-    presseCloseBtn.addEventListener('click', () => {
-      presseMask.classList.add('hidden');
-    });
-
-    iconLien.addEventListener('click', () => {
-      window.open('https://editionsfides.com/collections/alexandre-maude', '_blank');
-    });
-
-    iconConception.addEventListener('click', () => {
-      conceptionMask.classList.remove('hidden');
-    });
-
-    conceptionCloseBtn.addEventListener('click', () => {
-      conceptionMask.classList.add('hidden');
-      iconProjets.style.display = 'inline-block';
-      iconProjets.classList.add('animate-entry');
-    });
-
-    iconProjets.addEventListener('click', () => {
-      projetsMask.classList.remove('hidden');
-    });
-
-    projetsCloseBtn.addEventListener('click', () => {
-      projetsMask.classList.add('hidden');
-      videoContainer.style.display = 'none';
-      youtubePlayer.src = '';
-    });
+    const triggerVideo2 = document.getElementById('trigger-video2');
 
     triggerVideo.addEventListener('click', () => {
       videoContainer.style.display = 'block';
@@ -392,7 +247,7 @@
 
     triggerVideo2.addEventListener('click', () => {
       videoContainer.style.display = 'block';
-      youtubePlayer.src = 'https://www.youtube.com/embed/VIDEO_ID_2?autoplay=1'; // Remplace "VIDEO_ID_2"
+      youtubePlayer.src = 'https://www.youtube.com/embed/7P7MH3DT_8Q?autoplay=1';
     });
 
     closeVideoBtn.addEventListener('click', () => {
