@@ -99,7 +99,20 @@
     #presse-popup       { background-image: url('presse.png'); }
     #conception-popup   { background-image: url('Conception.png'); }
     #projets-popup      { background-image: url('jeux.png'); }
-e
+
+    .popup button:not(.close-video) {
+      background: url('boutonnext.png') no-repeat center center;
+      background-size: contain;
+      border: none;
+      width: 150px;
+      height: 50px;
+      cursor: pointer;
+      margin-bottom: 30px;
+      z-index: 1200;
+    }
+
+    /* Lien invisible déclencheur vidéo */
+    .jeu-lien-video {
       position: absolute;
       top: 270px;
       left: 470px;
@@ -242,14 +255,12 @@ e
         <iframe id="youtube-player" src="" allowfullscreen></iframe>
         <button class="close-video" id="close-video">×</button>
       </div>
-   
       <a href="https://exemple2.com" class="jeu-lien" style="top: 270px; left: 650px;">Lien 2</a>
       <a href="https://exemple3.com" class="jeu-lien" style="top: 440px; left: 150px;">Lien 3</a>
       <a href="https://exemple4.com" class="jeu-lien" style="top: 440px; left: 320px;">Lien 4</a>
       <a href="https://exemple5.com" class="jeu-lien" style="top: 440px; left: 550px;">Lien 5</a>
       <button id="projets-close-btn"></button>
     </div>
-    
   </div>
 
   <!-- Icônes -->
@@ -376,13 +387,6 @@ e
       videoContainer.style.display = 'block';
       youtubePlayer.src = 'https://www.youtube.com/embed/RXPQ3xj8L4o?autoplay=1';
     });
-
-
-    document.querySelector('a[href="https://exemple2.com"]').addEventListener('click', function(event) {
-    event.preventDefault(); // empêche le lien de naviguer
-    videoContainer.style.display = 'block';
-    youtubePlayer.src = 'https://www.youtube.com/embed/7P7MH3DT_8Q?autoplay=1';
-});
 
     closeVideoBtn.addEventListener('click', () => {
       videoContainer.style.display = 'none';
